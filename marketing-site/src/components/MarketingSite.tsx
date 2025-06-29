@@ -1,6 +1,9 @@
 import React from 'react'
 
 const MarketingSite: React.FC = () => {
+  const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  const appUrl = isLocalhost ? 'http://localhost:3001' : 'https://app.muscadine.box'
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 to-stone-100">
       {/* Header */}
@@ -86,7 +89,7 @@ const MarketingSite: React.FC = () => {
                   on your digital assets.
                 </p>
                 <a 
-                  href="https://app.muscadine.box" 
+                  href={appUrl}
                   className="btn-primary inline-block"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -145,7 +148,7 @@ const MarketingSite: React.FC = () => {
               Start with as little as $1 and watch your portfolio grow.
             </p>
             <a 
-              href="https://app.muscadine.box" 
+              href={appUrl}
               className="btn-primary text-lg px-8 py-4"
               target="_blank"
               rel="noopener noreferrer"
