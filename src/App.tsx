@@ -4,7 +4,7 @@ import DeFiDashboard from './components/DeFiDashboard'
 
 function App() {
   // Check if we're on the app subdomain
-  const isAppSubdomain = window.location.hostname === 'app.muscadine.box' || 
+  const isAppSubdomain = window.location.hostname === 'app.muscadine.finance' || 
                         window.location.hostname === 'localhost' && window.location.port === '3000'
 
   return (

@@ -24,13 +24,7 @@ const MarketingSite: React.FC = () => {
             </h2>
             <div className="prose prose-stone max-w-none font-serif text-lg leading-relaxed">
               <p>
-                At Muscadine, we believe Bitcoin and crypto are transforming the world—returning power to individuals through decentralization, financial sovereignty, and censorship-resistant technology. We began as a Bitcoin security consultancy, helping clients deploy nodes, establish non-custodial key management, and secure their assets with best-in-class privacy and resilience.
-              </p>
-              <p>
-                We see DeFi as an extension of this mission—a system that can democratize finance at a global scale. While our roots are in Bitcoin, we embrace the innovation of Ethereum's infrastructure, using it to build Bitcoin-aligned tools and vaults on scalable, composable protocols like Base.
-              </p>
-              <p>
-                Our mission is to empower individuals and institutions with secure, self-sovereign crypto infrastructure—built for a decentralized future.
+                We specialize in being a vault curator on Morpho on Base. Through our partnership with Morpho and Coinbase, we unlock Bitcoin-backed lending opportunities—leveraging Morpho's efficient peer-to-peer lending layer on Base to deliver competitive yields for Bitcoin holders.
               </p>
             </div>
           </div>
@@ -51,7 +45,7 @@ const MarketingSite: React.FC = () => {
                 We specialize in ERC-4626 vault implementations, providing standardized interfaces for tokenized yield strategies. Our vaults support major assets including USDC, wETH, and cbBTC, offering competitive yields while maintaining the highest security standards.
               </p>
               <p>
-                Built on Base's secure and scalable infrastructure, our solutions combine the reliability of traditional finance with the innovation of decentralized protocols—bridging the gap between Bitcoin ethos and Ethereum rails.
+                Built on Base's secure and scalable infrastructure, our solutions combine the reliability of traditional finance with the innovation of decentralized protocols—bridging the gap between Bitcoin ethos and Base rails.
               </p>
             </div>
           </div>
@@ -86,7 +80,7 @@ const MarketingSite: React.FC = () => {
                   on your digital assets.
                 </p>
                 <a 
-                  href="https://app.muscadine.box" 
+                  href="https://app.muscadine.finance" 
                   className="btn-primary inline-block"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -130,7 +124,7 @@ const MarketingSite: React.FC = () => {
               Start with as little as $1 and watch your portfolio grow.
             </p>
             <a 
-              href="https://app.muscadine.box" 
+              href="https://app.muscadine.finance" 
               className="btn-primary text-lg px-8 py-4"
               target="_blank"
               rel="noopener noreferrer"

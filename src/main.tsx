@@ -11,11 +11,14 @@ import './index.css'
 const config = createConfig({
   chains: [base],
   connectors: [
-    injected(),
-    coinbaseWallet({ appName: 'Muscadine Finance' }),
+    injected({ target: 'metaMask' }),
+    coinbaseWallet({ 
+      appName: 'Muscadine Finance',
+      chainId: base.id 
+    }),
   ],
   transports: {
-    [base.id]: http(),
+    [base.id]: http('https://mainnet.base.org'),
   },
 })
 
