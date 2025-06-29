@@ -240,8 +240,8 @@ const DeFiDashboard: React.FC = () => {
               {VAULTS.map((vault) => {
                 const apy = portfolio.vaultAPYs.find(v => v.vaultAddress.toLowerCase() === vault.address.toLowerCase())?.apy || 0
                 const symbol = vault.symbol as 'USDC' | 'wETH' | 'cbBTC'
-                const balance = (portfolio.vaultBalances as any)[symbol]?.balance || 0
-                const value = (portfolio.vaultBalances as any)[symbol]?.value || 0
+                const balance = (portfolio.vaultBalances as Record<string, { balance: number; value: number }>)[symbol]?.balance || 0
+                const value = (portfolio.vaultBalances as Record<string, { balance: number; value: number }>)[symbol]?.value || 0
                 return (
                   <VaultCard
                     key={vault.address}
