@@ -1,28 +1,57 @@
-import React from 'react'
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import React, { useState, useEffect } from 'react'
+import { useAccount, useConnect, useDisconnect, useBalance } from 'wagmi'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { formatEther } from 'viem'
 import VaultCard from './VaultCard'
 
-// Placeholder portfolio data
-const portfolioData = [
-  { date: '2024-01', value: 10000 },
-  { date: '2024-02', value: 10500 },
-  { date: '2024-03', value: 11200 },
-  { date: '2024-04', value: 11800 },
-  { date: '2024-05', value: 12500 },
-  { date: '2024-06', value: 13200 },
-  { date: '2024-07', value: 14000 },
-  { date: '2024-08', value: 14800 },
-  { date: '2024-09', value: 15600 },
-  { date: '2024-10', value: 16500 },
-  { date: '2024-11', value: 17400 },
-  { date: '2024-12', value: 18400 },
-]
+// Token addresses on Base
+const TOKENS = {
+  USDC: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
+  wETH: '0x4200000000000000000000000000000000000006',
+  cbBTC: '0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22'
+}
+
+// Placeholder portfolio data - in real app, this would come from API
+const generatePortfolioData = (initialValue: number) => {
+  const data = []
+  let currentValue = initialValue
+  
+  for (let i = 1; i <= 12; i++) {
+    // Simulate some growth
+    const growth = Math.random() * 0.1 - 0.02 // -2% to +8% monthly
+    currentValue *= (1 + growth)
+    data.push({
+      date: `2024-${i.toString().padStart(2, '0')}`,
+      value: Math.round(currentValue)
+    })
+  }
+  return data
+}
 
 const DeFiDashboard: React.FC = () => {
   const { address, isConnected } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
+  const [portfolioData, setPortfolioData] = useState<any[]>([])
+  const [totalValue, setTotalValue] = useState(0)
+  const [totalGrowth, setTotalGrowth] = useState(0)
+  const [totalRewards, setTotalRewards] = useState(0)
+
+  // Get wallet balances
+  const { data: usdcBalance } = useBalance({
+    address,
+    token: TOKENS.USDC as `0x${string}`
+  })
+
+  const { data: wethBalance } = useBalance({
+    address,
+    token: TOKENS.wETH as `0x${string}`
+  })
+
+  const { data: cbbtcBalance } = useBalance({
+    address,
+    token: TOKENS.cbBTC as `0x${string}`
+  })
 
   const vaults = [
     {
@@ -31,7 +60,8 @@ const DeFiDashboard: React.FC = () => {
       address: '0xf7e26Fa48A568b8b0038e104DfD8ABdf0f99074F',
       apy: '8.5%',
       tvl: '$2.4M',
-      icon: '💵'
+      icon: '💵',
+      tokenAddress: TOKENS.USDC
     },
     {
       name: 'wETH Vault',
@@ -39,7 +69,8 @@ const DeFiDashboard: React.FC = () => {
       address: '0x21e0d366272798da3A977FEBA699FCB91959d120',
       apy: '12.3%',
       tvl: '$1.8M',
-      icon: '🔷'
+      icon: '🔷',
+      tokenAddress: TOKENS.wETH
     },
     {
       name: 'cbBTC Vault',
@@ -47,9 +78,45 @@ const DeFiDashboard: React.FC = () => {
       address: '0xAeCc8113a7bD0CFAF7000EA7A31afFD4691ff3E9',
       apy: '15.7%',
       tvl: '$3.2M',
-      icon: '🟠'
+      icon: '🟠',
+      tokenAddress: TOKENS.cbBTC
     }
   ]
+
+  // Calculate portfolio value and growth
+  useEffect(() => {
+    if (isConnected && address) {
+      let total = 0
+      
+      // Add token balances (simplified pricing)
+      if (usdcBalance) total += parseFloat(formatEther(usdcBalance.value)) * 1 // USDC = $1
+      if (wethBalance) total += parseFloat(formatEther(wethBalance.value)) * 2500 // ETH ≈ $2500
+      if (cbbtcBalance) total += parseFloat(formatEther(cbbtcBalance.value)) * 45000 // BTC ≈ $45000
+      
+      // Add vault positions (simplified)
+      // In real app, you'd read vault balances here
+      total += 5000 // Placeholder vault value
+      
+      setTotalValue(total)
+      setTotalGrowth(total * 0.15) // 15% growth placeholder
+      setTotalRewards(total * 0.08) // 8% rewards placeholder
+      
+      // Generate portfolio chart data
+      setPortfolioData(generatePortfolioData(total * 0.85)) // Start from 85% of current value
+    }
+  }, [isConnected, address, usdcBalance, wethBalance, cbbtcBalance])
+
+  const handleConnectWallet = () => {
+    // Try to connect with the first available connector (usually MetaMask)
+    if (connectors.length > 0) {
+      connect({ connector: connectors[0] })
+    }
+  }
+
+  const handleClaimRewards = () => {
+    // In real app, this would call the reward contract
+    alert('Claiming rewards... (This would interact with reward contracts)')
+  }
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -79,17 +146,12 @@ const DeFiDashboard: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <div className="flex space-x-2">
-                {connectors.map((connector) => (
-                  <button
-                    key={connector.uid}
-                    onClick={() => connect({ connector })}
-                    className="btn-primary text-sm"
-                  >
-                    Connect {connector.name}
-                  </button>
-                ))}
-              </div>
+              <button
+                onClick={handleConnectWallet}
+                className="btn-primary text-sm"
+              >
+                Connect Wallet
+              </button>
             )}
           </div>
         </div>
@@ -103,17 +165,12 @@ const DeFiDashboard: React.FC = () => {
               <p className="text-stone-600 mb-6">
                 Connect your wallet to access the Muscadine Finance DeFi dashboard
               </p>
-              <div className="space-y-3">
-                {connectors.map((connector) => (
-                  <button
-                    key={connector.uid}
-                    onClick={() => connect({ connector })}
-                    className="btn-primary w-full"
-                  >
-                    Connect {connector.name}
-                  </button>
-                ))}
-              </div>
+              <button
+                onClick={handleConnectWallet}
+                className="btn-primary w-full"
+              >
+                Connect Wallet
+              </button>
             </div>
           </div>
         ) : (
@@ -121,19 +178,82 @@ const DeFiDashboard: React.FC = () => {
             {/* Portfolio Overview */}
             <section className="mb-8">
               <div className="card">
-                <h2 className="section-title">Portfolio Overview</h2>
-                <div className="grid md:grid-cols-3 gap-6 mb-6">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="section-title">Portfolio Overview</h2>
+                  <button
+                    onClick={handleClaimRewards}
+                    className="btn-primary"
+                  >
+                    Claim Rewards
+                  </button>
+                </div>
+                
+                <div className="grid md:grid-cols-4 gap-6 mb-6">
                   <div className="text-center">
                     <p className="text-sm text-stone-500 mb-1">Total Value</p>
-                    <p className="text-2xl font-bold text-stone-900">$18,400</p>
+                    <p className="text-2xl font-bold text-stone-900">
+                      ${totalValue.toLocaleString()}
+                    </p>
                   </div>
                   <div className="text-center">
-                    <p className="text-sm text-stone-500 mb-1">24h Change</p>
-                    <p className="text-2xl font-bold text-green-600">+$800</p>
+                    <p className="text-sm text-stone-500 mb-1">Total Growth</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      +${totalGrowth.toLocaleString()}
+                    </p>
                   </div>
                   <div className="text-center">
-                    <p className="text-sm text-stone-500 mb-1">Total Yield</p>
-                    <p className="text-2xl font-bold text-gold-600">$2,400</p>
+                    <p className="text-sm text-stone-500 mb-1">Available Rewards</p>
+                    <p className="text-2xl font-bold text-gold-600">
+                      ${totalRewards.toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm text-stone-500 mb-1">Growth %</p>
+                    <p className="text-2xl font-bold text-blue-600">
+                      +{((totalGrowth / (totalValue - totalGrowth)) * 100).toFixed(1)}%
+                    </p>
+                  </div>
+                </div>
+
+                {/* Token Balances */}
+                <div className="grid md:grid-cols-3 gap-4 mb-6">
+                  <div className="bg-stone-50 p-4 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <span className="text-lg">💵</span>
+                      <span className="font-semibold">USDC</span>
+                    </div>
+                    <p className="text-2xl font-bold text-stone-900">
+                      {usdcBalance ? parseFloat(formatEther(usdcBalance.value)).toFixed(2) : '0.00'}
+                    </p>
+                    <p className="text-sm text-stone-500">
+                      ≈ ${usdcBalance ? parseFloat(formatEther(usdcBalance.value)).toFixed(2) : '0.00'}
+                    </p>
+                  </div>
+                  
+                  <div className="bg-stone-50 p-4 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <span className="text-lg">🔷</span>
+                      <span className="font-semibold">wETH</span>
+                    </div>
+                    <p className="text-2xl font-bold text-stone-900">
+                      {wethBalance ? parseFloat(formatEther(wethBalance.value)).toFixed(4) : '0.0000'}
+                    </p>
+                    <p className="text-sm text-stone-500">
+                      ≈ ${wethBalance ? (parseFloat(formatEther(wethBalance.value)) * 2500).toFixed(2) : '0.00'}
+                    </p>
+                  </div>
+                  
+                  <div className="bg-stone-50 p-4 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <span className="text-lg">🟠</span>
+                      <span className="font-semibold">cbBTC</span>
+                    </div>
+                    <p className="text-2xl font-bold text-stone-900">
+                      {cbbtcBalance ? parseFloat(formatEther(cbbtcBalance.value)).toFixed(6) : '0.000000'}
+                    </p>
+                    <p className="text-sm text-stone-500">
+                      ≈ ${cbbtcBalance ? (parseFloat(formatEther(cbbtcBalance.value)) * 45000).toFixed(2) : '0.00'}
+                    </p>
                   </div>
                 </div>
                 

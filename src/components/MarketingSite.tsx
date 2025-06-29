@@ -17,22 +17,41 @@ const MarketingSite: React.FC = () => {
       <main className="max-w-4xl mx-auto px-4 pb-20">
         {/* About Section */}
         <section className="mb-16">
-          <div className="card">
-            <h2 className="section-title">What We Do</h2>
-            <div className="prose prose-stone max-w-none">
-              <p className="text-lg text-stone-700 leading-relaxed mb-6">
-                Muscadine Finance provides institutional-grade DeFi infrastructure on the Base network. 
-                Our platform offers secure, efficient, and transparent yield-generating vaults designed 
-                for both individual investors and institutional clients.
+          <div className="card bg-white/90 shadow-lg border border-stone-200">
+            <h2 className="section-title flex items-center gap-2">
+              <span className="text-3xl">🏛️</span>
+              <span>About Muscadine</span>
+            </h2>
+            <div className="prose prose-stone max-w-none font-serif text-lg leading-relaxed">
+              <p>
+                At Muscadine, we believe Bitcoin and crypto are transforming the world—returning power to individuals through decentralization, financial sovereignty, and censorship-resistant technology. We began as a Bitcoin security consultancy, helping clients deploy nodes, establish non-custodial key management, and secure their assets with best-in-class privacy and resilience.
               </p>
-              <p className="text-lg text-stone-700 leading-relaxed mb-6">
-                We specialize in ERC-4626 vault implementations, providing standardized interfaces 
-                for tokenized yield strategies. Our vaults support major assets including USDC, wETH, 
-                and cbBTC, offering competitive yields while maintaining the highest security standards.
+              <p>
+                We see DeFi as an extension of this mission—a system that can democratize finance at a global scale. While our roots are in Bitcoin, we embrace the innovation of Ethereum's infrastructure, using it to build Bitcoin-aligned tools and vaults on scalable, composable protocols like Base.
               </p>
-              <p className="text-lg text-stone-700 leading-relaxed">
-                Built on Base's secure and scalable infrastructure, our solutions combine the reliability 
-                of traditional finance with the innovation of decentralized protocols.
+              <p>
+                Our mission is to empower individuals and institutions with secure, self-sovereign crypto infrastructure—built for a decentralized future.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* What We Do Section */}
+        <section className="mb-16">
+          <div className="card bg-white/90 shadow-lg border border-stone-200">
+            <h2 className="section-title flex items-center gap-2">
+              <span className="text-2xl">💼</span>
+              <span>What We Do</span>
+            </h2>
+            <div className="prose prose-stone max-w-none font-serif text-lg leading-relaxed">
+              <p>
+                Muscadine Finance provides institutional-grade DeFi infrastructure on the Base network. Our platform offers secure, efficient, and transparent yield-generating vaults designed for both individual investors and institutional clients.
+              </p>
+              <p>
+                We specialize in ERC-4626 vault implementations, providing standardized interfaces for tokenized yield strategies. Our vaults support major assets including USDC, wETH, and cbBTC, offering competitive yields while maintaining the highest security standards.
+              </p>
+              <p>
+                Built on Base's secure and scalable infrastructure, our solutions combine the reliability of traditional finance with the innovation of decentralized protocols—bridging the gap between Bitcoin ethos and Ethereum rails.
               </p>
             </div>
           </div>
