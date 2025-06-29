@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useAccount, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
-import { parseEther, formatEther } from 'viem'
+import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import { parseEther } from 'viem'
 
 interface Vault {
   name: string
@@ -55,60 +55,51 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   const [amount, setAmount] = useState('')
   const [action, setAction] = useState<'approve' | 'supply' | 'withdraw'>('supply')
 
-  // Prepare contract write for approve
-  const { config: approveConfig } = usePrepareContractWrite({
-    address: vault.address as `0x${string}`,
-    abi: vaultABI,
-    functionName: 'approve',
-    args: [vault.address as `0x${string}`, parseEther(amount || '0')],
-    enabled: Boolean(amount && action === 'approve')
-  })
-
-  // Prepare contract write for deposit
-  const { config: depositConfig } = usePrepareContractWrite({
-    address: vault.address as `0x${string}`,
-    abi: vaultABI,
-    functionName: 'deposit',
-    args: [parseEther(amount || '0'), address as `0x${string}`],
-    enabled: Boolean(amount && action === 'supply')
-  })
-
-  // Prepare contract write for withdraw
-  const { config: withdrawConfig } = usePrepareContractWrite({
-    address: vault.address as `0x${string}`,
-    abi: vaultABI,
-    functionName: 'withdraw',
-    args: [parseEther(amount || '0'), address as `0x${string}`, address as `0x${string}`],
-    enabled: Boolean(amount && action === 'withdraw')
-  })
-
   // Contract write hooks
-  const { write: approveWrite, data: approveData } = useContractWrite(approveConfig)
-  const { write: depositWrite, data: depositData } = useContractWrite(depositConfig)
-  const { write: withdrawWrite, data: withdrawData } = useContractWrite(withdrawConfig)
+  const { writeContract: approveWrite, data: approveData, isPending: isApprovePending } = useWriteContract()
+  const { writeContract: depositWrite, data: depositData, isPending: isDepositPending } = useWriteContract()
+  const { writeContract: withdrawWrite, data: withdrawData, isPending: isWithdrawPending } = useWriteContract()
 
   // Wait for transactions
-  const { isLoading: isApproveLoading } = useWaitForTransaction({ hash: approveData?.hash })
-  const { isLoading: isDepositLoading } = useWaitForTransaction({ hash: depositData?.hash })
-  const { isLoading: isWithdrawLoading } = useWaitForTransaction({ hash: withdrawData?.hash })
+  const { isLoading: isApproveLoading } = useWaitForTransactionReceipt({ hash: approveData })
+  const { isLoading: isDepositLoading } = useWaitForTransactionReceipt({ hash: depositData })
+  const { isLoading: isWithdrawLoading } = useWaitForTransactionReceipt({ hash: withdrawData })
 
   const handleAction = () => {
-    if (!amount) return
+    if (!amount || !address) return
+
+    const args = {
+      address: vault.address as `0x${string}`,
+      abi: vaultABI,
+    }
 
     switch (action) {
       case 'approve':
-        approveWrite?.()
+        approveWrite({
+          ...args,
+          functionName: 'approve',
+          args: [vault.address as `0x${string}`, parseEther(amount)]
+        })
         break
       case 'supply':
-        depositWrite?.()
+        depositWrite({
+          ...args,
+          functionName: 'deposit',
+          args: [parseEther(amount), address]
+        })
         break
       case 'withdraw':
-        withdrawWrite?.()
+        withdrawWrite({
+          ...args,
+          functionName: 'withdraw',
+          args: [parseEther(amount), address, address]
+        })
         break
     }
   }
 
-  const isLoading = isApproveLoading || isDepositLoading || isWithdrawLoading
+  const isLoading = isApproveLoading || isDepositLoading || isWithdrawLoading || 
+                   isApprovePending || isDepositPending || isWithdrawPending
 
   return (
     <div className="card">
