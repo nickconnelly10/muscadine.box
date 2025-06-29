@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import { useAccount, useConnect } from 'wagmi'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { usePortfolioData } from '../hooks/usePortfolioData'
 import VaultCard from './VaultCard'
@@ -61,9 +61,8 @@ const generatePortfolioData = (initialValue: number) => {
 }
 
 const DeFiDashboard: React.FC = () => {
-  const { address, isConnected } = useAccount()
+  const { isConnected } = useAccount()
   const { connect, connectors } = useConnect()
-  const { disconnect } = useDisconnect()
   const [portfolioData, setPortfolioData] = useState<any[]>([])
   
   // Use the dynamic portfolio data hook
