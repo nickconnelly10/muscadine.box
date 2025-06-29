@@ -1,92 +1,156 @@
 # Vercel Deployment Guide
 
-## Current Issue Resolution
+## Current Deployment Structure
 
-The error "The specified Root Directory 'muscadine.box' does not exist" has been fixed by:
+The project now uses **separate deployments** for each site:
 
-1. **Adding `vercel.json`** - This tells Vercel to use the root directory (not a subdirectory)
-2. **Pushing the configuration** - The `vercel.json` file is now in the repository
+1. **Marketing Site** (`muscadine.box`) → Deployed from `marketing-site/` directory
+2. **DeFi Dashboard** (`app.muscadine.box`) → Deployed from `app-site/` directory
 
-## Vercel Project Settings
+## Marketing Site Deployment
 
-### 1. Root Directory
-- **Set to:** `/` (root) or leave empty
-- **Do NOT set to:** `muscadine.box` (this was causing the error)
+### Vercel Project Settings for Marketing Site
 
-### 2. Build Settings
-- **Framework Preset:** Vite
-- **Build Command:** `npm run build` (or leave empty, `vercel.json` handles this)
-- **Output Directory:** `dist` (or leave empty, `vercel.json` handles this)
-- **Install Command:** `npm install` (default)
+1. **Root Directory:** `marketing-site`
+2. **Framework Preset:** Vite
+3. **Build Command:** `npm run build`
+4. **Output Directory:** `dist`
+5. **Install Command:** `npm install`
 
-### 3. Environment Variables
-No environment variables are required for basic functionality.
+### Domain Configuration
+- **Primary Domain:** `muscadine.box`
+- **Redirect:** `www.muscadine.box` → `muscadine.box`
 
-## Domain Configuration
+## DeFi Dashboard Deployment
 
-### For www.muscadine.box (Marketing Site)
-1. In Vercel dashboard, go to your project settings
-2. Navigate to "Domains"
-3. Add `www.muscadine.box`
-4. Configure DNS to point to Vercel's nameservers
+### Vercel Project Settings for DeFi Dashboard
 
-### For app.muscadine.box (DeFi Dashboard)
-1. In the same "Domains" section
-2. Add `app.muscadine.box`
-3. Both domains will serve the same application
-4. The app automatically detects the subdomain and shows the appropriate content
+1. **Root Directory:** `app-site`
+2. **Framework Preset:** Vite
+3. **Build Command:** `npm run build`
+4. **Output Directory:** `dist`
+5. **Install Command:** `npm install`
 
-## How Subdomain Detection Works
+### Domain Configuration
+- **Primary Domain:** `app.muscadine.box`
 
-The application automatically detects the hostname and serves different content:
+## Deployment Steps
 
-```typescript
-// From src/App.tsx
-const isAppSubdomain = window.location.hostname === 'app.muscadine.box' || 
-                      window.location.hostname === 'localhost' && window.location.port === '3000'
+### 1. Marketing Site (muscadine.box)
 
-// Routes to DeFi Dashboard if on app subdomain, otherwise Marketing Site
+```bash
+# Navigate to marketing site directory
+cd marketing-site
+
+# Install dependencies
+npm install
+
+# Build for production
+npm run build
+
+# Deploy to Vercel
+# - Connect repository to Vercel
+# - Set root directory to 'marketing-site'
+# - Deploy to muscadine.box domain
+```
+
+### 2. DeFi Dashboard (app.muscadine.box)
+
+```bash
+# Navigate to app site directory
+cd app-site
+
+# Install dependencies
+npm install
+
+# Build for production
+npm run build
+
+# Deploy to Vercel
+# - Connect repository to Vercel
+# - Set root directory to 'app-site'
+# - Deploy to app.muscadine.box domain
+```
+
+## Environment Variables
+
+No environment variables are required for either site. Both use:
+- Public Base RPC endpoints
+- Public token and vault addresses
+- Static content and configurations
+
+## Local Development
+
+### Marketing Site
+```bash
+cd marketing-site
+npm run dev
+# Runs on http://localhost:3001
+```
+
+### DeFi Dashboard
+```bash
+cd app-site
+npm run dev
+# Runs on http://localhost:3002
 ```
 
 ## Troubleshooting
 
-### If deployment still fails:
-
-1. **Check Vercel Project Settings:**
-   - Root Directory should be `/` or empty
-   - Framework should be "Vite" or "Other"
-
-2. **Verify Build Logs:**
-   - Look for any build errors
-   - Check if all dependencies are installed
-
-3. **Test Locally:**
-   ```bash
-   npm run build
-   npm run preview
-   ```
-
-4. **Check Repository Structure:**
-   - All project files should be in the root directory
-   - `package.json`, `vite.config.ts`, `src/` folder should be at root level
-
 ### Common Issues:
 
-1. **Root Directory Error:** Make sure it's set to `/` not `muscadine.box`
-2. **Build Failures:** Check if all dependencies are in `package.json`
-3. **Domain Issues:** Ensure DNS is properly configured for both subdomains
+1. **Root Directory Error:**
+   - Marketing site: Set to `marketing-site`
+   - DeFi dashboard: Set to `app-site`
 
-## Next Steps
+2. **Build Failures:**
+   - Check if all dependencies are installed in the correct directory
+   - Verify `package.json` exists in the root directory being deployed
 
-1. **Redeploy:** The new `vercel.json` should trigger a new deployment
-2. **Monitor:** Check the build logs for any remaining issues
-3. **Test:** Once deployed, test both subdomains:
-   - `www.muscadine.box` → Marketing site
-   - `app.muscadine.box` → DeFi dashboard
+3. **Domain Issues:**
+   - Ensure DNS is properly configured for both domains
+   - Marketing site: `muscadine.box` and `www.muscadine.box`
+   - DeFi dashboard: `app.muscadine.box`
+
+### Build Verification
+
+Test builds locally before deploying:
+
+```bash
+# Marketing site
+cd marketing-site
+npm run build
+npm run preview
+
+# DeFi dashboard
+cd app-site
+npm run build
+npm run preview
+```
+
+## Project Structure
+
+```
+muscadine.box/
+├── marketing-site/          # Marketing site deployment
+│   ├── src/
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── vercel.json
+├── app-site/               # DeFi dashboard deployment
+│   ├── src/
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── vercel.json
+├── README.md
+├── DEPLOYMENT.md
+└── SEPARATE_DEPLOYMENT.md
+```
 
 ## Support
 
-If issues persist, check:
-- Vercel build logs for specific error messages
-- Repository structure matches the expected layout
-- All configuration files are properly committed 
+For deployment issues:
+- Check Vercel build logs for specific error messages
+- Verify repository structure matches the expected layout
+- Ensure all configuration files are properly committed
+- Contact: nickconnelly10@icloud.com 

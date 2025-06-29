@@ -18,6 +18,32 @@ const ErrorMessage = ({ message }: { message: string }) => (
   </div>
 )
 
+// Dashboard Header component
+const DashboardHeader = () => (
+  <div className="text-center py-8 px-4">
+    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+      🔷 Muscadine DeFi Dashboard
+    </h1>
+    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+      View vaults, connect your wallet, and manage your assets.
+    </p>
+  </div>
+)
+
+// Beta Banner component
+const BetaBanner = () => (
+  <div className="bg-yellow-50 border-b border-yellow-200 px-4 py-3 mb-6">
+    <div className="max-w-7xl mx-auto flex items-center justify-center">
+      <div className="flex items-center space-x-2">
+        <span className="text-yellow-800">🚧</span>
+        <span className="text-sm font-medium text-yellow-800">
+          This app is currently in beta. Use at your own discretion.
+        </span>
+      </div>
+    </div>
+  </div>
+)
+
 // Portfolio chart data generator
 const generatePortfolioData = (initialValue: number) => {
   const data = []
@@ -55,6 +81,9 @@ const DeFiDashboard: React.FC = () => {
   React.useEffect(() => {
     if (totalValue > 0) {
       setPortfolioData(generatePortfolioData(totalValue * 0.85))
+    } else {
+      // If no value, show empty chart
+      setPortfolioData([])
     }
   }, [totalValue])
 
@@ -102,62 +131,23 @@ const DeFiDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-4 py-4 shadow-sm">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <h1 className="text-2xl font-bold text-gray-900">
-              Muscadine Finance
-            </h1>
-            <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
-              DeFi Dashboard
-            </span>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <a 
-              href="https://muscadine.box" 
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              About
-            </a>
-            {isConnected ? (
-              <div className="flex items-center space-x-3">
-                <span className="text-sm text-gray-600 font-mono">
-                  {address?.slice(0, 6)}...{address?.slice(-4)}
-                </span>
-                <button
-                  onClick={() => disconnect()}
-                  className="btn-secondary text-sm"
-                >
-                  Disconnect
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={handleConnectWallet}
-                className="btn-primary text-sm"
-              >
-                Connect Wallet
-              </button>
-            )}
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      {/* Dashboard Header */}
+      <DashboardHeader />
+      
+      <main className="max-w-7xl mx-auto px-4 pb-8">
         {!isConnected ? (
-          <div className="text-center py-20">
+          <div className="text-center py-12">
+            {/* Beta Banner */}
+            <BetaBanner />
+            
             <div className="card max-w-md mx-auto">
               <h2 className="section-title">Connect Your Wallet</h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-8">
                 Connect your wallet to access the Muscadine Finance DeFi dashboard
               </p>
               <button
                 onClick={handleConnectWallet}
-                className="btn-primary w-full"
+                className="btn-primary w-full hover:scale-105 transition-transform duration-200"
               >
                 Connect Wallet
               </button>
@@ -165,8 +155,11 @@ const DeFiDashboard: React.FC = () => {
           </div>
         ) : (
           <>
+            {/* Beta Banner */}
+            <BetaBanner />
+            
             {/* Portfolio Overview */}
-            <section className="mb-8">
+            <section className="mb-10">
               <div className="card">
                 <h2 className="section-title">Portfolio Overview</h2>
                 
@@ -176,27 +169,27 @@ const DeFiDashboard: React.FC = () => {
                   <LoadingSpinner />
                 ) : (
                   <>
-                    <div className="grid md:grid-cols-4 gap-6 mb-6">
-                      <div className="text-center">
-                        <p className="text-sm text-gray-500 mb-1">Total Value</p>
+                    <div className="grid md:grid-cols-4 gap-6 mb-8">
+                      <div className="text-center p-4 rounded-lg bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 hover:shadow-md transition-shadow duration-200">
+                        <p className="text-sm text-gray-600 mb-1">Total Value</p>
                         <p className="text-2xl font-bold text-gray-900">
                           ${totalValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </p>
                       </div>
-                      <div className="text-center">
-                        <p className="text-sm text-gray-500 mb-1">Total Growth</p>
+                      <div className="text-center p-4 rounded-lg bg-gradient-to-br from-green-50 to-green-100 border border-green-200 hover:shadow-md transition-shadow duration-200">
+                        <p className="text-sm text-gray-600 mb-1">Total Growth</p>
                         <p className="text-2xl font-bold text-green-600">
-                          +${totalGrowth.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          {totalGrowth > 0 ? '+' : ''}${totalGrowth.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </p>
                       </div>
-                      <div className="text-center">
-                        <p className="text-sm text-gray-500 mb-1">Growth %</p>
+                      <div className="text-center p-4 rounded-lg bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 hover:shadow-md transition-shadow duration-200">
+                        <p className="text-sm text-gray-600 mb-1">Growth %</p>
                         <p className="text-2xl font-bold text-blue-600">
-                          +{totalValue > 0 ? ((totalGrowth / (totalValue - totalGrowth)) * 100).toFixed(1) : '0.0'}%
+                          {totalValue > 0 && totalGrowth > 0 ? '+' : ''}{totalValue > 0 ? ((totalGrowth / (totalValue - totalGrowth)) * 100).toFixed(1) : '0.0'}%
                         </p>
                       </div>
-                      <div className="text-center">
-                        <p className="text-sm text-gray-500 mb-1">Last Updated</p>
+                      <div className="text-center p-4 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 hover:shadow-md transition-shadow duration-200">
+                        <p className="text-sm text-gray-600 mb-1">Last Updated</p>
                         <p className="text-sm font-medium text-gray-700">
                           {new Date().toLocaleTimeString()}
                         </p>
@@ -204,84 +197,91 @@ const DeFiDashboard: React.FC = () => {
                     </div>
 
                     {/* Token Balances */}
-                    <div className="grid md:grid-cols-3 gap-4 mb-6">
-                      <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-lg">💵</span>
-                          <span className="font-semibold">USDC</span>
+                    <div className="grid md:grid-cols-3 gap-6 mb-8">
+                      <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200 hover:shadow-lg transition-all duration-200 hover:scale-105">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-2xl">💵</span>
+                          <span className="font-semibold text-gray-800">USDC</span>
                         </div>
-                        <p className="text-2xl font-bold text-gray-900">
+                        <p className="text-3xl font-bold text-gray-900 mb-1">
                           {tokenBalances.USDC.balance.toFixed(2)}
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-600 mb-2">
                           ≈ ${tokenBalances.USDC.value.toFixed(2)}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-xs text-gray-500 bg-white/50 px-2 py-1 rounded">
                           Vault: {vaultBalances.USDC.balance.toFixed(4)} (${vaultBalances.USDC.value.toFixed(2)})
                         </p>
                       </div>
                       
-                      <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-lg">🔷</span>
-                          <span className="font-semibold">wETH</span>
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200 hover:shadow-lg transition-all duration-200 hover:scale-105">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-2xl">🔷</span>
+                          <span className="font-semibold text-gray-800">wETH</span>
                         </div>
-                        <p className="text-2xl font-bold text-gray-900">
+                        <p className="text-3xl font-bold text-gray-900 mb-1">
                           {tokenBalances.wETH.balance.toFixed(4)}
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-600 mb-2">
                           ≈ ${tokenBalances.wETH.value.toFixed(2)}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-xs text-gray-500 bg-white/50 px-2 py-1 rounded">
                           Vault: {vaultBalances.wETH.balance.toFixed(4)} (${vaultBalances.wETH.value.toFixed(2)})
                         </p>
                       </div>
                       
-                      <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-lg">🟠</span>
-                          <span className="font-semibold">cbBTC</span>
+                      <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border border-orange-200 hover:shadow-lg transition-all duration-200 hover:scale-105">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-2xl">🟠</span>
+                          <span className="font-semibold text-gray-800">cbBTC</span>
                         </div>
-                        <p className="text-2xl font-bold text-gray-900">
+                        <p className="text-3xl font-bold text-gray-900 mb-1">
                           {tokenBalances.cbBTC.balance.toFixed(6)}
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-600 mb-2">
                           ≈ ${tokenBalances.cbBTC.value.toFixed(2)}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-xs text-gray-500 bg-white/50 px-2 py-1 rounded">
                           Vault: {vaultBalances.cbBTC.balance.toFixed(6)} (${vaultBalances.cbBTC.value.toFixed(2)})
                         </p>
                       </div>
                     </div>
                     
-                    <div className="h-64">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={portfolioData}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                          <XAxis 
-                            dataKey="date" 
-                            stroke="#6b7280"
-                            fontSize={12}
-                          />
-                          <YAxis 
-                            stroke="#6b7280"
-                            fontSize={12}
-                            tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
-                          />
-                          <Tooltip 
-                            formatter={(value: number) => [`$${value.toLocaleString()}`, 'Portfolio Value']}
-                            labelFormatter={(label) => `Date: ${label}`}
-                          />
-                          <Line 
-                            type="monotone" 
-                            dataKey="value" 
-                            stroke="#3B82F6" 
-                            strokeWidth={3}
-                            dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
-                          />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    </div>
+                    {/* Portfolio Chart - Only show if there's data */}
+                    {portfolioData.length > 0 ? (
+                      <div className="h-80 bg-white rounded-xl p-4 border border-gray-200">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <LineChart data={portfolioData}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                            <XAxis 
+                              dataKey="date" 
+                              stroke="#6b7280"
+                              fontSize={12}
+                            />
+                            <YAxis 
+                              stroke="#6b7280"
+                              fontSize={12}
+                              tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+                            />
+                            <Tooltip 
+                              formatter={(value: number) => [`$${value.toLocaleString()}`, 'Portfolio Value']}
+                              labelFormatter={(label) => `Date: ${label}`}
+                            />
+                            <Line 
+                              type="monotone" 
+                              dataKey="value" 
+                              stroke="#3B82F6" 
+                              strokeWidth={3}
+                              dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
+                            />
+                          </LineChart>
+                        </ResponsiveContainer>
+                      </div>
+                    ) : (
+                      <div className="h-80 bg-white rounded-xl p-4 border border-gray-200 flex items-center justify-center">
+                        <p className="text-gray-500 text-lg">No portfolio data available</p>
+                      </div>
+                    )}
                   </>
                 )}
               </div>

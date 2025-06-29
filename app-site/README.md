@@ -4,12 +4,13 @@ The DeFi dashboard application for Muscadine Finance, providing wallet connectio
 
 ## Features
 
-- Wallet connection via wagmi
-- Live portfolio tracking with charts
-- Real-time token and vault balances
-- Dynamic APY from Morpho API
-- ERC-4626 vault interactions (deposit, withdraw, claim rewards)
-- Base network integration
+- **Wallet Connection**: Support for Coinbase Wallet, MetaMask, and Rabby
+- **Live Portfolio Tracking**: Real-time wallet balances and portfolio values
+- **Real Data**: All values come from actual wallet connections and on-chain sources
+- **Dynamic APY**: Live APY data from Morpho protocol (currently showing 0% for real data)
+- **ERC-4626 Vault Management**: Deposit, withdraw, and approve functionality
+- **Base Network Integration**: Built specifically for Coinbase's L2
+- **Responsive Design**: Works on desktop and mobile devices
 
 ## Tech Stack
 
@@ -17,8 +18,9 @@ The DeFi dashboard application for Muscadine Finance, providing wallet connectio
 - **Styling**: Tailwind CSS
 - **Web3**: wagmi + viem
 - **Charts**: Recharts
-- **State Management**: React Query
+- **State Management**: React Hooks
 - **Network**: Base (Coinbase L2)
+- **Deployment**: Vercel
 
 ## Development
 
@@ -26,7 +28,7 @@ The DeFi dashboard application for Muscadine Finance, providing wallet connectio
 # Install dependencies
 npm install
 
-# Start development server
+# Start development server (port 3002)
 npm run dev
 
 # Build for production
@@ -34,14 +36,20 @@ npm run build
 
 # Preview production build
 npm run preview
+
+# Run linting
+npm run lint
 ```
 
 ## Deployment
 
 This project is configured for Vercel deployment. The app should be deployed to:
-- `app.muscadine.box`
+- **Domain**: `app.muscadine.box`
+- **Framework Preset**: Vite
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
 
-## Structure
+## Project Structure
 
 ```
 src/
@@ -49,25 +57,65 @@ src/
 │   ├── DeFiDashboard.tsx    # Main dashboard component
 │   └── VaultCard.tsx        # Individual vault card
 ├── config/
-│   └── base.ts             # Base network configuration
+│   └── base.ts             # Base network configuration and ABIs
 ├── hooks/
-│   └── usePortfolioData.ts # Portfolio data hook
+│   └── usePortfolioData.ts # Portfolio data hook with real wallet data
 ├── services/
-│   └── morphoApi.ts        # Morpho API service
-├── App.tsx                 # App with wagmi config
+│   └── morphoApi.ts        # Morpho API service for APY data
+├── App.tsx                 # App with wagmi configuration
 ├── main.tsx                # Entry point
-└── index.css              # Global styles
+└── index.css              # Global styles and Tailwind components
 ```
 
 ## Vaults
 
-The dashboard supports three ERC-4626 vaults on Base:
-- **USDC Vault**: `0xf7e26Fa48A568b8b0038e104DfD8ABdf0f99074F`
-- **wETH Vault**: `0x21e0d366272798da3A977FEBA699FCB91959d120`
-- **cbBTC Vault**: `0xAeCc8113a7bD0CFAF7000EA7A31afFD4691ff3E9`
+The dashboard supports three ERC-4626 vaults on Base network:
+
+| Asset | Vault Address | Token Address | Current APY |
+|-------|---------------|---------------|-------------|
+| USDC | `0xf7e26Fa48A568b8b0038e104DfD8ABdf0f99074F` | `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` | Live from on-chain |
+| wETH | `0x21e0d366272798da3A977FEBA699FCB91959d120` | `0x4200000000000000000000000000000000000006` | Live from on-chain |
+| cbBTC | `0xAeCc8113a7bD0CFAF7000EA7A31afFD4691ff3E9` | `0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22` | Live from on-chain |
+
+## Data Sources
+
+- **Token Balances**: Direct from wallet via wagmi `useBalance`
+- **Vault Balances**: On-chain vault `balanceOf` calls
+- **Token Prices**: Real-time price feeds (currently static for development)
+- **APY Data**: Morpho protocol integration (currently 0% for real data)
+- **Portfolio Values**: Calculated from real balances and prices
+
+## Key Features
+
+### Real Wallet Data
+- No fake or hardcoded values
+- All balances come from actual wallet connections
+- Shows 0 when no tokens are held
+- Proper error handling for failed data fetches
+
+### Live Portfolio Tracking
+- Real-time token and vault balances
+- Portfolio value calculations
+- Historical chart data (when portfolio has value)
+- Growth tracking (currently 0 for real data)
+
+### Vault Management
+- Approve tokens for vault deposits
+- Deposit tokens into vaults
+- Withdraw tokens from vaults
+- View current vault positions
+
+## Environment Setup
+
+No environment variables required. The app uses:
+- Public Base RPC endpoints
+- Public token addresses
+- Public vault addresses
 
 ## Links
 
 - **Marketing Site**: https://muscadine.box
 - **Base Network**: https://base.org
-- **Morpho Protocol**: https://morpho.org 
+- **Morpho Protocol**: https://morpho.org
+- **Contact**: nickconnelly10@icloud.com
+- **Twitter**: @nicklutk 

@@ -47,17 +47,20 @@ export const usePortfolioData = () => {
   // Fetch token balances
   const { data: usdcBalance } = useBalance({
     address,
-    token: TOKENS.USDC as `0x${string}`
+    token: TOKENS.USDC as `0x${string}`,
+    query: { enabled: !!address && isConnected }
   })
 
   const { data: wethBalance } = useBalance({
     address,
-    token: TOKENS.wETH as `0x${string}`
+    token: TOKENS.wETH as `0x${string}`,
+    query: { enabled: !!address && isConnected }
   })
 
   const { data: cbbtcBalance } = useBalance({
     address,
-    token: TOKENS.cbBTC as `0x${string}`
+    token: TOKENS.cbBTC as `0x${string}`,
+    query: { enabled: !!address && isConnected }
   })
 
   // Fetch vault balances
@@ -66,7 +69,7 @@ export const usePortfolioData = () => {
     abi: VAULT_ABI,
     functionName: 'balanceOf',
     args: address ? [address] : undefined,
-    query: { enabled: !!address }
+    query: { enabled: !!address && isConnected }
   })
 
   const { data: wethVaultBalance } = useReadContract({
@@ -74,7 +77,7 @@ export const usePortfolioData = () => {
     abi: VAULT_ABI,
     functionName: 'balanceOf',
     args: address ? [address] : undefined,
-    query: { enabled: !!address }
+    query: { enabled: !!address && isConnected }
   })
 
   const { data: cbbtcVaultBalance } = useReadContract({
@@ -82,14 +85,29 @@ export const usePortfolioData = () => {
     abi: VAULT_ABI,
     functionName: 'balanceOf',
     args: address ? [address] : undefined,
-    query: { enabled: !!address }
+    query: { enabled: !!address && isConnected }
   })
 
   // Fetch prices and APYs
   useEffect(() => {
     const fetchData = async () => {
       if (!isConnected || !address) {
-        setPortfolioData(prev => ({ ...prev, isLoading: false }))
+        setPortfolioData(prev => ({ 
+          ...prev, 
+          totalValue: 0,
+          totalGrowth: 0,
+          tokenBalances: {
+            USDC: { balance: 0, value: 0 },
+            wETH: { balance: 0, value: 0 },
+            cbBTC: { balance: 0, value: 0 }
+          },
+          vaultBalances: {
+            USDC: { balance: 0, value: 0 },
+            wETH: { balance: 0, value: 0 },
+            cbBTC: { balance: 0, value: 0 }
+          },
+          isLoading: false 
+        }))
         return
       }
 
@@ -152,8 +170,9 @@ export const usePortfolioData = () => {
         const totalValue = Object.values(tokenBalances).reduce((sum, token) => sum + token.value, 0) +
                           Object.values(vaultBalances).reduce((sum, vault) => sum + vault.value, 0)
 
-        // Calculate growth (simplified - in real app you'd track historical data)
-        const totalGrowth = totalValue * 0.12 // 12% growth placeholder
+        // For now, set growth to 0 since we don't have historical data
+        // In a real implementation, you'd track historical portfolio values
+        const totalGrowth = 0
 
         setPortfolioData({
           totalValue,
