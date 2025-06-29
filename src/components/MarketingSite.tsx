@@ -20,11 +20,17 @@ const MarketingSite: React.FC = () => {
           <div className="card bg-white/90 shadow-lg border border-stone-200">
             <h2 className="section-title flex items-center gap-2">
               <span className="text-3xl">🏛️</span>
-              <span>About Muscadine</span>
+              <span>About Muscadine Finance</span>
             </h2>
             <div className="prose prose-stone max-w-none font-serif text-lg leading-relaxed">
               <p>
-                We specialize in being a vault curator on Morpho on Base. Through our partnership with Morpho and Coinbase, we unlock Bitcoin-backed lending opportunities—leveraging Morpho's efficient peer-to-peer lending layer on Base to deliver competitive yields for Bitcoin holders.
+                At Muscadine Finance, we believe Bitcoin and crypto are transforming the world—returning power to individuals through decentralization, financial sovereignty, and censorship-resistant technology. We began as a Bitcoin security consultancy, helping clients deploy nodes, establish non-custodial key management, and secure their assets with best-in-class privacy and resilience.
+              </p>
+              <p>
+                We see DeFi as an extension of this mission—a system that can democratize finance at a global scale. While our roots are in Bitcoin, we embrace the innovation of Ethereum's infrastructure, using it to build Bitcoin-aligned tools and vaults on scalable, composable protocols like Base.
+              </p>
+              <p>
+                Our mission is to empower individuals and institutions with secure, self-sovereign crypto infrastructure—built for a decentralized future.
               </p>
             </div>
           </div>
@@ -39,13 +45,13 @@ const MarketingSite: React.FC = () => {
             </h2>
             <div className="prose prose-stone max-w-none font-serif text-lg leading-relaxed">
               <p>
-                Muscadine Finance provides institutional-grade DeFi infrastructure on the Base network. Our platform offers secure, efficient, and transparent yield-generating vaults designed for both individual investors and institutional clients.
+                Muscadine Finance curates vaults on <strong>Morpho Blue</strong>—a next-generation lending protocol deployed on the Base network. Morpho allows for efficient, non-custodial peer-to-peer lending, offering users optimized borrowing and lending conditions through dynamic vault matching.
               </p>
               <p>
-                We specialize in ERC-4626 vault implementations, providing standardized interfaces for tokenized yield strategies. Our vaults support major assets including USDC, wETH, and cbBTC, offering competitive yields while maintaining the highest security standards.
+                Through our integration with <strong>Coinbase</strong> and <strong>Morpho</strong>, we help users unlock access to <strong>Bitcoin-backed loans</strong> using wrapped collateral (such as cbBTC) on Base. Our vaults are tailored for those who want to earn passive yield or borrow against their Bitcoin without leaving the decentralized economy.
               </p>
               <p>
-                Built on Base's secure and scalable infrastructure, our solutions combine the reliability of traditional finance with the innovation of decentralized protocols—bridging the gap between Bitcoin ethos and Base rails.
+                By combining our security-first mindset from Bitcoin with cutting-edge DeFi infrastructure, we aim to build products that are decentralized, performant, and secure.
               </p>
             </div>
           </div>
