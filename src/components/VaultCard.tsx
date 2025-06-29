@@ -1,99 +1,28 @@
 import React, { useState } from 'react'
-import { useAccount, useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi'
-import { parseEther, formatEther } from 'viem'
+import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import { parseEther } from 'viem'
+import { VAULT_ABI, TOKEN_ABI } from '../config/base'
 
 interface Vault {
   name: string
   symbol: string
   address: string
-  apy: string
+  apy: number
   tvl: string
   icon: string
   tokenAddress: string
+  balance: number
+  value: number
 }
 
 interface VaultCardProps {
   vault: Vault
 }
 
-// ERC-4626 ABI for vault interactions
-const vaultABI = [
-  {
-    inputs: [
-      { name: 'assets', type: 'uint256' },
-      { name: 'receiver', type: 'address' }
-    ],
-    name: 'deposit',
-    outputs: [{ name: 'shares', type: 'uint256' }],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { name: 'shares', type: 'uint256' },
-      { name: 'receiver', type: 'address' },
-      { name: 'owner', type: 'address' }
-    ],
-    name: 'withdraw',
-    outputs: [{ name: 'assets', type: 'uint256' }],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { name: 'spender', type: 'address' },
-      { name: 'amount', type: 'uint256' }
-    ],
-    name: 'approve',
-    outputs: [{ name: '', type: 'bool' }],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [{ name: 'owner', type: 'address' }],
-    name: 'balanceOf',
-    outputs: [{ name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'claimRewards',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  }
-]
-
-// ERC-20 ABI for token approvals
-const tokenABI = [
-  {
-    inputs: [
-      { name: 'spender', type: 'address' },
-      { name: 'amount', type: 'uint256' }
-    ],
-    name: 'approve',
-    outputs: [{ name: '', type: 'bool' }],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  }
-]
-
 const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   const { address } = useAccount()
   const [amount, setAmount] = useState('')
   const [action, setAction] = useState<'approve' | 'supply' | 'withdraw'>('supply')
-
-  // Read vault balance
-  const { data: vaultBalance } = useReadContract({
-    address: vault.address as `0x${string}`,
-    abi: vaultABI,
-    functionName: 'balanceOf',
-    args: address ? [address] : undefined,
-    query: {
-      enabled: !!address
-    }
-  })
 
   // Contract write hooks
   const { writeContract: approveWrite, data: approveData, isPending: isApprovePending } = useWriteContract()
@@ -114,7 +43,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
       case 'approve':
         approveWrite({
           address: vault.tokenAddress as `0x${string}`,
-          abi: tokenABI,
+          abi: TOKEN_ABI,
           functionName: 'approve',
           args: [vault.address as `0x${string}`, parseEther(amount)]
         })
@@ -122,7 +51,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
       case 'supply':
         depositWrite({
           address: vault.address as `0x${string}`,
-          abi: vaultABI,
+          abi: VAULT_ABI,
           functionName: 'deposit',
           args: [parseEther(amount), address]
         })
@@ -130,7 +59,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
       case 'withdraw':
         withdrawWrite({
           address: vault.address as `0x${string}`,
-          abi: vaultABI,
+          abi: VAULT_ABI,
           functionName: 'withdraw',
           args: [parseEther(amount), address, address]
         })
@@ -143,17 +72,13 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
     
     claimWrite({
       address: vault.address as `0x${string}`,
-      abi: vaultABI,
+      abi: VAULT_ABI,
       functionName: 'claimRewards'
     })
   }
 
   const isLoading = isApproveLoading || isDepositLoading || isWithdrawLoading || isClaimLoading ||
                    isApprovePending || isDepositPending || isWithdrawPending || isClaimPending
-
-  const vaultBalanceFormatted = vaultBalance && typeof vaultBalance === 'bigint' 
-    ? parseFloat(formatEther(vaultBalance)).toFixed(4) 
-    : '0.0000'
 
   return (
     <div className="card">
@@ -166,7 +91,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
           </div>
         </div>
         <div className="text-right">
-          <p className="text-lg font-bold text-green-600">{vault.apy}</p>
+          <p className="text-lg font-bold text-green-600">{vault.apy.toFixed(2)}%</p>
           <p className="text-sm text-stone-500">APY</p>
         </div>
       </div>
@@ -174,7 +99,8 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
       <div className="space-y-4">
         <div>
           <p className="text-sm text-stone-600 mb-2">TVL: {vault.tvl}</p>
-          <p className="text-sm text-stone-600 mb-2">Your Balance: {vaultBalanceFormatted} {vault.symbol}</p>
+          <p className="text-sm text-stone-600 mb-2">Your Balance: {vault.balance.toFixed(4)} {vault.symbol}</p>
+          <p className="text-sm text-stone-600 mb-2">Value: ${vault.value.toFixed(2)}</p>
           <p className="text-xs text-stone-500 font-mono">{vault.address}</p>
         </div>
 
