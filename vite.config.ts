@@ -10,6 +10,21 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
+    sourcemap: true,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Separate React and React DOM
+          'react-vendor': ['react', 'react-dom'],
+          // Separate Web3 libraries
+          'web3-vendor': ['wagmi', 'viem', '@wagmi/core', '@wagmi/connectors'],
+          // Separate chart library
+          'charts-vendor': ['recharts'],
+          // Separate routing
+          'router-vendor': ['react-router-dom']
+        }
+      }
+    }
   }
 }) 
