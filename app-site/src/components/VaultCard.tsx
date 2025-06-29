@@ -5,7 +5,7 @@ import { VAULT_ABI, TOKEN_ABI } from '../config/base'
 
 interface Vault {
   name: string
-  symbol: string
+  symbol: 'USDC' | 'wETH' | 'cbBTC'
   address: string
   apy: number
   tvl: string
@@ -23,22 +23,41 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
   const { address } = useAccount()
   const [amount, setAmount] = useState('')
   const [action, setAction] = useState<'approve' | 'supply' | 'withdraw'>('supply')
+  const [inputError, setInputError] = useState<string | null>(null)
 
   // Contract write hooks
   const { writeContract: approveWrite, data: approveData, isPending: isApprovePending } = useWriteContract()
   const { writeContract: depositWrite, data: depositData, isPending: isDepositPending } = useWriteContract()
   const { writeContract: withdrawWrite, data: withdrawData, isPending: isWithdrawPending } = useWriteContract()
-  const { writeContract: claimWrite, data: claimData, isPending: isClaimPending } = useWriteContract()
 
   // Wait for transactions
   const { isLoading: isApproveLoading } = useWaitForTransactionReceipt({ hash: approveData })
   const { isLoading: isDepositLoading } = useWaitForTransactionReceipt({ hash: depositData })
   const { isLoading: isWithdrawLoading } = useWaitForTransactionReceipt({ hash: withdrawData })
-  const { isLoading: isClaimLoading } = useWaitForTransactionReceipt({ hash: claimData })
+
+  const isLoading = isApproveLoading || isDepositLoading || isWithdrawLoading ||
+                   isApprovePending || isDepositPending || isWithdrawPending
+
+  // Input validation
+  const validateInput = () => {
+    if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) {
+      setInputError('Enter a valid amount')
+      return false
+    }
+    if (action === 'supply' && Number(amount) > vault.balance) {
+      setInputError('Insufficient wallet balance')
+      return false
+    }
+    if (action === 'withdraw' && Number(amount) > vault.balance) {
+      setInputError('Insufficient vault balance')
+      return false
+    }
+    setInputError(null)
+    return true
+  }
 
   const handleAction = () => {
-    if (!amount || !address) return
-
+    if (!address || !validateInput()) return
     switch (action) {
       case 'approve':
         approveWrite({
@@ -49,6 +68,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
         })
         break
       case 'supply':
+        if (!address) return
         depositWrite({
           address: vault.address as `0x${string}`,
           abi: VAULT_ABI,
@@ -57,6 +77,7 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
         })
         break
       case 'withdraw':
+        if (!address) return
         withdrawWrite({
           address: vault.address as `0x${string}`,
           abi: VAULT_ABI,
@@ -67,99 +88,81 @@ const VaultCard: React.FC<VaultCardProps> = ({ vault }) => {
     }
   }
 
-  const handleClaimRewards = () => {
-    if (!address) return
-    
-    claimWrite({
-      address: vault.address as `0x${string}`,
-      abi: VAULT_ABI,
-      functionName: 'claimRewards'
-    })
-  }
-
-  const isLoading = isApproveLoading || isDepositLoading || isWithdrawLoading || isClaimLoading ||
-                   isApprovePending || isDepositPending || isWithdrawPending || isClaimPending
-
   return (
-    <div className="card">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-3">
-          <span className="text-2xl">{vault.icon}</span>
+    <div className="bg-white rounded-xl shadow-sm border border-stone-200 p-8">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center space-x-4">
+          <span className="text-3xl">{vault.icon}</span>
           <div>
-            <h3 className="font-semibold text-gray-900">{vault.name}</h3>
-            <p className="text-sm text-gray-500">{vault.symbol}</p>
+            <h3 className="font-serif font-semibold text-stone-900 text-xl">{vault.name}</h3>
+            <p className="text-sm text-stone-500">{vault.symbol}</p>
           </div>
         </div>
         <div className="text-right">
-          <p className="text-lg font-bold text-green-600">{vault.apy.toFixed(2)}%</p>
-          <p className="text-sm text-gray-500">APY</p>
+          <p className="text-2xl font-bold text-green-600">{vault.apy.toFixed(2)}%</p>
+          <p className="text-sm text-stone-500">APY</p>
         </div>
       </div>
-
-      <div className="space-y-4">
-        <div>
-          <p className="text-sm text-gray-600 mb-2">TVL: {vault.tvl}</p>
-          <p className="text-sm text-gray-600 mb-2">Your Balance: {vault.balance.toFixed(4)} {vault.symbol}</p>
-          <p className="text-sm text-gray-600 mb-2">Value: ${vault.value.toFixed(2)}</p>
-          <p className="text-xs text-gray-500 font-mono">{vault.address}</p>
-        </div>
-
+      <div className="space-y-6">
         <div className="space-y-3">
+          <p className="text-sm text-stone-600">TVL: {vault.tvl}</p>
+          <p className="text-sm text-stone-600">Your Balance: {vault.balance.toFixed(4)} {vault.symbol}</p>
+          <p className="text-sm text-stone-600">Value: ${vault.value.toFixed(2)}</p>
+          <p className="text-xs text-stone-400 font-mono bg-stone-50 px-3 py-2 rounded-lg border border-stone-200">{vault.address}</p>
+        </div>
+        <div className="space-y-4">
           <input
             type="number"
             placeholder="Amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-transparent bg-stone-50"
+            min="0"
+            step="any"
+            disabled={isLoading}
           />
-
+          {inputError && <p className="text-xs text-red-600 mb-1">{inputError}</p>}
           <div className="flex space-x-2">
             <button
               onClick={() => setAction('approve')}
-              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
                 action === 'approve'
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? 'bg-stone-800 text-white'
+                  : 'bg-stone-200 text-stone-700 hover:bg-stone-300'
               }`}
+              disabled={isLoading}
             >
               Approve
             </button>
             <button
               onClick={() => setAction('supply')}
-              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
                 action === 'supply'
                   ? 'bg-green-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  : 'bg-stone-200 text-stone-700 hover:bg-stone-300'
               }`}
+              disabled={isLoading}
             >
               Supply
             </button>
             <button
               onClick={() => setAction('withdraw')}
-              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
                 action === 'withdraw'
                   ? 'bg-red-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  : 'bg-stone-200 text-stone-700 hover:bg-stone-300'
               }`}
+              disabled={isLoading}
             >
               Withdraw
             </button>
           </div>
-
           <button
             onClick={handleAction}
-            disabled={!amount || isLoading}
-            className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={!amount || isLoading || !!inputError || !address}
+            className="w-full bg-stone-800 hover:bg-stone-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
           >
             {isLoading ? 'Processing...' : `${action.charAt(0).toUpperCase() + action.slice(1)} ${vault.symbol}`}
-          </button>
-
-          <button
-            onClick={handleClaimRewards}
-            disabled={isLoading}
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isClaimLoading ? 'Claiming...' : 'Claim Rewards'}
           </button>
         </div>
       </div>

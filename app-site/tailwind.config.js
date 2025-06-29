@@ -7,15 +7,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary': '#3B82F6',
-        'secondary': '#64748B',
+        'primary': '#57534e',
+        'secondary': '#78716c',
         'success': '#10B981',
         'warning': '#F59E0B',
         'danger': '#EF4444',
-        'dark': '#1F2937',
+        'dark': '#292524',
       },
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'serif': ['Playfair Display', 'serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
