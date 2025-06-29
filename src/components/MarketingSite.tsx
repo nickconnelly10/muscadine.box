@@ -6,10 +6,10 @@ const MarketingSite: React.FC = () => {
       {/* Header */}
       <header className="text-center py-20 px-4">
         <h1 className="font-serif text-6xl font-bold text-stone-900 mb-6">
-          Muscadine Finance LLC
+          Muscadine Finance
         </h1>
         <p className="text-xl text-stone-600 max-w-2xl mx-auto">
-          Professional DeFi solutions built on Base network
+          Professional DeFi solutions and Bitcoin self-sovereignty
         </p>
       </header>
 
