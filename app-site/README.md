@@ -41,13 +41,47 @@ npm run preview
 npm run lint
 ```
 
-## Deployment
+## 🚀 Vercel Deployment Guide
 
-This project is configured for Vercel deployment. The app should be deployed to:
-- **Domain**: `app.muscadine.box`
-- **Framework Preset**: Vite
-- **Build Command**: `npm run build`
-- **Output Directory**: `dist`
+To deploy the Muscadine DeFi Dashboard (`app.muscadine.box`) to Vercel:
+
+1. **Project Root:**
+   - Set the project root to `app-site` in your Vercel dashboard (not the monorepo root).
+
+2. **Build Command:**
+   - Use: `npm run build`
+
+3. **Install Command:**
+   - Use: `npm install`
+
+4. **Output Directory:**
+   - Set to: `dist`
+
+5. **Framework Preset:**
+   - Select `Vite` (or leave as `Other` if not available).
+
+6. **Rewrites:**
+   - The included `vercel.json` ensures SPA routing works. No further action needed.
+
+7. **Environment Variables:**
+   - None required for production (unless you add API keys).
+
+8. **Custom Domain:**
+   - Point `app.muscadine.box` to your Vercel project.
+
+---
+
+**Local Development:**
+
+```sh
+cd app-site
+npm install
+npm run dev
+```
+
+---
+
+If you see a blank page after deployment, check the browser console for errors and ensure the above settings are correct.
 
 ## Project Structure
 
