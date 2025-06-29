@@ -24,7 +24,7 @@ const MarketingSite: React.FC = () => {
             </h2>
             <div className="prose prose-stone max-w-none font-serif text-lg leading-relaxed">
               <p>
-                At Muscadine Finance, we believe Bitcoin and crypto are transforming the world—returning power to individuals through decentralization, financial sovereignty, and censorship-resistant technology. We began as a Bitcoin security consultancy, helping clients deploy nodes, establish non-custodial key management, and secure their assets with best-in-class privacy and resilience.
+                At Muscadine Finance, we believe Bitcoin and crypto are transforming the world—returning power to individuals through decentralization, financial sovereignty, and censorship-resistant technology. We began as a Bitcoin security consultancy, helping family and friends deploy nodes, establish non-custodial key management, and secure their assets with best-in-class privacy and resilience.
               </p>
               <p>
                 We see DeFi as an extension of this mission—a system that can democratize finance at a global scale. While our roots are in Bitcoin, we embrace the innovation of Ethereum's infrastructure, using it to build Bitcoin-aligned tools and vaults on scalable, composable protocols like Base.
@@ -45,13 +45,13 @@ const MarketingSite: React.FC = () => {
             </h2>
             <div className="prose prose-stone max-w-none font-serif text-lg leading-relaxed">
               <p>
-                Muscadine Finance curates vaults on <strong>Morpho Blue</strong>—a next-generation lending protocol deployed on the Base network. Morpho allows for efficient, non-custodial peer-to-peer lending, offering users optimized borrowing and lending conditions through dynamic vault matching.
+                Muscadine Finance curates vaults on Morpho Blue, a modular peer-to-peer lending protocol deployed on the Base network. Morpho enables decentralized, capital-efficient lending through permissionless vault creation and dynamic interest rate markets.
               </p>
               <p>
-                Through our integration with <strong>Coinbase</strong> and <strong>Morpho</strong>, we help users unlock access to <strong>Bitcoin-backed loans</strong> using wrapped collateral (such as cbBTC) on Base. Our vaults are tailored for those who want to earn passive yield or borrow against their Bitcoin without leaving the decentralized economy.
+                As Coinbase expands access to Bitcoin-backed loans on Base—leveraging Morpho as the backend protocol—Muscadine Finance plays a critical role by supplying liquidity to these vaults. Our capital helps power secure, decentralized loans where Bitcoin holders can borrow against wrapped Bitcoin collateral (like cbBTC) without giving up custody.
               </p>
               <p>
-                By combining our security-first mindset from Bitcoin with cutting-edge DeFi infrastructure, we aim to build products that are decentralized, performant, and secure.
+                By aligning with Coinbase's vision and Bitcoin's original ethos, we build trust-minimized infrastructure that bridges Bitcoin's sound money principles with the composability of DeFi—delivering secure, efficient yield opportunities that uphold self-sovereignty.
               </p>
             </div>
           </div>
