@@ -75,7 +75,7 @@ const MarketingSite: React.FC = () => {
                     <svg className="w-5 h-5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
                     </svg>
-                    <span className="text-stone-700">muscadine.box</span>
+                    <span className="text-stone-700">@nicklutk</span>
                   </div>
                 </div>
               </div>
@@ -95,6 +95,27 @@ const MarketingSite: React.FC = () => {
                 </a>
               </div>
             </div>
+            
+            {/* Bitcoin & Crypto Services Section */}
+            <div className="mt-8 pt-8 border-t border-stone-200">
+              <div className="bg-gradient-to-r from-stone-50 to-gold-50 p-6 rounded-lg border border-stone-200">
+                <h3 className="font-serif text-xl font-semibold text-stone-800 mb-3 flex items-center gap-2">
+                  <span className="text-2xl">🔐</span>
+                  Bitcoin & Crypto Services
+                </h3>
+                <p className="text-stone-700 leading-relaxed">
+                  Get in touch with us for professional Bitcoin and crypto handling in privacy, security, and proper setups. 
+                  Our expertise spans from secure node deployment to institutional-grade custody solutions, 
+                  ensuring your digital assets are protected with best-in-class security practices.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="bg-stone-200 text-stone-700 px-3 py-1 rounded-full text-sm">Node Deployment</span>
+                  <span className="bg-stone-200 text-stone-700 px-3 py-1 rounded-full text-sm">Key Management</span>
+                  <span className="bg-stone-200 text-stone-700 px-3 py-1 rounded-full text-sm">Security Audits</span>
+                  <span className="bg-stone-200 text-stone-700 px-3 py-1 rounded-full text-sm">Privacy Solutions</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -105,8 +126,8 @@ const MarketingSite: React.FC = () => {
               Ready to Start Earning?
             </h2>
             <p className="text-lg text-stone-700 mb-8 max-w-2xl mx-auto">
-              Join thousands of users already earning competitive yields on Base network. 
-              Start with as little as $100 and watch your portfolio grow.
+              Join hundreds of users already earning competitive yields on Base network. 
+              Start with as little as $1 and watch your portfolio grow.
             </p>
             <a 
               href="https://app.muscadine.box" 
@@ -123,9 +144,9 @@ const MarketingSite: React.FC = () => {
       {/* Footer */}
       <footer className="bg-stone-800 text-stone-300 py-8 text-center">
         <div className="max-w-4xl mx-auto px-4">
-          <p>&copy; 2024 Muscadine Finance LLC. All rights reserved.</p>
+          <p>&copy; 2025 Muscadine Finance. All rights reserved.</p>
           <p className="text-sm mt-2 text-stone-400">
-            Built on Base network • Secure • Transparent • Professional
+            Built on BITCOIN • Secure • Transparent • Professional
           </p>
         </div>
       </footer>
