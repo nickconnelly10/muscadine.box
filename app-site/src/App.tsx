@@ -1,102 +1,88 @@
-import React, { useState, useEffect } from 'react'
-import { WagmiProvider, createConfig, http } from 'wagmi'
-import { base } from 'wagmi/chains'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { coinbaseWallet, injected } from 'wagmi/connectors'
-import DeFiDashboard from './components/DeFiDashboard'
-
-// Create wagmi config for Base only
-const config = createConfig({
-  chains: [base],
-  connectors: [
-    injected(),
-    coinbaseWallet({ appName: 'Muscadine Finance' })
-  ],
-  transports: {
-    [base.id]: http()
-  }
-})
-
-// Create query client
-const queryClient = new QueryClient()
-
-// Error Boundary Component
-interface ErrorBoundaryState {
-  hasError: boolean
-  error: Error | null
-}
-
-interface ErrorBoundaryProps {
-  children: React.ReactNode
-}
-
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props)
-    this.state = { hasError: false, error: null }
-  }
-
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error }
-  }
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('App Error:', error, errorInfo)
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-red-600 mb-4">Something went wrong</h1>
-            <p className="text-gray-600 mb-4">Please check the console for details</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Reload Page
-            </button>
-          </div>
-        </div>
-      )
-    }
-
-    return this.props.children
-  }
-}
+import { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [selectedBranch, setSelectedBranch] = useState<'bitcoin' | 'defi' | null>(null);
 
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
+  const handleBitcoinClick = () => {
+    setSelectedBranch(selectedBranch === 'bitcoin' ? null : 'bitcoin');
+  };
 
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading Muscadine Finance...</p>
-        </div>
-      </div>
-    )
-  }
+  const handleDeFiClick = () => {
+    setSelectedBranch(selectedBranch === 'defi' ? null : 'defi');
+  };
+
+  const openMempool = () => {
+    window.open('https://mempool.space', '_blank');
+  };
 
   return (
-    <ErrorBoundary>
-      <WagmiProvider config={config}>
-        <QueryClientProvider client={queryClient}>
-          <div className="min-h-screen">
-            <main>
-              <DeFiDashboard />
-            </main>
+    <div className="vine-app">
+      {/* Header Section */}
+      <header className="vine-header">
+        <a 
+          href="https://nicholasconnelly.substack.com/p/what-is-defi" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="header-link"
+        >
+          What is Bitcoin and DeFi?
+        </a>
+      </header>
+
+      {/* Main Vine Branch */}
+      <main className="vine-main">
+        <div className="branch-container">
+          {/* Bitcoin Branch */}
+          <button 
+            className={`vine-branch ${selectedBranch === 'bitcoin' ? 'active' : ''}`}
+            onClick={handleBitcoinClick}
+          >
+            <span className="branch-text">Bitcoin</span>
+            <div className="vine-decoration"></div>
+          </button>
+
+          {/* DeFi Branch */}
+          <button 
+            className={`vine-branch ${selectedBranch === 'defi' ? 'active' : ''}`}
+            onClick={handleDeFiClick}
+          >
+            <span className="branch-text">DeFi</span>
+            <div className="vine-decoration"></div>
+          </button>
+        </div>
+
+        {/* Bitcoin Leaves */}
+        {selectedBranch === 'bitcoin' && (
+          <div className="leaves-container bitcoin-leaves">
+            <div className="leaf-card node-card">
+              <h3 className="leaf-title">Connect to Node</h3>
+              <div className="node-info">
+                <p>Electrum server hostname:</p>
+                <code className="hostname">
+                  lyfocxl3fgg3if65jo32apupd2adzmm772vsqrtwpmdn4ndoug6gwnyd.onion
+                </code>
+                <p>Port: <span className="port">50001</span></p>
+              </div>
+            </div>
+            
+            <button className="leaf-card mempool-card" onClick={openMempool}>
+              <span className="mempool-text">Mempool</span>
+            </button>
           </div>
-        </QueryClientProvider>
-      </WagmiProvider>
-    </ErrorBoundary>
-  )
+        )}
+
+        {/* DeFi Leaves */}
+        {selectedBranch === 'defi' && (
+          <div className="leaves-container defi-leaves">
+            <div className="leaf-card work-card">
+              <span className="work-text">Work in progress</span>
+            </div>
+          </div>
+        )}
+      </main>
+    </div>
+  );
 }
 
-export default App 
+export default App; 

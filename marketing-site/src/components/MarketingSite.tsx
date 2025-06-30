@@ -67,16 +67,7 @@ const MarketingSite: React.FC = () => {
             </h2>
             <div className="space-y-8 text-body">
               <p>
-                Muscadine Finance curates vaults on Morpho Blue, a modular peer-to-peer lending protocol deployed on the Base network. Morpho enables decentralized, capital-efficient lending through permissionless vault creation and dynamic interest rate markets.
-              </p>
-              <p>
-                As Coinbase expands access to Bitcoin-backed loans on Base—leveraging Morpho as the backend protocol—Muscadine Finance plays a critical role by supplying liquidity to these vaults. Our capital helps power secure, decentralized loans where Bitcoin holders can borrow against wrapped Bitcoin collateral (like cbBTC) without giving up custody.
-              </p>
-              <p>
-                By aligning with Coinbase's vision and Bitcoin's original ethos, we build trust-minimized infrastructure that bridges Bitcoin's sound money principles with the composability of DeFi—delivering secure, efficient yield opportunities that uphold self-sovereignty.
-              </p>
-              <p>
-                While many vault curators charge 15% or more in fees on user yield, Muscadine Finance takes a different approach: we charge no protocol fees—maximizing returns and aligning incentives with our community.
+                Our app is a digital home base designed to help users access trustworthy Bitcoin and DeFi tools—securely, simply, and sovereignly. Like a muscadine vine, it grows outward, linking you to the strongest parts of the decentralized ecosystem: from running a Bitcoin node, to viewing mempools, to learning about the financial revolution through DeFi. The goal is accessibility with resilience—technology that roots you in freedom.
               </p>
             </div>
           </div>
