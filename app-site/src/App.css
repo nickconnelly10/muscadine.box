@@ -1,7 +1,7 @@
 /* Muscadine Vine Theme CSS */
 
 /* Import serif fonts for Roman-inspired design */
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;600;700&display=swap');
 
 /* Base styles */
 * {
@@ -31,7 +31,7 @@ body {
 .vine-header {
   text-align: center;
   margin-bottom: 4rem;
-  padding: 1rem 0;
+  padding: 2rem 0;
   border-bottom: 2px solid #d4c4a8;
   position: relative;
 }
@@ -42,37 +42,73 @@ body {
   bottom: -2px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
+  width: 80px;
   height: 2px;
   background: linear-gradient(90deg, transparent, #8b7355, transparent);
 }
 
-.header-link {
+/* Dashboard title */
+.dashboard-title {
   font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
   color: #5d4e37;
-  text-decoration: none;
+  margin-bottom: 1rem;
+  cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
 }
 
-.header-link:hover {
+.dashboard-title:hover {
   color: #8b7355;
+  transform: translateY(-2px);
+}
+
+.dashboard-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: #8b7355;
+  transition: width 0.3s ease;
+}
+
+.dashboard-title:hover::after {
+  width: 100%;
+}
+
+/* Intro question */
+.intro-question {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #8b7355;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.intro-question:hover {
+  color: #5d4e37;
   transform: translateY(-1px);
 }
 
-.header-link::after {
+.intro-question::after {
   content: '';
   position: absolute;
   bottom: -2px;
   left: 0;
   width: 0;
   height: 1px;
-  background: #8b7355;
+  background: #5d4e37;
   transition: width 0.3s ease;
 }
 
-.header-link:hover::after {
+.intro-question:hover::after {
   width: 100%;
 }
 
@@ -88,8 +124,8 @@ body {
 /* Branch container */
 .branch-container {
   display: flex;
-  gap: 3rem;
-  margin-bottom: 3rem;
+  gap: 4rem;
+  margin-bottom: 4rem;
   position: relative;
 }
 
@@ -99,36 +135,41 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80px;
-  height: 4px;
+  width: 120px;
+  height: 6px;
   background: linear-gradient(90deg, #8b7355, #a67c52, #8b7355);
-  border-radius: 2px;
+  border-radius: 3px;
   z-index: 0;
 }
 
-/* Vine branches (buttons) */
+/* Vine branches (buttons) - Much larger */
 .vine-branch {
   position: relative;
   background: linear-gradient(145deg, #f8f6f0, #e8e0d0);
-  border: 2px solid #d4c4a8;
-  border-radius: 15px;
-  padding: 2rem 3rem;
+  border: 3px solid #d4c4a8;
+  border-radius: 20px;
+  padding: 4rem 6rem;
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: 600;
   color: #5d4e37;
   cursor: pointer;
   transition: all 0.4s ease;
   box-shadow: 
-    0 8px 32px rgba(139, 115, 85, 0.1),
+    0 12px 48px rgba(139, 115, 85, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
   z-index: 1;
+  min-width: 280px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .vine-branch:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-8px) scale(1.05);
   box-shadow: 
-    0 12px 40px rgba(139, 115, 85, 0.2),
+    0 20px 60px rgba(139, 115, 85, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
   border-color: #8b7355;
 }
@@ -136,7 +177,7 @@ body {
 .vine-branch.active {
   background: linear-gradient(145deg, #e8e0d0, #d4c4a8);
   border-color: #8b7355;
-  transform: translateY(-2px);
+  transform: translateY(-4px);
 }
 
 .branch-text {
@@ -147,10 +188,10 @@ body {
 /* Vine decoration */
 .vine-decoration {
   position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 20px;
-  height: 20px;
+  top: -15px;
+  right: -15px;
+  width: 30px;
+  height: 30px;
   background: #8b7355;
   border-radius: 50%;
   opacity: 0.6;
@@ -162,8 +203,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   background: #f8f6f0;
   border-radius: 50%;
 }
@@ -310,6 +351,10 @@ body {
     padding: 1rem;
   }
   
+  .dashboard-title {
+    font-size: 2rem;
+  }
+  
   .branch-container {
     flex-direction: column;
     gap: 2rem;
@@ -317,6 +362,13 @@ body {
   
   .branch-container::before {
     display: none;
+  }
+  
+  .vine-branch {
+    padding: 3rem 4rem;
+    font-size: 2rem;
+    min-width: 250px;
+    min-height: 150px;
   }
   
   .leaves-container {

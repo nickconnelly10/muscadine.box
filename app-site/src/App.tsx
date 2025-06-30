@@ -16,15 +16,27 @@ function App() {
     window.open('https://mempool.space', '_blank');
   };
 
+  const navigateToMainSite = () => {
+    window.location.href = 'https://muscadine.box';
+  };
+
   return (
     <div className="vine-app">
-      {/* Header Section */}
+      {/* Top Header */}
       <header className="vine-header">
+        <h1 
+          className="dashboard-title"
+          onClick={navigateToMainSite}
+        >
+          Muscadine Dashboard
+        </h1>
+        
+        {/* Intro Question */}
         <a 
           href="https://nicholasconnelly.substack.com/p/what-is-defi" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="header-link"
+          className="intro-question"
         >
           What is Bitcoin and DeFi?
         </a>
