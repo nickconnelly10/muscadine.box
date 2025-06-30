@@ -345,6 +345,151 @@ body {
   color: #5d4a4a;
 }
 
+/* DeFi cards */
+.defi-card {
+  background: linear-gradient(145deg, #f8f6f0, #e8e0d0);
+  border: 3px solid #d4c4a8;
+  border-radius: 16px;
+  padding: 3rem 4rem;
+  min-width: 300px;
+  min-height: 180px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 
+    0 8px 32px rgba(139, 115, 85, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.defi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #8b7355, #a67c52, #8b7355);
+}
+
+.defi-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 
+    0 16px 48px rgba(139, 115, 85, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-color: #8b7355;
+}
+
+.defi-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #5d4e37;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.defi-subtitle {
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: #8b7355;
+  display: block;
+}
+
+/* Specific DeFi card styles */
+.zerion-card {
+  background: linear-gradient(145deg, #f0f8f0, #e0f0e0);
+  border-color: #a8d4a8;
+}
+
+.zerion-card:hover {
+  background: linear-gradient(145deg, #e0f0e0, #d0e8d0);
+  border-color: #8bc48b;
+}
+
+.lending-card {
+  background: linear-gradient(145deg, #f8f0f8, #f0e0f0);
+  border-color: #d4a8d4;
+}
+
+.lending-card:hover {
+  background: linear-gradient(145deg, #f0e0f0, #e8d0e8);
+  border-color: #c48bc4;
+}
+
+.swap-card {
+  background: linear-gradient(145deg, #f0f0f8, #e0e0f0);
+  border-color: #a8a8d4;
+}
+
+.swap-card:hover {
+  background: linear-gradient(145deg, #e0e0f0, #d0d0e8);
+  border-color: #8b8bc4;
+}
+
+.aave-card {
+  background: linear-gradient(145deg, #f0f8f8, #e0f0f0);
+  border-color: #a8d4d4;
+}
+
+.aave-card:hover {
+  background: linear-gradient(145deg, #e0f0f0, #d0e8e8);
+  border-color: #8bc4c4;
+}
+
+.moonwell-card {
+  background: linear-gradient(145deg, #f8f8f0, #f0f0e0);
+  border-color: #d4d4a8;
+}
+
+.moonwell-card:hover {
+  background: linear-gradient(145deg, #f0f0e0, #e8e8d0);
+  border-color: #c4c48b;
+}
+
+.morpho-card {
+  background: linear-gradient(145deg, #f8f0f0, #f0e0e0);
+  border-color: #d4a8a8;
+}
+
+.morpho-card:hover {
+  background: linear-gradient(145deg, #f0e0e0, #e8d0d0);
+  border-color: #c48b8b;
+}
+
+/* Back button */
+.back-button {
+  background: linear-gradient(145deg, #e8e0d0, #d4c4a8);
+  border: 2px solid #8b7355;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  color: #5d4e37;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 16px rgba(139, 115, 85, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.back-button:hover {
+  background: linear-gradient(145deg, #d4c4a8, #c4b498);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(139, 115, 85, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .vine-app {
@@ -380,5 +525,17 @@ body {
     min-width: 250px;
     width: 100%;
     max-width: 350px;
+  }
+  
+  .defi-card {
+    min-width: 250px;
+    width: 100%;
+    max-width: 350px;
+    padding: 2rem 3rem;
+    min-height: 140px;
+  }
+  
+  .defi-title {
+    font-size: 1.5rem;
   }
 } 

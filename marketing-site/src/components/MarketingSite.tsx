@@ -11,7 +11,7 @@ const MarketingSite: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-stone-50/50"></div>
         <div className="relative z-10 text-center max-w-6xl mx-auto">
           <h1 className="text-hero gradient-text mb-8 animate-fade-in">
-            Muscadine Finance
+            Muscadine
           </h1>
           <p className="text-display text-stone-700 max-w-4xl mx-auto mb-12 animate-slide-up" style={{animationDelay: '0.2s'}}>
             Professional DeFi solutions and Bitcoin self-sovereignty
@@ -43,11 +43,11 @@ const MarketingSite: React.FC = () => {
         <section className="mb-16">
           <div className="card-elevated animate-slide-in-left">
             <h2 className="section-title">
-              About Muscadine Finance
+              About Muscadine
             </h2>
             <div className="space-y-8 text-body">
               <p>
-                At Muscadine Finance, we believe Bitcoin and crypto are transforming the world—returning power to individuals through decentralization, financial sovereignty, and censorship-resistant technology. We began as a Bitcoin security consultancy, helping family and friends deploy nodes, establish non-custodial key management, and secure their assets with best-in-class privacy and resilience.
+                At Muscadine, we believe Bitcoin and crypto are transforming the world—returning power to individuals through decentralization, financial sovereignty, and censorship-resistant technology. We began as a Bitcoin security consultancy, helping family and friends deploy nodes, establish non-custodial key management, and secure their assets with best-in-class privacy and resilience.
               </p>
               <p>
                 We see DeFi as an extension of this mission—a system that can democratize finance at a global scale. While our roots are in Bitcoin, we embrace the innovation of Ethereum's infrastructure, using it to build Bitcoin-aligned tools and vaults on scalable, composable protocols like Base.
@@ -173,7 +173,7 @@ const MarketingSite: React.FC = () => {
       {/* Footer */}
       <footer className="bg-stone-800 text-stone-300 py-16 text-center">
         <div className="max-w-6xl mx-auto px-4">
-          <p className="text-sm mb-4">&copy; 2025 Muscadine Finance. All rights reserved.</p>
+          <p className="text-sm mb-4">&copy; 2025 Muscadine. All rights reserved.</p>
           <p className="text-xs text-stone-400">
             Built on BITCOIN • Secure • Transparent • Professional
           </p>
