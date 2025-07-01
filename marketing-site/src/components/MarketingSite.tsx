@@ -193,7 +193,7 @@ const MarketingSite: React.FC = () => {
             <div>
               <h4 className="text-lg font-semibold text-white mb-4">Muscadine</h4>
               <p className="text-sm text-stone-400">
-                Professional DeFi solutions and Bitcoin self-sovereignty.
+                Bitcoin and DeFi self-sovereignty.
               </p>
             </div>
             <div>

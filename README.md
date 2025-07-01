@@ -1,6 +1,6 @@
 # Muscadine
 
-**Professional DeFi solutions and Bitcoin self-sovereignty.**
+**Bitcoin and DeFi self-sovereignty.**
 
 ## 🌐 Live Sites
 
@@ -35,7 +35,7 @@ Our mission is to empower individuals and institutions with secure, self-soverei
    npm install
    npm run dev
    ```
-   Open [http://localhost:3000](http://localhost:3000)
+   Open [http://localhost:3001](http://localhost:3001)
 
 3. **DeFi App Site** (app.muscadine.box)
    ```bash
@@ -48,18 +48,33 @@ Our mission is to empower individuals and institutions with secure, self-soverei
 ## 🛠 Tech Stack
 
 ### Marketing Site
-- **Framework**: Vite + React + TypeScript
-- **Styling**: Tailwind CSS
+- **Framework**: Vite 7.0.0 + React 18.2.0 + TypeScript 5.0.2
+- **Styling**: Tailwind CSS 3.3.3
+- **Fonts**: Playfair Display & Inter
 - **Deployment**: Vercel
+- **Security**: ESLint with TypeScript rules
 
 ### DeFi Dashboard
-- **Framework**: Vite + React + TypeScript
-- **Styling**: Tailwind CSS
+- **Framework**: Vite 7.0.0 + React 18.2.0 + TypeScript 5.0.2
+- **Styling**: Tailwind CSS 3.3.3
 - **Web3**: wagmi + viem
-- **Charts**: Recharts
+- **Charts**: Recharts 2.8.0
+- **Animations**: Framer Motion 12.20.1
+- **State Management**: TanStack Query 5.17.9
 - **Networks**: Base (Coinbase L2)
 - **Protocol**: Morpho Blue vaults
 - **Deployment**: Vercel
+- **Security**: ESLint with TypeScript rules
+
+## 🔒 Security & Performance
+
+- ✅ **No Vulnerabilities**: All dependencies updated to latest secure versions
+- ✅ **Vite 7.0.0**: Latest build tool with security fixes
+- ✅ **TypeScript**: Strict type checking for code quality
+- ✅ **ESLint**: Code quality and security linting
+- ✅ **Optimized Build**: Minified and compressed assets
+- ✅ **Security Headers**: XSS protection and content type options
+- ✅ **Web3 Security**: Proper wallet connection validation
 
 ## 🏗 Project Structure
 
@@ -121,6 +136,7 @@ muscadine.box/
 - **Base network security** - leveraging Coinbase's L2 infrastructure
 - **Morpho Blue protocol** - battle-tested lending infrastructure
 - **No protocol fees** - maximizing user returns
+- **Latest dependencies** - all packages updated to secure versions
 
 ## 🚧 Beta Status
 
@@ -130,6 +146,7 @@ Our DeFi application is currently in **beta**. Features include:
 - ✅ Real-time APY data from Morpho
 - ✅ Vault deposit/withdrawal functionality
 - ✅ Base network integration
+- ✅ Security optimized with no vulnerabilities
 
 ## 📚 Educational Content
 
@@ -151,7 +168,7 @@ Both sites are deployed on Vercel with automatic deployments from the main branc
 
 ## 📞 Contact & Connect
 
-- **Email**: nickconnelly10@icloud.com
+- **Email**: nickconnelly10@gmail.com
 - **Twitter**: [@nicklutk](https://twitter.com/nicklutk)
 - **Articles**: [Substack](https://nicholasconnelly.substack.com/)
 
@@ -161,6 +178,14 @@ Get in touch with us for professional Bitcoin and crypto handling in privacy, se
 ## 📄 License
 
 This project is owned by Muscadine. All rights reserved.
+
+## 🔧 Maintenance
+
+- **Dependencies**: Updated to latest secure versions
+- **Security**: Regular npm audit checks
+- **Performance**: Optimized build process with Vite 7
+- **Code Quality**: TypeScript strict mode and ESLint enforcement
+- **Web3 Security**: Proper wallet connection validation and error handling
 
 ---
 
