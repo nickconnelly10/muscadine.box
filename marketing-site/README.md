@@ -1,11 +1,11 @@
-# Muscadine Finance - Marketing Site
+# Muscadine - Marketing Site
 
-The marketing and information website for Muscadine Finance, featuring a Roman aesthetic design with stone and gold color scheme.
+The marketing and information website for Muscadine, featuring a Roman aesthetic design with stone and gold color scheme.
 
 ## Features
 
 - **Roman-Inspired Design**: Clean, professional aesthetic with stone and gold color palette
-- **Company Information**: About section explaining Muscadine Finance's mission and Bitcoin roots
+- **Company Information**: About section explaining Muscadine's mission and Bitcoin roots
 - **App Description**: "What is Our App" section detailing DeFi vault operations on Base network
 - **Contact Information**: Email and Twitter contact details
 - **Bitcoin Services**: Professional Bitcoin and crypto services section

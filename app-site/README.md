@@ -1,6 +1,6 @@
-# Muscadine Finance - DeFi Dashboard
+# Muscadine - DeFi Dashboard
 
-The DeFi dashboard application for Muscadine Finance, providing wallet connection, portfolio tracking, and vault management on Base network.
+The DeFi dashboard application for Muscadine, providing wallet connection, portfolio tracking, and vault management on Base network.
 
 ## Features
 

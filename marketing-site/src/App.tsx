@@ -7,7 +7,7 @@ function App() {
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
             <div className="font-serif text-2xl font-bold text-neutral-900">
-              Muscadine Finance
+              Muscadine
             </div>
             <div className="flex items-center space-x-6">
               <a 

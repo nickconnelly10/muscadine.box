@@ -1,7 +1,7 @@
 {
   "name": "muscadine-finance",
   "version": "1.0.0",
-  "description": "Muscadine Finance - DeFi dashboard and marketing site for Base network",
+  "description": "Muscadine - DeFi dashboard and marketing site for Base network",
   "private": true,
   "workspaces": [
     "app-site",
@@ -13,6 +13,6 @@
     "preview": "cd app-site && npm run preview"
   },
   "keywords": ["defi", "base", "ethereum", "vaults", "erc4626"],
-  "author": "Muscadine Finance",
+      "author": "Muscadine",
   "license": "MIT"
 } 

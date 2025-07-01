@@ -1,4 +1,4 @@
-# Muscadine Finance - Separate Deployment Guide
+# Muscadine - Separate Deployment Guide
 
 This guide explains how to deploy the two separate Vite projects to their respective domains on Vercel.
 

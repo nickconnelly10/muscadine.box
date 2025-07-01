@@ -1,11 +1,19 @@
-# Muscadine Finance
+# Muscadine
 
-**Bitcoin-aligned DeFi vault interface on Base, combining Bitcoin custody practices with Ethereum-native infrastructure via Morpho Blue.**
+**Professional DeFi solutions and Bitcoin self-sovereignty.**
 
 ## 🌐 Live Sites
 
 - **Marketing Site**: [https://muscadine.box](https://muscadine.box)
 - **DeFi Dashboard**: [https://app.muscadine.box](https://app.muscadine.box)
+
+## 🎯 Our Mission
+
+At Muscadine, we believe Bitcoin and crypto are transforming the world—returning power to individuals through decentralization, financial sovereignty, and censorship-resistant technology. We began as a Bitcoin security consultancy, helping family and friends deploy nodes, establish non-custodial key management, and secure their assets with best-in-class privacy and resilience.
+
+We see DeFi as an extension of this mission—a system that can democratize finance at a global scale. While our roots are in Bitcoin, we embrace the innovation of Ethereum's infrastructure, using it to build Bitcoin-aligned tools and vaults on scalable, composable protocols like Base.
+
+Our mission is to empower individuals and institutions with secure, self-sovereign crypto infrastructure—built for a decentralized future.
 
 ## 🚀 Quick Start
 
@@ -94,6 +102,19 @@ muscadine.box/
 - **Bitcoin-aligned** with focus on self-sovereignty and decentralization
 - **Responsive design** optimized for all devices
 
+## 🔧 Our Services
+
+### Bitcoin & Crypto Services
+- **Node Deployment**: Professional Bitcoin node setup and maintenance
+- **Key Management**: Non-custodial key management solutions
+- **Security Audits**: Comprehensive security assessments
+- **Privacy Solutions**: Advanced privacy and anonymity tools
+
+### DeFi Infrastructure
+- **Vault Management**: Self-custodial DeFi vaults on Base network
+- **Portfolio Tracking**: Real-time portfolio monitoring and analytics
+- **Yield Optimization**: Competitive yields through Morpho Blue protocol
+
 ## 🔒 Security Features
 
 - **Self-custodial vaults** - users maintain control of their assets
@@ -103,12 +124,19 @@ muscadine.box/
 
 ## 🚧 Beta Status
 
-This application is currently in **beta**. Features include:
+Our DeFi application is currently in **beta**. Features include:
 - ✅ Wallet connection (MetaMask, Coinbase Wallet, Rabby)
 - ✅ Live portfolio tracking
 - ✅ Real-time APY data from Morpho
 - ✅ Vault deposit/withdrawal functionality
 - ✅ Base network integration
+
+## 📚 Educational Content
+
+Access our research and articles on Bitcoin, finance, life, and more:
+- **Substack**: [nicholasconnelly.substack.com](https://nicholasconnelly.substack.com/)
+- **Latest thoughts, deep dives, and educational content**
+- **Designed to empower your journey in crypto and beyond**
 
 ## 📝 Environment Variables
 
@@ -121,15 +149,18 @@ Both sites are deployed on Vercel with automatic deployments from the main branc
 - Marketing site: `muscadine.box`
 - App site: `app.muscadine.box`
 
-## 📞 Contact
+## 📞 Contact & Connect
 
 - **Email**: nickconnelly10@icloud.com
 - **Twitter**: [@nicklutk](https://twitter.com/nicklutk)
 - **Articles**: [Substack](https://nicholasconnelly.substack.com/)
 
+### Professional Services
+Get in touch with us for professional Bitcoin and crypto handling in privacy, security, and proper setups. Our expertise spans from secure node deployment to institutional-grade custody solutions, ensuring your digital assets are protected with best-in-class security practices.
+
 ## 📄 License
 
-This project is owned by Muscadine Finance. All rights reserved.
+This project is owned by Muscadine. All rights reserved.
 
 ---
 
