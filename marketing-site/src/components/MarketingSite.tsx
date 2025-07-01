@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const MarketingSite: React.FC = () => {
   const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   const appUrl = isLocalhost ? 'http://localhost:3002' : 'https://app.muscadine.box'
+  const [activeTab, setActiveTab] = useState<'app' | 'roadmap'>('app')
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 to-stone-100">
@@ -59,16 +60,52 @@ const MarketingSite: React.FC = () => {
           </div>
         </section>
 
-        {/* What We Do Section */}
+        {/* What We Do Section with Tabs */}
         <section className="mb-16">
           <div className="card-elevated animate-slide-in-right">
-            <h2 className="section-title">
-              What is Our App
-            </h2>
-            <div className="space-y-8 text-body">
-              <p>
-                Our app is a digital home base designed to help users access trustworthy Bitcoin and DeFi tools—securely, simply, and sovereignly. Like a muscadine vine, it grows outward, linking you to the strongest parts of the decentralized ecosystem: from running a Bitcoin node, to viewing mempools, to learning about the financial revolution through DeFi. The goal is accessibility with resilience—technology that roots you in freedom.
-              </p>
+            {/* Tab Navigation */}
+            <div className="flex border-b border-stone-200 mb-8">
+              <button
+                onClick={() => setActiveTab('app')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 ${
+                  activeTab === 'app'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={activeTab === 'app'}
+                role="tab"
+              >
+                What Is Our App
+              </button>
+              <button
+                onClick={() => setActiveTab('roadmap')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 ${
+                  activeTab === 'roadmap'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={activeTab === 'roadmap'}
+                role="tab"
+              >
+                Roadmap
+              </button>
+            </div>
+
+            {/* Tab Content */}
+            <div role="tabpanel" aria-labelledby={`tab-${activeTab}`}>
+              {activeTab === 'app' ? (
+                <div className="space-y-8 text-body">
+                  <p>
+                    Our app is a digital home base designed to help users access trustworthy Bitcoin and DeFi tools—securely, simply, and sovereignly. Like a muscadine vine, it grows outward, linking you to the strongest parts of the decentralized ecosystem: from running a Bitcoin node, to viewing mempools, to learning about the financial revolution through DeFi. The goal is accessibility with resilience—technology that roots you in freedom.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-8 text-body">
+                  <p>
+                    Within six months, we will launch DeFi automation vaults, deliver UI enhancements, and introduce new features to expand Muscadine's mission of secure, accessible on-chain tools. Watch this space for detailed milestones, goals, and timelines.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -85,23 +122,23 @@ const MarketingSite: React.FC = () => {
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center">
                       <svg className="w-6 h-6 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 00-2-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     </div>
                     <div>
-                      <p className="text-caption text-stone-500">Email</p>
-                      <p className="text-body font-medium text-stone-800">nickconnelly10@icloud.com</p>
+                      <p className="text-caption text-stone-500">Contact</p>
+                      <p className="text-body font-medium text-stone-800">Nicholas Connelly</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center">
                       <svg className="w-6 h-6 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 00-2-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </div>
                     <div>
-                      <p className="text-caption text-stone-500">Twitter</p>
-                      <p className="text-body font-medium text-stone-800">@nicklutk</p>
+                      <p className="text-caption text-stone-500">Email</p>
+                      <p className="text-body font-medium text-stone-800">nickconnelly10@gmail.com</p>
                     </div>
                   </div>
                 </div>
@@ -112,7 +149,7 @@ const MarketingSite: React.FC = () => {
                 <h3 className="text-display font-semibold text-stone-800">Articles & Research</h3>
                 <div className="space-y-6">
                   <p className="text-body">
-                    Access Muscadine's research and articles on Bitcoin, finance, life, and more. Explore our latest thoughts, deep dives, and educational content designed to empower your journey in crypto and beyond.
+                    Dive deeper into Bitcoin and DeFi with our curated Articles & Research. Subscribe to our Substack for weekly insights and exclusive content: <a href="https://nicholasconnelly.substack.com/" className="text-gold-600 hover:text-gold-700 underline" target="_blank" rel="noopener noreferrer">https://nicholasconnelly.substack.com/</a>
                   </p>
                   <a 
                     href="https://nicholasconnelly.substack.com/"
@@ -147,36 +184,48 @@ const MarketingSite: React.FC = () => {
             </div>
           </div>
         </section>
-
-        {/* CTA Section */}
-        <section className="text-center">
-          <div className="card-elevated bg-gradient-to-r from-gold-50 to-gold-100 border-gold-200">
-            <h2 className="text-display font-bold text-stone-900 mb-6">
-              Ready to Start Earning?
-            </h2>
-            <p className="text-body text-stone-700 mb-12 max-w-3xl mx-auto">
-              Join hundreds of users already earning competitive yields on Base network. 
-              Start with as little as $1 and watch your portfolio grow.
-            </p>
-            <a 
-              href={appUrl}
-              className="btn-primary text-lg px-12 py-6"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Launch App
-            </a>
-          </div>
-        </section>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-stone-800 text-stone-300 py-16 text-center">
+      {/* Enhanced Footer */}
+      <footer className="bg-stone-800 text-stone-300 py-16">
         <div className="max-w-6xl mx-auto px-4">
-          <p className="text-sm mb-4">&copy; 2025 Muscadine. All rights reserved.</p>
-          <p className="text-xs text-stone-400">
-            Built on BITCOIN • Secure • Transparent • Professional
-          </p>
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Muscadine</h4>
+              <p className="text-sm text-stone-400">
+                Professional DeFi solutions and Bitcoin self-sovereignty.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Product</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href={appUrl} className="text-stone-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Launch App</a></li>
+                <li><a href="https://nicholasconnelly.substack.com/" className="text-stone-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Articles</a></li>
+                <li><a href="mailto:nickconnelly10@gmail.com?subject=Muscadine%20Inquiry" className="text-stone-400 hover:text-white transition-colors">Contact</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="/privacy" className="text-stone-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="/terms" className="text-stone-400 hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="https://github.com/your-repo" className="text-stone-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Open Source</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Connect</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="https://twitter.com/nicklutk" className="text-stone-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+                <li><a href="https://nicholasconnelly.substack.com/" className="text-stone-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Substack</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-stone-700 pt-8 text-center">
+            <p className="text-sm mb-4">&copy; 2025 Muscadine. All rights reserved.</p>
+            <p className="text-xs text-stone-400">
+              Built on BITCOIN • Secure • Transparent • Professional
+            </p>
+          </div>
         </div>
       </footer>
     </div>
