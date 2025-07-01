@@ -15,7 +15,7 @@ const MarketingSite: React.FC = () => {
             Muscadine
           </h1>
           <p className="text-display text-stone-700 max-w-4xl mx-auto mb-12 animate-slide-up" style={{animationDelay: '0.2s'}}>
-            Professional DeFi solutions and Bitcoin self-sovereignty
+            Bitcoin and DeFi self-sovereignty
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{animationDelay: '0.4s'}}>
             <a 
@@ -149,7 +149,7 @@ const MarketingSite: React.FC = () => {
                 <h3 className="text-display font-semibold text-stone-800">Articles & Research</h3>
                 <div className="space-y-6">
                   <p className="text-body">
-                    Dive deeper into Bitcoin and DeFi with our curated Articles & Research. Subscribe to our Substack for weekly insights and exclusive content: <a href="https://nicholasconnelly.substack.com/" className="text-gold-600 hover:text-gold-700 underline" target="_blank" rel="noopener noreferrer">https://nicholasconnelly.substack.com/</a>
+                    Dive deeper into Bitcoin and DeFi with our curated Articles & Research. Subscribe to our Substack for weekly insights and exclusive content.
                   </p>
                   <a 
                     href="https://nicholasconnelly.substack.com/"
@@ -157,7 +157,7 @@ const MarketingSite: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Read Our Articles on Substack
+                    Read and Subscribe to our substack
                   </a>
                 </div>
               </div>
