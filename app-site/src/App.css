@@ -1165,4 +1165,68 @@ body.dark-theme .content-subtitle {
   .content-subtitle {
     font-size: 1.1rem;
   }
+}
+
+/* Bitcoin Tabs Specific Styles */
+.bitcoin-tabs {
+  background: linear-gradient(145deg, #f0f8f0, #e0e8d0);
+  border-color: #7a8b5a;
+}
+
+.mempool-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mempool-button {
+  background: linear-gradient(145deg, #f8f6f0, #e8e0d0);
+  border: 2px solid #8b7355;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  color: #5d4e37;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(139, 115, 85, 0.15);
+  transition: all 0.3s ease;
+  width: fit-content;
+  margin-top: 1rem;
+}
+
+.mempool-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 115, 85, 0.25);
+  background: linear-gradient(145deg, #e8e0d0, #d4c4a8);
+}
+
+/* Dark theme support for Bitcoin tabs */
+body.dark-theme .bitcoin-tabs {
+  background: linear-gradient(145deg, #2a2a3a, #1a1a2a);
+  border-color: #7a8b5a;
+}
+
+body.dark-theme .mempool-button {
+  background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+  border-color: #8b7355;
+  color: #e8e0d0;
+}
+
+body.dark-theme .mempool-button:hover {
+  background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+  color: #d4c4a8;
+}
+
+/* Mobile responsiveness for Bitcoin tabs */
+@media (max-width: 768px) {
+  .mempool-content {
+    gap: 1rem;
+  }
+  
+  .mempool-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+  }
 } 

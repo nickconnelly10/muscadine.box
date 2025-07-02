@@ -228,29 +228,7 @@ const CopyButton = memo(({
   </motion.button>
 ));
 
-// Memoized Leaf Card Component
-const LeafCard = memo(({ 
-  children, 
-  className = "", 
-  onClick 
-}: { 
-  children: React.ReactNode; 
-  className?: string; 
-  onClick?: () => void; 
-}) => (
-  <motion.div 
-    className={`leaf-card ${className}`}
-    onClick={onClick}
-    initial={{ opacity: 0, y: 20, scale: 0.95 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    exit={{ opacity: 0, y: -20, scale: 0.95 }}
-    transition={{ duration: 0.3, ease: "easeOut" }}
-    whileHover={onClick ? { y: -4 } : {}}
-    layout
-  >
-    {children}
-  </motion.div>
-));
+
 
 // Memoized DeFi Card Component with About Link
 const DeFiCard = memo(({ 
@@ -315,9 +293,14 @@ const BackButton = memo(({ onClick }: { onClick: () => void }) => (
   </motion.button>
 ));
 
+// 1. Add explanation content at the top of the main content
+const bitcoinExplanation = "Bitcoin is a decentralized digital currency that operates on a peer-to-peer network, enabling secure transactions without intermediaries.";
+const defiExplanation = "DeFi (Decentralized Finance) refers to financial services built on blockchain technology that operate without traditional intermediaries.";
+
 function App() {
-  const [selectedBranch, setSelectedBranch] = useState<'bitcoin' | 'defi' | null>(null);
-  const [defiView, setDefiView] = useState<'main' | 'lending' | 'swap'>('main');
+  const [topTab, setTopTab] = useState<'bitcoin' | 'defi'>('bitcoin');
+  const [bitcoinTab, setBitcoinTab] = useState<'node' | 'mempool'>('node');
+  const [defiTab, setDefiTab] = useState<'portfolio' | 'lending' | 'swap' | 'explorer'>('portfolio');
   const [toast, setToast] = useState<{ message: string; visible: boolean }>({ message: '', visible: false });
   const [isGlossaryOpen, setIsGlossaryOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -337,17 +320,6 @@ function App() {
 
   const toggleTheme = useCallback(() => {
     setIsDarkTheme(prev => !prev);
-  }, []);
-
-  // Memoized click handlers
-  const handleBitcoinClick = useCallback(() => {
-    setSelectedBranch(prev => prev === 'bitcoin' ? null : 'bitcoin');
-    setDefiView('main');
-  }, []);
-
-  const handleDeFiClick = useCallback(() => {
-    setSelectedBranch(prev => prev === 'defi' ? null : 'defi');
-    setDefiView('main');
   }, []);
 
   const showToast = useCallback((message: string) => {
@@ -377,14 +349,6 @@ function App() {
     window.open('https://app.zerion.io/portfolio/overview', '_blank', 'noopener,noreferrer');
   }, []);
 
-  const openLending = useCallback(() => {
-    setDefiView('lending');
-  }, []);
-
-  const openSwap = useCallback(() => {
-    setDefiView('swap');
-  }, []);
-
   const openAave = useCallback(() => {
     window.open('https://app.aave.com/', '_blank', 'noopener,noreferrer');
   }, []);
@@ -408,17 +372,6 @@ function App() {
   const openBlockExplorer = useCallback(() => {
     window.open('https://basescan.org/', '_blank', 'noopener,noreferrer');
   }, []);
-
-  const [activeInfoTab, setActiveInfoTab] = useState<'about' | 'roadmap'>('about');
-  const [activeBitcoinDefiTab, setActiveBitcoinDefiTab] = useState<'bitcoin' | 'defi'>('bitcoin');
-
-  const goBackToDefiMain = useCallback(() => {
-    setDefiView('main');
-  }, []);
-
-  // Memoized computed values
-  const isBitcoinActive = useMemo(() => selectedBranch === 'bitcoin', [selectedBranch]);
-  const isDeFiActive = useMemo(() => selectedBranch === 'defi', [selectedBranch]);
 
   return (
     <div className="vine-app">
@@ -469,49 +422,74 @@ function App() {
         </a>
       </motion.header>
 
-      {/* Main Vine Branch */}
+      {/* Main Content */}
       <main className="vine-main">
-        <motion.div 
-          className="branch-container"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-        >
-          {/* Bitcoin Branch */}
-          <BranchButton 
-            text="Bitcoin"
-            isActive={isBitcoinActive}
-            onClick={handleBitcoinClick}
-          />
+        {/* Explanations at the top */}
+        <div className="explanation-section" style={{marginBottom: '2rem'}}>
+          <div className="content-section">
+            <h2 className="tab-title">Bitcoin</h2>
+            <p className="tab-text">{bitcoinExplanation}</p>
+          </div>
+          <div className="content-section">
+            <h2 className="tab-title">DeFi</h2>
+            <p className="tab-text">{defiExplanation}</p>
+          </div>
+        </div>
 
-          {/* DeFi Branch */}
-          <BranchButton 
-            text="DeFi"
-            isActive={isDeFiActive}
-            onClick={handleDeFiClick}
-          />
-        </motion.div>
+        {/* Top-level Tabs */}
+        <div className="tab-navigation" style={{marginBottom: '2rem'}}>
+          <button
+            className={`tab-button ${topTab === 'bitcoin' ? 'active' : ''}`}
+            onClick={() => setTopTab('bitcoin')}
+            aria-selected={topTab === 'bitcoin'}
+            role="tab"
+          >
+            Bitcoin
+          </button>
+          <button
+            className={`tab-button ${topTab === 'defi' ? 'active' : ''}`}
+            onClick={() => setTopTab('defi')}
+            aria-selected={topTab === 'defi'}
+            role="tab"
+          >
+            DeFi
+          </button>
+        </div>
 
-        {/* Tree-style content area */}
-        <motion.div 
-          className="tree-content"
-          layout
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        >
-          <AnimatePresence mode="wait">
-            {/* Bitcoin Leaves */}
-            {selectedBranch === 'bitcoin' && (
-              <motion.div 
-                key="bitcoin"
-                className="leaves-container bitcoin-leaves"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                layout
-              >
-                <LeafCard className="node-card">
-                  <h3 className="leaf-title">Connect to a Node</h3>
+        {/* Tab Content */}
+        <div className="tab-content" role="tabpanel">
+          {/* Bitcoin Tab Content */}
+          {topTab === 'bitcoin' && (
+            <div>
+              {/* Nested Tabs for Bitcoin */}
+              <div className="tab-navigation" style={{marginBottom: '1.5rem'}}>
+                <button
+                  className={`tab-button ${bitcoinTab === 'node' ? 'active' : ''}`}
+                  onClick={() => setBitcoinTab('node')}
+                  aria-selected={bitcoinTab === 'node'}
+                  role="tab"
+                >
+                  Connect to a Node
+                </button>
+                <button
+                  className={`tab-button ${bitcoinTab === 'mempool' ? 'active' : ''}`}
+                  onClick={() => setBitcoinTab('mempool')}
+                  aria-selected={bitcoinTab === 'mempool'}
+                  role="tab"
+                >
+                  Mempool
+                </button>
+              </div>
+              {/* Nested Tab Content */}
+              {bitcoinTab === 'node' && (
+                <motion.div
+                  className="tab-panel"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <h3 className="tab-title">Connect to a Node</h3>
                   <div className="node-info">
                     <div className="info-row">
                       <p>Electrum Server Hostname:</p>
@@ -538,292 +516,140 @@ function App() {
                       </div>
                     </div>
                   </div>
-                </LeafCard>
-                
-                <LeafCard className="mempool-card" onClick={openMempool}>
-                  <span className="mempool-text">View Mempool</span>
-                </LeafCard>
-              </motion.div>
-            )}
-
-            {/* DeFi Leaves */}
-            {selectedBranch === 'defi' && (
-              <motion.div 
-                key="defi"
-                className="leaves-container defi-leaves"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                layout
-              >
-                <AnimatePresence mode="wait">
-                  {defiView === 'main' ? (
-                    <motion.div
-                      key="defi-main"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <DeFiCard 
-                        title="Zerion"
-                        subtitle="Track any wallet"
-                        className="zerion-card"
-                        onClick={openZerion}
-                      />
-                      
-                      <DeFiCard 
-                        title="Earn & Borrow"
-                        className="lending-card"
-                        onClick={openLending}
-                      />
-                      
-                      <DeFiCard 
-                        title="Token Swap"
-                        className="swap-card"
-                        onClick={openSwap}
-                      />
-
-                      <DeFiCard 
-                        title="Block Explorer"
-                        subtitle="Browse Base-chain blocks & transactions"
-                        className="explorer-card"
-                        onClick={openBlockExplorer}
-                      />
-
-                      {/* Tabbed Info Section */}
-                      <motion.div 
-                        className="info-tabbed-card"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
+                </motion.div>
+              )}
+              {bitcoinTab === 'mempool' && (
+                <motion.div
+                  className="tab-panel"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <h3 className="tab-title">View Mempool</h3>
+                  <div className="mempool-content">
+                    <div className="content-section">
+                      <h4 className="content-subtitle">Real-Time Monitoring</h4>
+                      <p className="tab-text">
+                        Monitor the Bitcoin mempool to see pending transactions, network congestion, and fee rates. This helps you optimize your transaction timing and fees.
+                      </p>
+                    </div>
+                    <div className="content-section">
+                      <h4 className="content-subtitle">Network Activity</h4>
+                      <p className="tab-text">
+                        View live transaction activity across the Bitcoin network. Track transaction confirmations and understand network dynamics in real-time.
+                      </p>
+                    </div>
+                    <div className="content-section">
+                      <button 
+                        className="mempool-button"
+                        onClick={openMempool}
                       >
-                        {/* Tab Navigation */}
-                        <div className="tab-navigation">
-                          <button
-                            onClick={() => setActiveInfoTab('about')}
-                            className={`tab-button ${activeInfoTab === 'about' ? 'active' : ''}`}
-                            aria-selected={activeInfoTab === 'about'}
-                            role="tab"
-                          >
-                            About Our App
-                          </button>
-                          <button
-                            onClick={() => setActiveInfoTab('roadmap')}
-                            className={`tab-button ${activeInfoTab === 'roadmap' ? 'active' : ''}`}
-                            aria-selected={activeInfoTab === 'roadmap'}
-                            role="tab"
-                          >
-                            Roadmap
-                          </button>
-                        </div>
+                        Open Mempool Viewer
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          )}
 
-                        {/* Tab Content */}
-                        <div className="tab-content" role="tabpanel">
-                          <AnimatePresence mode="wait">
-                            {activeInfoTab === 'about' ? (
-                              <motion.div
-                                key="about"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.2 }}
-                                className="tab-panel"
-                              >
-                                <h3 className="tab-title">About Our App</h3>
-                                <p className="tab-text">
-                                  Our app is a digital home base designed to help users access trustworthy Bitcoin and DeFi tools—securely, simply, and sovereignly. Like a muscadine vine, it grows outward, linking you to the strongest parts of the decentralized ecosystem: from running a Bitcoin node, to viewing mempools, to learning about the financial revolution through DeFi. The goal is accessibility with resilience—technology that roots you in freedom.
-                                </p>
-                              </motion.div>
-                            ) : (
-                              <motion.div
-                                key="roadmap"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.2 }}
-                                className="tab-panel"
-                              >
-                                <h3 className="tab-title">Roadmap</h3>
-                                <div className="roadmap-content">
-                                  <div className="roadmap-section">
-                                    <h4 className="roadmap-subtitle">Short-Term Goals</h4>
-                                    <p className="tab-text">
-                                      Roll out intuitive UI enhancements and introduce new features that reinforce Muscadine's mission of secure, accessible on-chain tools.
-                                    </p>
-                                  </div>
-                                  <div className="roadmap-section">
-                                    <h4 className="roadmap-subtitle">Long-Term Vision (by end of 2025)</h4>
-                                    <p className="tab-text">
-                                      Launch fully automated vault integrations to securely optimize yield on Bitcoin and USDC—giving users a hands-off, trustless way to earn.
-                                    </p>
-                                  </div>
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      </motion.div>
-
-                      {/* Bitcoin & DeFi Tabbed Section */}
-                      <motion.div 
-                        className="info-tabbed-card bitcoin-defi-tabs"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3, delay: 0.1 }}
-                      >
-                        {/* Tab Navigation */}
-                        <div className="tab-navigation">
-                          <button
-                            onClick={() => setActiveBitcoinDefiTab('bitcoin')}
-                            className={`tab-button ${activeBitcoinDefiTab === 'bitcoin' ? 'active' : ''}`}
-                            aria-selected={activeBitcoinDefiTab === 'bitcoin'}
-                            role="tab"
-                          >
-                            Bitcoin
-                          </button>
-                          <button
-                            onClick={() => setActiveBitcoinDefiTab('defi')}
-                            className={`tab-button ${activeBitcoinDefiTab === 'defi' ? 'active' : ''}`}
-                            aria-selected={activeBitcoinDefiTab === 'defi'}
-                            role="tab"
-                          >
-                            DeFi
-                          </button>
-                        </div>
-
-                        {/* Tab Content */}
-                        <div className="tab-content" role="tabpanel">
-                          <AnimatePresence mode="wait">
-                            {activeBitcoinDefiTab === 'bitcoin' ? (
-                              <motion.div
-                                key="bitcoin-content"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.2 }}
-                                className="tab-panel"
-                              >
-                                <h3 className="tab-title">Bitcoin</h3>
-                                <div className="bitcoin-content">
-                                  <div className="content-section">
-                                    <h4 className="content-subtitle">Node Connection</h4>
-                                    <p className="tab-text">
-                                      Connect to our secure Bitcoin node to access the network directly. Use the Electrum server hostname and port provided above for a private, non-custodial Bitcoin experience.
-                                    </p>
-                                  </div>
-                                  <div className="content-section">
-                                    <h4 className="content-subtitle">Mempool Monitoring</h4>
-                                    <p className="tab-text">
-                                      View real-time transaction activity in the Bitcoin mempool. Monitor network congestion, fee rates, and pending transactions to optimize your Bitcoin transactions.
-                                    </p>
-                                  </div>
-                                  <div className="content-section">
-                                    <h4 className="content-subtitle">Self-Sovereignty</h4>
-                                    <p className="tab-text">
-                                      Maintain full control over your Bitcoin with non-custodial tools. Our infrastructure supports your journey toward financial independence and censorship resistance.
-                                    </p>
-                                  </div>
-                                </div>
-                              </motion.div>
-                            ) : (
-                              <motion.div
-                                key="defi-content"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.2 }}
-                                className="tab-panel"
-                              >
-                                <h3 className="tab-title">DeFi</h3>
-                                <div className="defi-content">
-                                  <div className="content-section">
-                                    <h4 className="content-subtitle">Portfolio Tracking</h4>
-                                    <p className="tab-text">
-                                      Monitor your DeFi positions across multiple protocols with Zerion. Track yields, manage positions, and analyze your portfolio performance in real-time.
-                                    </p>
-                                  </div>
-                                  <div className="content-section">
-                                    <h4 className="content-subtitle">Lending & Borrowing</h4>
-                                    <p className="tab-text">
-                                      Access competitive lending protocols like Aave, Moonwell, and Morpho. Earn yield on your assets or borrow against your collateral with transparent, on-chain rates.
-                                    </p>
-                                  </div>
-                                  <div className="content-section">
-                                    <h4 className="content-subtitle">Token Swapping</h4>
-                                    <p className="tab-text">
-                                      Trade tokens efficiently through Aerodrome and Uniswap on Base network. Enjoy low fees, deep liquidity, and seamless cross-protocol trading experiences.
-                                    </p>
-                                  </div>
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      </motion.div>
-                    </motion.div>
-                  ) : defiView === 'lending' ? (
-                    <motion.div
-                      key="defi-lending"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <BackButton onClick={goBackToDefiMain} />
-                      
-                      <DeFiCard 
-                        title="Aave"
-                        className="aave-card"
-                        onClick={openAave}
-                        aboutLink="https://aave.com/docs"
-                      />
-                      
-                      <DeFiCard 
-                        title="Moonwell"
-                        className="moonwell-card"
-                        onClick={openMoonwell}
-                        aboutLink="https://docs.moonwell.fi/moonwell/"
-                      />
-                      
-                      <DeFiCard 
-                        title="Morpho"
-                        className="morpho-card"
-                        onClick={openMorpho}
-                        aboutLink="https://docs.morpho.org/overview/"
-                      />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="defi-swap"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <BackButton onClick={goBackToDefiMain} />
-                      
-                      <DeFiCard 
-                        title="Aerodrome"
-                        className="aerodrome-card"
-                        onClick={openAerodrome}
-                        aboutLink="https://aerodrome.finance/docs"
-                      />
-                      
-                      <DeFiCard 
-                        title="Uniswap"
-                        className="uniswap-card"
-                        onClick={openUniswap}
-                        aboutLink="https://docs.uniswap.org/"
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
+          {/* DeFi Tab Content */}
+          {topTab === 'defi' && (
+            <div>
+              {/* Nested Tabs for DeFi */}
+              <div className="tab-navigation" style={{marginBottom: '1.5rem'}}>
+                <button
+                  className={`tab-button ${defiTab === 'portfolio' ? 'active' : ''}`}
+                  onClick={() => setDefiTab('portfolio')}
+                  aria-selected={defiTab === 'portfolio'}
+                  role="tab"
+                >
+                  Portfolio Tracking
+                </button>
+                <button
+                  className={`tab-button ${defiTab === 'lending' ? 'active' : ''}`}
+                  onClick={() => setDefiTab('lending')}
+                  aria-selected={defiTab === 'lending'}
+                  role="tab"
+                >
+                  Earn & Borrow
+                </button>
+                <button
+                  className={`tab-button ${defiTab === 'swap' ? 'active' : ''}`}
+                  onClick={() => setDefiTab('swap')}
+                  aria-selected={defiTab === 'swap'}
+                  role="tab"
+                >
+                  Token Swap
+                </button>
+                <button
+                  className={`tab-button ${defiTab === 'explorer' ? 'active' : ''}`}
+                  onClick={() => setDefiTab('explorer')}
+                  aria-selected={defiTab === 'explorer'}
+                  role="tab"
+                >
+                  Block Explorer
+                </button>
+              </div>
+              {/* Nested Tab Content */}
+              {defiTab === 'portfolio' && (
+                <DeFiCard 
+                  title="Zerion"
+                  subtitle="Track any wallet"
+                  className="zerion-card"
+                  onClick={openZerion}
+                />
+              )}
+              {defiTab === 'lending' && (
+                <div>
+                  <DeFiCard 
+                    title="Aave"
+                    className="aave-card"
+                    onClick={openAave}
+                    aboutLink="https://aave.com/docs"
+                  />
+                  <DeFiCard 
+                    title="Moonwell"
+                    className="moonwell-card"
+                    onClick={openMoonwell}
+                    aboutLink="https://docs.moonwell.fi/moonwell/"
+                  />
+                  <DeFiCard 
+                    title="Morpho"
+                    className="morpho-card"
+                    onClick={openMorpho}
+                    aboutLink="https://docs.morpho.org/overview/"
+                  />
+                </div>
+              )}
+              {defiTab === 'swap' && (
+                <div>
+                  <DeFiCard 
+                    title="Aerodrome"
+                    className="aerodrome-card"
+                    onClick={openAerodrome}
+                    aboutLink="https://aerodrome.finance/docs"
+                  />
+                  <DeFiCard 
+                    title="Uniswap"
+                    className="uniswap-card"
+                    onClick={openUniswap}
+                    aboutLink="https://docs.uniswap.org/"
+                  />
+                </div>
+              )}
+              {defiTab === 'explorer' && (
+                <DeFiCard 
+                  title="Block Explorer"
+                  subtitle="Browse Base-chain blocks & transactions"
+                  className="explorer-card"
+                  onClick={openBlockExplorer}
+                />
+              )}
+            </div>
+          )}
+        </div>
       </main>
 
       {/* Glossary Modal */}
