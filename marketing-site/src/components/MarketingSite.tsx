@@ -101,9 +101,20 @@ const MarketingSite: React.FC = () => {
                 </div>
               ) : (
                 <div className="space-y-8 text-body">
-                  <p>
-                    Within six months, we will launch DeFi automation vaults, deliver UI enhancements, and introduce new features to expand Muscadine's mission of secure, accessible on-chain tools. Watch this space for detailed milestones, goals, and timelines.
-                  </p>
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xl font-semibold text-stone-800 mb-3">Short-Term Goals</h4>
+                      <p className="text-stone-700">
+                        Roll out intuitive UI enhancements and introduce new features that reinforce Muscadine's mission of secure, accessible on-chain tools.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-semibold text-stone-800 mb-3">Long-Term Vision (by end of 2025)</h4>
+                      <p className="text-stone-700">
+                        Launch fully automated vault integrations to securely optimize yield on Bitcoin and USDC—giving users a hands-off, trustless way to earn.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>

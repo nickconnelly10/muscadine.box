@@ -409,9 +409,8 @@ function App() {
     window.open('https://basescan.org/', '_blank', 'noopener,noreferrer');
   }, []);
 
-  const openEducationGuides = useCallback(() => {
-    window.open('https://nicholasconnelly.substack.com/', '_blank', 'noopener,noreferrer');
-  }, []);
+  const [activeInfoTab, setActiveInfoTab] = useState<'about' | 'roadmap'>('about');
+  const [activeBitcoinDefiTab, setActiveBitcoinDefiTab] = useState<'bitcoin' | 'defi'>('bitcoin');
 
   const goBackToDefiMain = useCallback(() => {
     setDefiView('main');
@@ -593,12 +592,176 @@ function App() {
                         onClick={openBlockExplorer}
                       />
 
-                      <DeFiCard 
-                        title="Education & Guides"
-                        subtitle="Learn about nodes, DeFi, and self-custody"
-                        className="education-card"
-                        onClick={openEducationGuides}
-                      />
+                      {/* Tabbed Info Section */}
+                      <motion.div 
+                        className="info-tabbed-card"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {/* Tab Navigation */}
+                        <div className="tab-navigation">
+                          <button
+                            onClick={() => setActiveInfoTab('about')}
+                            className={`tab-button ${activeInfoTab === 'about' ? 'active' : ''}`}
+                            aria-selected={activeInfoTab === 'about'}
+                            role="tab"
+                          >
+                            About Our App
+                          </button>
+                          <button
+                            onClick={() => setActiveInfoTab('roadmap')}
+                            className={`tab-button ${activeInfoTab === 'roadmap' ? 'active' : ''}`}
+                            aria-selected={activeInfoTab === 'roadmap'}
+                            role="tab"
+                          >
+                            Roadmap
+                          </button>
+                        </div>
+
+                        {/* Tab Content */}
+                        <div className="tab-content" role="tabpanel">
+                          <AnimatePresence mode="wait">
+                            {activeInfoTab === 'about' ? (
+                              <motion.div
+                                key="about"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.2 }}
+                                className="tab-panel"
+                              >
+                                <h3 className="tab-title">About Our App</h3>
+                                <p className="tab-text">
+                                  Our app is a digital home base designed to help users access trustworthy Bitcoin and DeFi tools—securely, simply, and sovereignly. Like a muscadine vine, it grows outward, linking you to the strongest parts of the decentralized ecosystem: from running a Bitcoin node, to viewing mempools, to learning about the financial revolution through DeFi. The goal is accessibility with resilience—technology that roots you in freedom.
+                                </p>
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                key="roadmap"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.2 }}
+                                className="tab-panel"
+                              >
+                                <h3 className="tab-title">Roadmap</h3>
+                                <div className="roadmap-content">
+                                  <div className="roadmap-section">
+                                    <h4 className="roadmap-subtitle">Short-Term Goals</h4>
+                                    <p className="tab-text">
+                                      Roll out intuitive UI enhancements and introduce new features that reinforce Muscadine's mission of secure, accessible on-chain tools.
+                                    </p>
+                                  </div>
+                                  <div className="roadmap-section">
+                                    <h4 className="roadmap-subtitle">Long-Term Vision (by end of 2025)</h4>
+                                    <p className="tab-text">
+                                      Launch fully automated vault integrations to securely optimize yield on Bitcoin and USDC—giving users a hands-off, trustless way to earn.
+                                    </p>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </motion.div>
+
+                      {/* Bitcoin & DeFi Tabbed Section */}
+                      <motion.div 
+                        className="info-tabbed-card bitcoin-defi-tabs"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                      >
+                        {/* Tab Navigation */}
+                        <div className="tab-navigation">
+                          <button
+                            onClick={() => setActiveBitcoinDefiTab('bitcoin')}
+                            className={`tab-button ${activeBitcoinDefiTab === 'bitcoin' ? 'active' : ''}`}
+                            aria-selected={activeBitcoinDefiTab === 'bitcoin'}
+                            role="tab"
+                          >
+                            Bitcoin
+                          </button>
+                          <button
+                            onClick={() => setActiveBitcoinDefiTab('defi')}
+                            className={`tab-button ${activeBitcoinDefiTab === 'defi' ? 'active' : ''}`}
+                            aria-selected={activeBitcoinDefiTab === 'defi'}
+                            role="tab"
+                          >
+                            DeFi
+                          </button>
+                        </div>
+
+                        {/* Tab Content */}
+                        <div className="tab-content" role="tabpanel">
+                          <AnimatePresence mode="wait">
+                            {activeBitcoinDefiTab === 'bitcoin' ? (
+                              <motion.div
+                                key="bitcoin-content"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.2 }}
+                                className="tab-panel"
+                              >
+                                <h3 className="tab-title">Bitcoin</h3>
+                                <div className="bitcoin-content">
+                                  <div className="content-section">
+                                    <h4 className="content-subtitle">Node Connection</h4>
+                                    <p className="tab-text">
+                                      Connect to our secure Bitcoin node to access the network directly. Use the Electrum server hostname and port provided above for a private, non-custodial Bitcoin experience.
+                                    </p>
+                                  </div>
+                                  <div className="content-section">
+                                    <h4 className="content-subtitle">Mempool Monitoring</h4>
+                                    <p className="tab-text">
+                                      View real-time transaction activity in the Bitcoin mempool. Monitor network congestion, fee rates, and pending transactions to optimize your Bitcoin transactions.
+                                    </p>
+                                  </div>
+                                  <div className="content-section">
+                                    <h4 className="content-subtitle">Self-Sovereignty</h4>
+                                    <p className="tab-text">
+                                      Maintain full control over your Bitcoin with non-custodial tools. Our infrastructure supports your journey toward financial independence and censorship resistance.
+                                    </p>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                key="defi-content"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.2 }}
+                                className="tab-panel"
+                              >
+                                <h3 className="tab-title">DeFi</h3>
+                                <div className="defi-content">
+                                  <div className="content-section">
+                                    <h4 className="content-subtitle">Portfolio Tracking</h4>
+                                    <p className="tab-text">
+                                      Monitor your DeFi positions across multiple protocols with Zerion. Track yields, manage positions, and analyze your portfolio performance in real-time.
+                                    </p>
+                                  </div>
+                                  <div className="content-section">
+                                    <h4 className="content-subtitle">Lending & Borrowing</h4>
+                                    <p className="tab-text">
+                                      Access competitive lending protocols like Aave, Moonwell, and Morpho. Earn yield on your assets or borrow against your collateral with transparent, on-chain rates.
+                                    </p>
+                                  </div>
+                                  <div className="content-section">
+                                    <h4 className="content-subtitle">Token Swapping</h4>
+                                    <p className="tab-text">
+                                      Trade tokens efficiently through Aerodrome and Uniswap on Base network. Enjoy low fees, deep liquidity, and seamless cross-protocol trading experiences.
+                                    </p>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </motion.div>
                     </motion.div>
                   ) : defiView === 'lending' ? (
                     <motion.div
