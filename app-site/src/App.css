@@ -1229,4 +1229,14 @@ body.dark-theme .mempool-button:hover {
     width: 100%;
     text-align: center;
   }
+}
+
+.big-tab {
+  font-size: 1.5rem;
+  padding: 1.25rem 3rem;
+}
+
+.largest-tab {
+  font-size: 2.1rem;
+  padding: 2rem 4rem;
 } 

@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, memo, useEffect } from 'react';
+import { useState, useCallback, memo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
 
@@ -175,37 +175,6 @@ const Footer = memo(() => (
   </motion.footer>
 ));
 
-// Memoized Branch Button Component
-const BranchButton = memo(({ 
-  text, 
-  isActive, 
-  onClick 
-}: { 
-  text: string; 
-  isActive: boolean; 
-  onClick: () => void; 
-}) => (
-  <motion.button 
-    className={`vine-branch ${isActive ? 'active' : ''}`}
-    onClick={onClick}
-    whileHover={{ 
-      y: -12, 
-      scale: 1.05,
-      transition: { duration: 0.2, ease: "easeOut" }
-    }}
-    whileTap={{ 
-      scale: 0.98,
-      transition: { duration: 0.1 }
-    }}
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.3, ease: "easeOut" }}
-  >
-    <span className="branch-text">{text}</span>
-    <div className="vine-decoration"></div>
-  </motion.button>
-));
-
 // Memoized Copy Button Component
 const CopyButton = memo(({ 
   text, 
@@ -227,8 +196,6 @@ const CopyButton = memo(({
     📋
   </motion.button>
 ));
-
-
 
 // Memoized DeFi Card Component with About Link
 const DeFiCard = memo(({ 
@@ -277,25 +244,23 @@ const DeFiCard = memo(({
   </motion.div>
 ));
 
-// Memoized Back Button Component
-const BackButton = memo(({ onClick }: { onClick: () => void }) => (
-  <motion.button 
-    className="back-button" 
-    onClick={onClick}
-    initial={{ opacity: 0, x: -20 }}
-    animate={{ opacity: 1, x: 0 }}
-    exit={{ opacity: 0, x: -20 }}
-    transition={{ duration: 0.2, ease: "easeOut" }}
-    whileHover={{ y: -2 }}
-    whileTap={{ scale: 0.98 }}
-  >
-    ← Back to DeFi
-  </motion.button>
-));
-
 // 1. Add explanation content at the top of the main content
 const bitcoinExplanation = "Bitcoin is a decentralized digital currency that operates on a peer-to-peer network, enabling secure transactions without intermediaries.";
 const defiExplanation = "DeFi (Decentralized Finance) refers to financial services built on blockchain technology that operate without traditional intermediaries.";
+
+// Add node explanation
+const nodeExplanation = "A node is a computer that participates in the Bitcoin network by validating transactions and blocks. Running your own node gives you full control and privacy over your Bitcoin experience.";
+
+// Add explanations for Earn & Borrow and Token Swap
+const lendingExplanation = "Earn & Borrow lets you lend your crypto to earn interest or borrow assets by providing collateral. These protocols are non-custodial and operate transparently on-chain.";
+const swapExplanation = "Token Swap allows you to exchange one cryptocurrency for another instantly using decentralized exchanges, without relying on a central authority.";
+
+// Add mempool and block explorer explanations
+const mempoolExplanation = "The mempool (memory pool) is where unconfirmed Bitcoin transactions wait before being added to a block. It helps the network manage and prioritize pending transactions.";
+const blockExplorerExplanation = "A block explorer is a tool that lets you view and search all transactions, addresses, and blocks on a blockchain. It provides transparency and insight into network activity.";
+
+// Add portfolio tracking explanation
+const portfolioExplanation = "Portfolio tracking lets you monitor your crypto assets and DeFi positions across multiple protocols in one place. It helps you stay informed about your balances, yields, and overall performance.";
 
 function App() {
   const [topTab, setTopTab] = useState<'bitcoin' | 'defi'>('bitcoin');
@@ -424,22 +389,10 @@ function App() {
 
       {/* Main Content */}
       <main className="vine-main">
-        {/* Explanations at the top */}
-        <div className="explanation-section" style={{marginBottom: '2rem'}}>
-          <div className="content-section">
-            <h2 className="tab-title">Bitcoin</h2>
-            <p className="tab-text">{bitcoinExplanation}</p>
-          </div>
-          <div className="content-section">
-            <h2 className="tab-title">DeFi</h2>
-            <p className="tab-text">{defiExplanation}</p>
-          </div>
-        </div>
-
-        {/* Top-level Tabs */}
-        <div className="tab-navigation" style={{marginBottom: '2rem'}}>
+        {/* Top-level Tabs - reduce top margin even more */}
+        <div className="tab-navigation big-tab-nav" style={{margin: '0.25rem 0 2rem 0'}}>
           <button
-            className={`tab-button ${topTab === 'bitcoin' ? 'active' : ''}`}
+            className={`tab-button big-tab largest-tab ${topTab === 'bitcoin' ? 'active' : ''}`}
             onClick={() => setTopTab('bitcoin')}
             aria-selected={topTab === 'bitcoin'}
             role="tab"
@@ -447,7 +400,7 @@ function App() {
             Bitcoin
           </button>
           <button
-            className={`tab-button ${topTab === 'defi' ? 'active' : ''}`}
+            className={`tab-button big-tab largest-tab ${topTab === 'defi' ? 'active' : ''}`}
             onClick={() => setTopTab('defi')}
             aria-selected={topTab === 'defi'}
             role="tab"
@@ -461,6 +414,11 @@ function App() {
           {/* Bitcoin Tab Content */}
           {topTab === 'bitcoin' && (
             <div>
+              {/* Explanation under Bitcoin tab */}
+              <div className="content-section" style={{marginBottom: '1.5rem'}}>
+                <h2 className="tab-title">Bitcoin</h2>
+                <p className="tab-text">{bitcoinExplanation}</p>
+              </div>
               {/* Nested Tabs for Bitcoin */}
               <div className="tab-navigation" style={{marginBottom: '1.5rem'}}>
                 <button
@@ -490,6 +448,10 @@ function App() {
                   transition={{ duration: 0.2 }}
                 >
                   <h3 className="tab-title">Connect to a Node</h3>
+                  {/* Node explanation */}
+                  <div className="content-section" style={{marginBottom: '1rem'}}>
+                    <p className="tab-text">{nodeExplanation}</p>
+                  </div>
                   <div className="node-info">
                     <div className="info-row">
                       <p>Electrum Server Hostname:</p>
@@ -527,27 +489,17 @@ function App() {
                   transition={{ duration: 0.2 }}
                 >
                   <h3 className="tab-title">View Mempool</h3>
-                  <div className="mempool-content">
-                    <div className="content-section">
-                      <h4 className="content-subtitle">Real-Time Monitoring</h4>
-                      <p className="tab-text">
-                        Monitor the Bitcoin mempool to see pending transactions, network congestion, and fee rates. This helps you optimize your transaction timing and fees.
-                      </p>
-                    </div>
-                    <div className="content-section">
-                      <h4 className="content-subtitle">Network Activity</h4>
-                      <p className="tab-text">
-                        View live transaction activity across the Bitcoin network. Track transaction confirmations and understand network dynamics in real-time.
-                      </p>
-                    </div>
-                    <div className="content-section">
-                      <button 
-                        className="mempool-button"
-                        onClick={openMempool}
-                      >
-                        Open Mempool Viewer
-                      </button>
-                    </div>
+                  {/* Mempool explanation */}
+                  <div className="content-section" style={{marginBottom: '1rem'}}>
+                    <p className="tab-text">{mempoolExplanation}</p>
+                  </div>
+                  <div className="content-section">
+                    <button 
+                      className="mempool-button"
+                      onClick={openMempool}
+                    >
+                      Open Mempool Viewer
+                    </button>
                   </div>
                 </motion.div>
               )}
@@ -557,6 +509,11 @@ function App() {
           {/* DeFi Tab Content */}
           {topTab === 'defi' && (
             <div>
+              {/* Explanation under DeFi tab */}
+              <div className="content-section" style={{marginBottom: '1.5rem'}}>
+                <h2 className="tab-title">DeFi</h2>
+                <p className="tab-text">{defiExplanation}</p>
+              </div>
               {/* Nested Tabs for DeFi */}
               <div className="tab-navigation" style={{marginBottom: '1.5rem'}}>
                 <button
@@ -594,58 +551,94 @@ function App() {
               </div>
               {/* Nested Tab Content */}
               {defiTab === 'portfolio' && (
-                <DeFiCard 
-                  title="Zerion"
-                  subtitle="Track any wallet"
-                  className="zerion-card"
-                  onClick={openZerion}
-                />
+                <div>
+                  {/* Portfolio tracking explanation */}
+                  <div className="content-section" style={{marginBottom: '1rem'}}>
+                    <p className="tab-text">{portfolioExplanation}</p>
+                  </div>
+                  <DeFiCard 
+                    title="Zerion"
+                    subtitle="Track any wallet"
+                    className="zerion-card"
+                    onClick={openZerion}
+                  />
+                </div>
               )}
               {defiTab === 'lending' && (
                 <div>
-                  <DeFiCard 
-                    title="Aave"
-                    className="aave-card"
-                    onClick={openAave}
-                    aboutLink="https://aave.com/docs"
-                  />
-                  <DeFiCard 
-                    title="Moonwell"
-                    className="moonwell-card"
-                    onClick={openMoonwell}
-                    aboutLink="https://docs.moonwell.fi/moonwell/"
-                  />
-                  <DeFiCard 
-                    title="Morpho"
-                    className="morpho-card"
-                    onClick={openMorpho}
-                    aboutLink="https://docs.morpho.org/overview/"
-                  />
+                  {/* Lending explanation */}
+                  <div className="content-section" style={{marginBottom: '1rem'}}>
+                    <p className="tab-text">{lendingExplanation}</p>
+                  </div>
+                  {/* Protocol cards in a row, spaced evenly */}
+                  <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'stretch', gap: '1.5rem', maxWidth: 900, margin: '0 auto'}}>
+                    <div style={{flex: 1, display: 'flex', justifyContent: 'flex-start'}}>
+                      <DeFiCard 
+                        title="Aave"
+                        className="aave-card"
+                        onClick={openAave}
+                        aboutLink="https://aave.com/docs"
+                      />
+                    </div>
+                    <div style={{flex: 1, display: 'flex', justifyContent: 'center'}}>
+                      <DeFiCard 
+                        title="Moonwell"
+                        className="moonwell-card"
+                        onClick={openMoonwell}
+                        aboutLink="https://docs.moonwell.fi/moonwell/"
+                      />
+                    </div>
+                    <div style={{flex: 1, display: 'flex', justifyContent: 'flex-end'}}>
+                      <DeFiCard 
+                        title="Morpho"
+                        className="morpho-card"
+                        onClick={openMorpho}
+                        aboutLink="https://docs.morpho.org/overview/"
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
               {defiTab === 'swap' && (
                 <div>
-                  <DeFiCard 
-                    title="Aerodrome"
-                    className="aerodrome-card"
-                    onClick={openAerodrome}
-                    aboutLink="https://aerodrome.finance/docs"
-                  />
-                  <DeFiCard 
-                    title="Uniswap"
-                    className="uniswap-card"
-                    onClick={openUniswap}
-                    aboutLink="https://docs.uniswap.org/"
-                  />
+                  {/* Swap explanation */}
+                  <div className="content-section" style={{marginBottom: '1rem'}}>
+                    <p className="tab-text">{swapExplanation}</p>
+                  </div>
+                  {/* Protocol cards in a row, spaced evenly */}
+                  <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'stretch', gap: '1.5rem', maxWidth: 600, margin: '0 auto'}}>
+                    <div style={{flex: 1, display: 'flex', justifyContent: 'flex-start'}}>
+                      <DeFiCard 
+                        title="Aerodrome"
+                        className="aerodrome-card"
+                        onClick={openAerodrome}
+                        aboutLink="https://aerodrome.finance/docs"
+                      />
+                    </div>
+                    <div style={{flex: 1, display: 'flex', justifyContent: 'flex-end'}}>
+                      <DeFiCard 
+                        title="Uniswap"
+                        className="uniswap-card"
+                        onClick={openUniswap}
+                        aboutLink="https://docs.uniswap.org/"
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
               {defiTab === 'explorer' && (
-                <DeFiCard 
-                  title="Block Explorer"
-                  subtitle="Browse Base-chain blocks & transactions"
-                  className="explorer-card"
-                  onClick={openBlockExplorer}
-                />
+                <div>
+                  {/* Block Explorer explanation */}
+                  <div className="content-section" style={{marginBottom: '1rem'}}>
+                    <p className="tab-text">{blockExplorerExplanation}</p>
+                  </div>
+                  <DeFiCard 
+                    title="Block Explorer"
+                    subtitle="Browse Base-chain blocks & transactions"
+                    className="explorer-card"
+                    onClick={openBlockExplorer}
+                  />
+                </div>
               )}
             </div>
           )}
