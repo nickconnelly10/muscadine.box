@@ -1,9 +1,83 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 
 const MarketingSite: React.FC = () => {
   const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   const appUrl = isLocalhost ? 'http://localhost:3002' : 'https://app.muscadine.box'
-  const [activeTab, setActiveTab] = useState<'app' | 'roadmap'>('app')
+  const [activeTab, setActiveTab] = useState<'about' | 'app' | 'roadmap' | 'bitcoin' | 'defi'>('about')
+  
+  // Bitcoin and DeFi state
+  const [bitcoinTab, setBitcoinTab] = useState<'node' | 'mempool'>('node')
+  const [defiTab, setDefiTab] = useState<'portfolio' | 'lending' | 'swap' | 'explorer'>('portfolio')
+  
+  // Explanations
+  const bitcoinExplanation = "Bitcoin is a decentralized digital currency that operates on a peer-to-peer network, enabling secure transactions without intermediaries.";
+  const defiExplanation = "DeFi (Decentralized Finance) refers to financial services built on blockchain technology that operate without traditional intermediaries.";
+  const nodeExplanation = "A node is a computer that participates in the Bitcoin network by validating transactions and blocks. Running your own node gives you full control and privacy over your Bitcoin experience.";
+  const mempoolExplanation = "The mempool (memory pool) is where unconfirmed Bitcoin transactions wait before being added to a block. It helps the network manage and prioritize pending transactions.";
+  const portfolioExplanation = "Portfolio tracking lets you monitor your crypto assets and DeFi positions across multiple protocols in one place. It helps you stay informed about your balances, yields, and overall performance.";
+  const lendingExplanation = "Earn & Borrow lets you lend your crypto to earn interest or borrow assets by providing collateral. These protocols are non-custodial and operate transparently on-chain.";
+  const swapExplanation = "Token Swap allows you to exchange one cryptocurrency for another instantly using decentralized exchanges, without relying on a central authority.";
+  const blockExplorerExplanation = "A block explorer is a tool that lets you view and search all transactions, addresses, and blocks on a blockchain. It provides transparency and insight into network activity.";
+
+  // External link handlers
+  const openMempool = useCallback(() => {
+    window.open('https://mempool.space', '_blank', 'noopener,noreferrer');
+  }, []);
+
+  const openZerion = useCallback(() => {
+    window.open('https://app.zerion.io/portfolio/overview', '_blank', 'noopener,noreferrer');
+  }, []);
+
+  const openAave = useCallback(() => {
+    window.open('https://app.aave.com/', '_blank', 'noopener,noreferrer');
+  }, []);
+
+  const openMoonwell = useCallback(() => {
+    window.open('https://moonwell.fi/portfolio', '_blank', 'noopener,noreferrer');
+  }, []);
+
+  const openMorpho = useCallback(() => {
+    window.open('https://app.morpho.org/base/earn', '_blank', 'noopener,noreferrer');
+  }, []);
+
+  const openAerodrome = useCallback(() => {
+    window.open('https://aerodrome.finance/', '_blank', 'noopener,noreferrer');
+  }, []);
+
+  const openUniswap = useCallback(() => {
+    window.open('https://app.uniswap.org/', '_blank', 'noopener,noreferrer');
+  }, []);
+
+  const openBlockExplorer = useCallback(() => {
+    window.open('https://basescan.org/', '_blank', 'noopener,noreferrer');
+  }, []);
+
+  // DeFi Card Component
+  const DeFiCard = ({ title, subtitle, className = "", onClick, aboutLink }: { 
+    title: string; 
+    subtitle?: string; 
+    className?: string; 
+    onClick: () => void;
+    aboutLink?: string;
+  }) => (
+    <div className={`bg-white border-2 border-stone-200 rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer ${className}`} onClick={onClick}>
+      <div className="text-center">
+        <h3 className="text-xl font-semibold text-stone-800 mb-2">{title}</h3>
+        {subtitle && <p className="text-sm text-stone-600 mb-4">{subtitle}</p>}
+        {aboutLink && (
+          <a
+            href={aboutLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-blue-600 hover:text-blue-800 underline"
+            onClick={(e) => e.stopPropagation()}
+          >
+            About
+          </a>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 to-stone-100">
@@ -40,34 +114,26 @@ const MarketingSite: React.FC = () => {
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 pb-20">
-        {/* About Section */}
-        <section className="mb-16">
-          <div className="card-elevated animate-slide-in-left">
-            <h2 className="section-title">
-              About Muscadine
-            </h2>
-            <div className="space-y-8 text-body">
-              <p>
-                At Muscadine, we believe Bitcoin and crypto are transforming the world—returning power to individuals through decentralization, financial sovereignty, and censorship-resistant technology. We began as a Bitcoin security consultancy, helping family and friends deploy nodes, establish non-custodial key management, and secure their assets with best-in-class privacy and resilience.
-              </p>
-              <p>
-                We see DeFi as an extension of this mission—a system that can democratize finance at a global scale. While our roots are in Bitcoin, we embrace the innovation of Ethereum's infrastructure, using it to build Bitcoin-aligned tools and vaults on scalable, composable protocols like Base.
-              </p>
-              <p>
-                Our mission is to empower individuals and institutions with secure, self-sovereign crypto infrastructure—built for a decentralized future.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* What We Do Section with Tabs */}
+        {/* Tabbed Section */}
         <section className="mb-16">
           <div className="card-elevated animate-slide-in-right">
             {/* Tab Navigation */}
-            <div className="flex border-b border-stone-200 mb-8">
+            <div className="flex border-b border-stone-200 mb-8 overflow-x-auto">
+              <button
+                onClick={() => setActiveTab('about')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                  activeTab === 'about'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={activeTab === 'about'}
+                role="tab"
+              >
+                About Muscadine
+              </button>
               <button
                 onClick={() => setActiveTab('app')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 ${
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
                   activeTab === 'app'
                     ? 'text-gold-600 border-b-2 border-gold-600'
                     : 'text-stone-500 hover:text-stone-700'
@@ -79,7 +145,7 @@ const MarketingSite: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab('roadmap')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 ${
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
                   activeTab === 'roadmap'
                     ? 'text-gold-600 border-b-2 border-gold-600'
                     : 'text-stone-500 hover:text-stone-700'
@@ -89,17 +155,57 @@ const MarketingSite: React.FC = () => {
               >
                 Roadmap
               </button>
+              <button
+                onClick={() => setActiveTab('bitcoin')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                  activeTab === 'bitcoin'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={activeTab === 'bitcoin'}
+                role="tab"
+              >
+                Bitcoin
+              </button>
+              <button
+                onClick={() => setActiveTab('defi')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                  activeTab === 'defi'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={activeTab === 'defi'}
+                role="tab"
+              >
+                DeFi
+              </button>
             </div>
 
             {/* Tab Content */}
             <div role="tabpanel" aria-labelledby={`tab-${activeTab}`}>
-              {activeTab === 'app' ? (
+              {activeTab === 'about' && (
+                <div className="space-y-8 text-body">
+                  <p>
+                    At Muscadine, we believe Bitcoin and crypto are transforming the world—returning power to individuals through decentralization, financial sovereignty, and censorship-resistant technology. We began as a Bitcoin security consultancy, helping family and friends deploy nodes, establish non-custodial key management, and secure their assets with best-in-class privacy and resilience.
+                  </p>
+                  <p>
+                    We see DeFi as an extension of this mission—a system that can democratize finance at a global scale. While our roots are in Bitcoin, we embrace the innovation of Ethereum's infrastructure, using it to build Bitcoin-aligned tools and vaults on scalable, composable protocols like Base.
+                  </p>
+                  <p>
+                    Our mission is to empower individuals and institutions with secure, self-sovereign crypto infrastructure—built for a decentralized future.
+                  </p>
+                </div>
+              )}
+              
+              {activeTab === 'app' && (
                 <div className="space-y-8 text-body">
                   <p>
                     Our app is a digital home base designed to help users access trustworthy Bitcoin and DeFi tools—securely, simply, and sovereignly. Like a muscadine vine, it grows outward, linking you to the strongest parts of the decentralized ecosystem: from running a Bitcoin node, to viewing mempools, to learning about the financial revolution through DeFi. The goal is accessibility with resilience—technology that roots you in freedom.
                   </p>
                 </div>
-              ) : (
+              )}
+              
+              {activeTab === 'roadmap' && (
                 <div className="space-y-8 text-body">
                   <div className="space-y-6">
                     <div>
@@ -115,6 +221,221 @@ const MarketingSite: React.FC = () => {
                       </p>
                     </div>
                   </div>
+                </div>
+              )}
+              
+              {activeTab === 'bitcoin' && (
+                <div>
+                  {/* Bitcoin explanation */}
+                  <div className="mb-6 p-4 bg-stone-50 rounded-lg border-l-4 border-gold-500">
+                    <p className="text-stone-700">{bitcoinExplanation}</p>
+                  </div>
+                  
+                  {/* Nested Tabs for Bitcoin */}
+                  <div className="flex border-b border-stone-200 mb-6">
+                    <button
+                      onClick={() => setBitcoinTab('node')}
+                      className={`px-4 py-2 font-medium text-base transition-all duration-200 ${
+                        bitcoinTab === 'node'
+                          ? 'text-gold-600 border-b-2 border-gold-600'
+                          : 'text-stone-500 hover:text-stone-700'
+                      }`}
+                    >
+                      Connect to a Node
+                    </button>
+                    <button
+                      onClick={() => setBitcoinTab('mempool')}
+                      className={`px-4 py-2 font-medium text-base transition-all duration-200 ${
+                        bitcoinTab === 'mempool'
+                          ? 'text-gold-600 border-b-2 border-gold-600'
+                          : 'text-stone-500 hover:text-stone-700'
+                      }`}
+                    >
+                      Mempool
+                    </button>
+                  </div>
+                  
+                  {/* Bitcoin Tab Content */}
+                  {bitcoinTab === 'node' && (
+                    <div>
+                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                        <p className="text-stone-700">{nodeExplanation}</p>
+                      </div>
+                      <div className="bg-white border border-stone-200 rounded-lg p-6">
+                        <h3 className="text-xl font-semibold text-stone-800 mb-4">Node Connection Details</h3>
+                        <div className="space-y-4">
+                          <div>
+                            <p className="text-sm text-stone-600 mb-2">Electrum Server Hostname:</p>
+                            <div className="flex items-center gap-2">
+                              <code className="bg-stone-100 px-3 py-2 rounded text-sm flex-1 break-all">
+                                lyfocxl3fgg3if65jo32apupd2adzmm772vsqrtwpmdn4ndoug6gwnyd.onion
+                              </code>
+                              <button className="bg-stone-600 text-white px-3 py-2 rounded text-sm hover:bg-stone-700">
+                                Copy
+                              </button>
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-sm text-stone-600 mb-2">Port:</p>
+                            <div className="flex items-center gap-2">
+                              <span className="bg-stone-100 px-3 py-2 rounded text-sm">50001</span>
+                              <button className="bg-stone-600 text-white px-3 py-2 rounded text-sm hover:bg-stone-700">
+                                Copy
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {bitcoinTab === 'mempool' && (
+                    <div>
+                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                        <p className="text-stone-700">{mempoolExplanation}</p>
+                      </div>
+                      <div className="text-center">
+                        <button 
+                          className="bg-gold-600 text-white px-8 py-3 rounded-lg hover:bg-gold-700 transition-colors"
+                          onClick={openMempool}
+                        >
+                          Open Mempool Viewer
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+              
+              {activeTab === 'defi' && (
+                <div>
+                  {/* DeFi explanation */}
+                  <div className="mb-6 p-4 bg-stone-50 rounded-lg border-l-4 border-gold-500">
+                    <p className="text-stone-700">{defiExplanation}</p>
+                  </div>
+                  
+                  {/* Nested Tabs for DeFi */}
+                  <div className="flex border-b border-stone-200 mb-6 overflow-x-auto">
+                    <button
+                      onClick={() => setDefiTab('portfolio')}
+                      className={`px-4 py-2 font-medium text-base transition-all duration-200 whitespace-nowrap ${
+                        defiTab === 'portfolio'
+                          ? 'text-gold-600 border-b-2 border-gold-600'
+                          : 'text-stone-500 hover:text-stone-700'
+                      }`}
+                    >
+                      Portfolio Tracking
+                    </button>
+                    <button
+                      onClick={() => setDefiTab('lending')}
+                      className={`px-4 py-2 font-medium text-base transition-all duration-200 whitespace-nowrap ${
+                        defiTab === 'lending'
+                          ? 'text-gold-600 border-b-2 border-gold-600'
+                          : 'text-stone-500 hover:text-stone-700'
+                      }`}
+                    >
+                      Earn & Borrow
+                    </button>
+                    <button
+                      onClick={() => setDefiTab('swap')}
+                      className={`px-4 py-2 font-medium text-base transition-all duration-200 whitespace-nowrap ${
+                        defiTab === 'swap'
+                          ? 'text-gold-600 border-b-2 border-gold-600'
+                          : 'text-stone-500 hover:text-stone-700'
+                      }`}
+                    >
+                      Token Swap
+                    </button>
+                    <button
+                      onClick={() => setDefiTab('explorer')}
+                      className={`px-4 py-2 font-medium text-base transition-all duration-200 whitespace-nowrap ${
+                        defiTab === 'explorer'
+                          ? 'text-gold-600 border-b-2 border-gold-600'
+                          : 'text-stone-500 hover:text-stone-700'
+                      }`}
+                    >
+                      Block Explorer
+                    </button>
+                  </div>
+                  
+                  {/* DeFi Tab Content */}
+                  {defiTab === 'portfolio' && (
+                    <div>
+                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                        <p className="text-stone-700">{portfolioExplanation}</p>
+                      </div>
+                      <DeFiCard 
+                        title="Zerion"
+                        subtitle="Track any wallet"
+                        className="bg-gradient-to-br from-green-50 to-green-100 border-green-300"
+                        onClick={openZerion}
+                      />
+                    </div>
+                  )}
+                  
+                  {defiTab === 'lending' && (
+                    <div>
+                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                        <p className="text-stone-700">{lendingExplanation}</p>
+                      </div>
+                      <div className="grid md:grid-cols-3 gap-6">
+                        <DeFiCard 
+                          title="Aave"
+                          className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-300"
+                          onClick={openAave}
+                          aboutLink="https://aave.com/docs"
+                        />
+                        <DeFiCard 
+                          title="Moonwell"
+                          className="bg-gradient-to-br from-yellow-50 to-yellow-100 border-yellow-300"
+                          onClick={openMoonwell}
+                          aboutLink="https://docs.moonwell.fi/moonwell/"
+                        />
+                        <DeFiCard 
+                          title="Morpho"
+                          className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-300"
+                          onClick={openMorpho}
+                          aboutLink="https://docs.morpho.org/overview/"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {defiTab === 'swap' && (
+                    <div>
+                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                        <p className="text-stone-700">{swapExplanation}</p>
+                      </div>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <DeFiCard 
+                          title="Aerodrome"
+                          className="bg-gradient-to-br from-green-50 to-green-100 border-green-300"
+                          onClick={openAerodrome}
+                          aboutLink="https://aerodrome.finance/docs"
+                        />
+                        <DeFiCard 
+                          title="Uniswap"
+                          className="bg-gradient-to-br from-pink-50 to-pink-100 border-pink-300"
+                          onClick={openUniswap}
+                          aboutLink="https://docs.uniswap.org/"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {defiTab === 'explorer' && (
+                    <div>
+                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                        <p className="text-stone-700">{blockExplorerExplanation}</p>
+                      </div>
+                      <DeFiCard 
+                        title="Block Explorer"
+                        subtitle="Browse Base-chain blocks & transactions"
+                        className="bg-gradient-to-br from-stone-50 to-stone-100 border-stone-300"
+                        onClick={openBlockExplorer}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
             </div>
