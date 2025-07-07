@@ -3,6 +3,18 @@ import './App.css';
 // import BitcoinIcon from './bitcoin.svg';
 import React from 'react';
 
+interface AccountCardProps {
+  icon: string;
+  name: string;
+  symbol: string;
+  balance: string;
+  balanceUSD: string;
+  earnings: string;
+  earningsUSD: string;
+  apy: string;
+  tokenSymbol: string;
+}
+
 function AccountCard({
   icon,
   name,
@@ -13,16 +25,17 @@ function AccountCard({
   earningsUSD,
   apy,
   tokenSymbol
-}: any) {
+}: AccountCardProps) {
   const [tab, setTab] = React.useState<'deposit' | 'withdraw'>('deposit');
   return (
-    <div className="bg-white rounded-2xl shadow-md flex flex-row p-8 mb-8 max-w-4xl w-full mx-auto">
+    <div className="bg-gradient-to-br from-stone-50 via-gold-50 to-green-50 rounded-2xl premium-shadow card-vine-bg flex flex-row p-8 mb-8 max-w-4xl w-full mx-auto border-l-8 border-gold-400">
       {/* Left: Icon and stats */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center mb-4">
           <span className="w-10 h-10 mr-3 text-3xl flex items-center justify-center">{icon}</span>
+          <span className="text-xl mr-2">🍇</span>
           <div>
-            <div className="font-semibold text-xl text-stone-800">{name} Account</div>
+            <div className="font-serif font-bold text-2xl text-stone-800">{name} Account</div>
             <div className="text-xs text-stone-500 font-medium">{symbol}</div>
           </div>
         </div>
@@ -54,9 +67,9 @@ function AccountCard({
       </div>
       {/* Right: Tabbed panel */}
       <div className="w-80 ml-8">
-        <div className="flex border-b mb-4">
-          <button className={`flex-1 py-2 font-semibold text-sm ${tab==='deposit' ? 'border-b-2 border-green-500 text-stone-900' : 'text-stone-400'}`} onClick={()=>setTab('deposit')}>Deposit</button>
-          <button className={`flex-1 py-2 font-semibold text-sm ${tab==='withdraw' ? 'border-b-2 border-green-500 text-stone-900' : 'text-stone-400'}`} onClick={()=>setTab('withdraw')}>Withdraw</button>
+        <div className="flex border-b border-gold-200 mb-4">
+          <button className={`flex-1 py-2 font-semibold text-sm rounded-t-lg ${tab==='deposit' ? 'border-b-4 border-gold-500 text-gold-700 bg-gold-50 shadow-sm' : 'text-stone-400 hover:text-gold-700'}`} onClick={()=>setTab('deposit')}>Deposit</button>
+          <button className={`flex-1 py-2 font-semibold text-sm rounded-t-lg ${tab==='withdraw' ? 'border-b-4 border-gold-500 text-gold-700 bg-gold-50 shadow-sm' : 'text-stone-400 hover:text-gold-700'}`} onClick={()=>setTab('withdraw')}>Withdraw</button>
         </div>
         <div className="mb-4">
           <div className="text-xs text-stone-500 mb-1">Amount</div>
@@ -66,7 +79,7 @@ function AccountCard({
           </div>
           <div className="text-xs text-stone-400 mt-1">Wallet balance: 0 {tokenSymbol}</div>
         </div>
-        <button className="w-full py-3 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold text-lg transition">Add funds</button>
+        <button className="w-full py-3 rounded-xl bg-gold-500 hover:bg-gold-600 text-white font-bold text-lg transition">Add funds</button>
       </div>
     </div>
   );
@@ -74,7 +87,7 @@ function AccountCard({
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#eaf8ee] flex flex-col items-center py-12">
+    <div className="min-h-screen bg-muscadine-light flex flex-col items-center py-12">
       {/* Top nav */}
       <nav className="w-full flex items-center justify-between px-12 py-4 mb-8 bg-transparent">
         <div className="flex items-center space-x-8">

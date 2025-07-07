@@ -204,16 +204,20 @@ const MarketingSite: React.FC = () => {
         </section>
         {/* New Bitcoin & DeFi Section */}
         <section className="mt-20">
-          <h2 className="text-2xl font-bold text-stone-800 mb-6">Explore Bitcoin & DeFi</h2>
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="flex items-center mb-4">
+            <span className="text-2xl mr-2">🍇</span>
+            <h2 className="text-2xl font-bold text-stone-800">Explore Bitcoin & DeFi</h2>
+          </div>
+          <p className="mb-6 text-stone-600 italic">Learn and explore the decentralized ecosystem—securely, simply, and sovereignly.</p>
+          <div className="bg-gradient-to-br from-gold-50 via-stone-50 to-green-50 rounded-2xl shadow-xl p-8 border-l-8 border-gold-400">
             {/* Bitcoin/DeFi tab navigation */}
-            <div className="flex border-b border-stone-200 mb-8 overflow-x-auto">
+            <div className="flex border-b border-gold-200 mb-8 overflow-x-auto">
               <button
                 onClick={() => setBitcoinTab('node')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap rounded-t-lg ${
                   bitcoinTab === 'node'
-                    ? 'text-gold-600 border-b-2 border-gold-600'
-                    : 'text-stone-500 hover:text-stone-700'
+                    ? 'text-gold-700 border-b-4 border-gold-500 bg-gold-50 shadow-sm'
+                    : 'text-stone-500 hover:text-gold-700'
                 }`}
                 aria-selected={bitcoinTab === 'node'}
                 role="tab"
@@ -222,10 +226,10 @@ const MarketingSite: React.FC = () => {
               </button>
               <button
                 onClick={() => setBitcoinTab('mempool')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap rounded-t-lg ${
                   bitcoinTab === 'mempool'
-                    ? 'text-gold-600 border-b-2 border-gold-600'
-                    : 'text-stone-500 hover:text-stone-700'
+                    ? 'text-gold-700 border-b-4 border-gold-500 bg-gold-50 shadow-sm'
+                    : 'text-stone-500 hover:text-gold-700'
                 }`}
                 aria-selected={bitcoinTab === 'mempool'}
                 role="tab"
@@ -234,10 +238,10 @@ const MarketingSite: React.FC = () => {
               </button>
               <button
                 onClick={() => setDefiTab('portfolio')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap rounded-t-lg ${
                   defiTab === 'portfolio'
-                    ? 'text-gold-600 border-b-2 border-gold-600'
-                    : 'text-stone-500 hover:text-stone-700'
+                    ? 'text-grape-700 border-b-4 border-grape-500 bg-grape-50 shadow-sm'
+                    : 'text-stone-500 hover:text-grape-700'
                 }`}
                 aria-selected={defiTab === 'portfolio'}
                 role="tab"
@@ -246,10 +250,10 @@ const MarketingSite: React.FC = () => {
               </button>
               <button
                 onClick={() => setDefiTab('lending')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap rounded-t-lg ${
                   defiTab === 'lending'
-                    ? 'text-gold-600 border-b-2 border-gold-600'
-                    : 'text-stone-500 hover:text-stone-700'
+                    ? 'text-grape-700 border-b-4 border-grape-500 bg-grape-50 shadow-sm'
+                    : 'text-stone-500 hover:text-grape-700'
                 }`}
                 aria-selected={defiTab === 'lending'}
                 role="tab"
@@ -258,10 +262,10 @@ const MarketingSite: React.FC = () => {
               </button>
               <button
                 onClick={() => setDefiTab('swap')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap rounded-t-lg ${
                   defiTab === 'swap'
-                    ? 'text-gold-600 border-b-2 border-gold-600'
-                    : 'text-stone-500 hover:text-stone-700'
+                    ? 'text-grape-700 border-b-4 border-grape-500 bg-grape-50 shadow-sm'
+                    : 'text-stone-500 hover:text-grape-700'
                 }`}
                 aria-selected={defiTab === 'swap'}
                 role="tab"
@@ -270,10 +274,10 @@ const MarketingSite: React.FC = () => {
               </button>
               <button
                 onClick={() => setDefiTab('explorer')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap rounded-t-lg ${
                   defiTab === 'explorer'
-                    ? 'text-gold-600 border-b-2 border-gold-600'
-                    : 'text-stone-500 hover:text-stone-700'
+                    ? 'text-grape-700 border-b-4 border-grape-500 bg-grape-50 shadow-sm'
+                    : 'text-stone-500 hover:text-grape-700'
                 }`}
                 aria-selected={defiTab === 'explorer'}
                 role="tab"
