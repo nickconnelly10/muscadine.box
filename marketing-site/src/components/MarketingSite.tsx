@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react'
 const MarketingSite: React.FC = () => {
   const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   const appUrl = isLocalhost ? 'http://localhost:3002' : 'https://app.muscadine.box'
-  const [activeTab, setActiveTab] = useState<'about' | 'app' | 'roadmap' | 'bitcoin' | 'defi'>('about')
+  const [activeTab, setActiveTab] = useState<'about' | 'app' | 'roadmap'>('about')
   
   // Bitcoin and DeFi state
   const [bitcoinTab, setBitcoinTab] = useState<'node' | 'mempool'>('node')
@@ -155,30 +155,6 @@ const MarketingSite: React.FC = () => {
               >
                 Roadmap
               </button>
-              <button
-                onClick={() => setActiveTab('bitcoin')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
-                  activeTab === 'bitcoin'
-                    ? 'text-gold-600 border-b-2 border-gold-600'
-                    : 'text-stone-500 hover:text-stone-700'
-                }`}
-                aria-selected={activeTab === 'bitcoin'}
-                role="tab"
-              >
-                Bitcoin
-              </button>
-              <button
-                onClick={() => setActiveTab('defi')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
-                  activeTab === 'defi'
-                    ? 'text-gold-600 border-b-2 border-gold-600'
-                    : 'text-stone-500 hover:text-stone-700'
-                }`}
-                aria-selected={activeTab === 'defi'}
-                role="tab"
-              >
-                DeFi
-              </button>
             </div>
 
             {/* Tab Content */}
@@ -223,219 +199,211 @@ const MarketingSite: React.FC = () => {
                   </div>
                 </div>
               )}
-              
-              {activeTab === 'bitcoin' && (
+            </div>
+          </div>
+        </section>
+        {/* New Bitcoin & DeFi Section */}
+        <section className="mt-20">
+          <h2 className="text-2xl font-bold text-stone-800 mb-6">Explore Bitcoin & DeFi</h2>
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            {/* Bitcoin/DeFi tab navigation */}
+            <div className="flex border-b border-stone-200 mb-8 overflow-x-auto">
+              <button
+                onClick={() => setBitcoinTab('node')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                  bitcoinTab === 'node'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={bitcoinTab === 'node'}
+                role="tab"
+              >
+                Bitcoin: Connect to a Node
+              </button>
+              <button
+                onClick={() => setBitcoinTab('mempool')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                  bitcoinTab === 'mempool'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={bitcoinTab === 'mempool'}
+                role="tab"
+              >
+                Bitcoin: Mempool
+              </button>
+              <button
+                onClick={() => setDefiTab('portfolio')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                  defiTab === 'portfolio'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={defiTab === 'portfolio'}
+                role="tab"
+              >
+                DeFi: Portfolio Tracking
+              </button>
+              <button
+                onClick={() => setDefiTab('lending')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                  defiTab === 'lending'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={defiTab === 'lending'}
+                role="tab"
+              >
+                DeFi: Earn & Borrow
+              </button>
+              <button
+                onClick={() => setDefiTab('swap')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                  defiTab === 'swap'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={defiTab === 'swap'}
+                role="tab"
+              >
+                DeFi: Token Swap
+              </button>
+              <button
+                onClick={() => setDefiTab('explorer')}
+                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                  defiTab === 'explorer'
+                    ? 'text-gold-600 border-b-2 border-gold-600'
+                    : 'text-stone-500 hover:text-stone-700'
+                }`}
+                aria-selected={defiTab === 'explorer'}
+                role="tab"
+              >
+                DeFi: Block Explorer
+              </button>
+            </div>
+            {/* Bitcoin/DeFi tab content (reuse previous content blocks) */}
+            <div>
+              {/* Bitcoin Tab Content */}
+              {bitcoinTab === 'node' && (
                 <div>
-                  {/* Bitcoin explanation */}
-                  <div className="mb-6 p-4 bg-stone-50 rounded-lg border-l-4 border-gold-500">
-                    <p className="text-stone-700">{bitcoinExplanation}</p>
+                  <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                    <p className="text-stone-700">{nodeExplanation}</p>
                   </div>
-                  
-                  {/* Nested Tabs for Bitcoin */}
-                  <div className="flex border-b border-stone-200 mb-6">
-                    <button
-                      onClick={() => setBitcoinTab('node')}
-                      className={`px-4 py-2 font-medium text-base transition-all duration-200 ${
-                        bitcoinTab === 'node'
-                          ? 'text-gold-600 border-b-2 border-gold-600'
-                          : 'text-stone-500 hover:text-stone-700'
-                      }`}
-                    >
-                      Connect to a Node
-                    </button>
-                    <button
-                      onClick={() => setBitcoinTab('mempool')}
-                      className={`px-4 py-2 font-medium text-base transition-all duration-200 ${
-                        bitcoinTab === 'mempool'
-                          ? 'text-gold-600 border-b-2 border-gold-600'
-                          : 'text-stone-500 hover:text-stone-700'
-                      }`}
-                    >
-                      Mempool
-                    </button>
-                  </div>
-                  
-                  {/* Bitcoin Tab Content */}
-                  {bitcoinTab === 'node' && (
-                    <div>
-                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
-                        <p className="text-stone-700">{nodeExplanation}</p>
+                  <div className="bg-white border border-stone-200 rounded-lg p-6">
+                    <h3 className="text-xl font-semibold text-stone-800 mb-4">Node Connection Details</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm text-stone-600 mb-2">Electrum Server Hostname:</p>
+                        <div className="flex items-center gap-2">
+                          <code className="bg-stone-100 px-3 py-2 rounded text-sm flex-1 break-all">
+                            lyfocxl3fgg3if65jo32apupd2adzmm772vsqrtwpmdn4ndoug6gwnyd.onion
+                          </code>
+                          <button className="bg-stone-600 text-white px-3 py-2 rounded text-sm hover:bg-stone-700">
+                            Copy
+                          </button>
+                        </div>
                       </div>
-                      <div className="bg-white border border-stone-200 rounded-lg p-6">
-                        <h3 className="text-xl font-semibold text-stone-800 mb-4">Node Connection Details</h3>
-                        <div className="space-y-4">
-                          <div>
-                            <p className="text-sm text-stone-600 mb-2">Electrum Server Hostname:</p>
-                            <div className="flex items-center gap-2">
-                              <code className="bg-stone-100 px-3 py-2 rounded text-sm flex-1 break-all">
-                                lyfocxl3fgg3if65jo32apupd2adzmm772vsqrtwpmdn4ndoug6gwnyd.onion
-                              </code>
-                              <button className="bg-stone-600 text-white px-3 py-2 rounded text-sm hover:bg-stone-700">
-                                Copy
-                              </button>
-                            </div>
-                          </div>
-                          <div>
-                            <p className="text-sm text-stone-600 mb-2">Port:</p>
-                            <div className="flex items-center gap-2">
-                              <span className="bg-stone-100 px-3 py-2 rounded text-sm">50001</span>
-                              <button className="bg-stone-600 text-white px-3 py-2 rounded text-sm hover:bg-stone-700">
-                                Copy
-                              </button>
-                            </div>
-                          </div>
+                      <div>
+                        <p className="text-sm text-stone-600 mb-2">Port:</p>
+                        <div className="flex items-center gap-2">
+                          <span className="bg-stone-100 px-3 py-2 rounded text-sm">50001</span>
+                          <button className="bg-stone-600 text-white px-3 py-2 rounded text-sm hover:bg-stone-700">
+                            Copy
+                          </button>
                         </div>
                       </div>
                     </div>
-                  )}
-                  
-                  {bitcoinTab === 'mempool' && (
-                    <div>
-                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
-                        <p className="text-stone-700">{mempoolExplanation}</p>
-                      </div>
-                      <div className="text-center">
-                        <button 
-                          className="bg-gold-600 text-white px-8 py-3 rounded-lg hover:bg-gold-700 transition-colors"
-                          onClick={openMempool}
-                        >
-                          Open Mempool Viewer
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </div>
               )}
-              
-              {activeTab === 'defi' && (
+              {bitcoinTab === 'mempool' && (
                 <div>
-                  {/* DeFi explanation */}
-                  <div className="mb-6 p-4 bg-stone-50 rounded-lg border-l-4 border-gold-500">
-                    <p className="text-stone-700">{defiExplanation}</p>
+                  <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                    <p className="text-stone-700">{mempoolExplanation}</p>
                   </div>
-                  
-                  {/* Nested Tabs for DeFi */}
-                  <div className="flex border-b border-stone-200 mb-6 overflow-x-auto">
-                    <button
-                      onClick={() => setDefiTab('portfolio')}
-                      className={`px-4 py-2 font-medium text-base transition-all duration-200 whitespace-nowrap ${
-                        defiTab === 'portfolio'
-                          ? 'text-gold-600 border-b-2 border-gold-600'
-                          : 'text-stone-500 hover:text-stone-700'
-                      }`}
+                  <div className="text-center">
+                    <button 
+                      className="bg-gold-600 text-white px-8 py-3 rounded-lg hover:bg-gold-700 transition-colors"
+                      onClick={openMempool}
                     >
-                      Portfolio Tracking
-                    </button>
-                    <button
-                      onClick={() => setDefiTab('lending')}
-                      className={`px-4 py-2 font-medium text-base transition-all duration-200 whitespace-nowrap ${
-                        defiTab === 'lending'
-                          ? 'text-gold-600 border-b-2 border-gold-600'
-                          : 'text-stone-500 hover:text-stone-700'
-                      }`}
-                    >
-                      Earn & Borrow
-                    </button>
-                    <button
-                      onClick={() => setDefiTab('swap')}
-                      className={`px-4 py-2 font-medium text-base transition-all duration-200 whitespace-nowrap ${
-                        defiTab === 'swap'
-                          ? 'text-gold-600 border-b-2 border-gold-600'
-                          : 'text-stone-500 hover:text-stone-700'
-                      }`}
-                    >
-                      Token Swap
-                    </button>
-                    <button
-                      onClick={() => setDefiTab('explorer')}
-                      className={`px-4 py-2 font-medium text-base transition-all duration-200 whitespace-nowrap ${
-                        defiTab === 'explorer'
-                          ? 'text-gold-600 border-b-2 border-gold-600'
-                          : 'text-stone-500 hover:text-stone-700'
-                      }`}
-                    >
-                      Block Explorer
+                      Open Mempool Viewer
                     </button>
                   </div>
-                  
-                  {/* DeFi Tab Content */}
-                  {defiTab === 'portfolio' && (
-                    <div>
-                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
-                        <p className="text-stone-700">{portfolioExplanation}</p>
-                      </div>
-                      <DeFiCard 
-                        title="Zerion"
-                        subtitle="Track any wallet"
-                        className="bg-gradient-to-br from-green-50 to-green-100 border-green-300"
-                        onClick={openZerion}
-                      />
-                    </div>
-                  )}
-                  
-                  {defiTab === 'lending' && (
-                    <div>
-                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
-                        <p className="text-stone-700">{lendingExplanation}</p>
-                      </div>
-                      <div className="grid md:grid-cols-3 gap-6">
-                        <DeFiCard 
-                          title="Aave"
-                          className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-300"
-                          onClick={openAave}
-                          aboutLink="https://aave.com/docs"
-                        />
-                        <DeFiCard 
-                          title="Moonwell"
-                          className="bg-gradient-to-br from-yellow-50 to-yellow-100 border-yellow-300"
-                          onClick={openMoonwell}
-                          aboutLink="https://docs.moonwell.fi/moonwell/"
-                        />
-                        <DeFiCard 
-                          title="Morpho"
-                          className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-300"
-                          onClick={openMorpho}
-                          aboutLink="https://docs.morpho.org/overview/"
-                        />
-                      </div>
-                    </div>
-                  )}
-                  
-                  {defiTab === 'swap' && (
-                    <div>
-                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
-                        <p className="text-stone-700">{swapExplanation}</p>
-                      </div>
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <DeFiCard 
-                          title="Aerodrome"
-                          className="bg-gradient-to-br from-green-50 to-green-100 border-green-300"
-                          onClick={openAerodrome}
-                          aboutLink="https://aerodrome.finance/docs"
-                        />
-                        <DeFiCard 
-                          title="Uniswap"
-                          className="bg-gradient-to-br from-pink-50 to-pink-100 border-pink-300"
-                          onClick={openUniswap}
-                          aboutLink="https://docs.uniswap.org/"
-                        />
-                      </div>
-                    </div>
-                  )}
-                  
-                  {defiTab === 'explorer' && (
-                    <div>
-                      <div className="mb-4 p-4 bg-stone-50 rounded-lg">
-                        <p className="text-stone-700">{blockExplorerExplanation}</p>
-                      </div>
-                      <DeFiCard 
-                        title="Block Explorer"
-                        subtitle="Browse Base-chain blocks & transactions"
-                        className="bg-gradient-to-br from-stone-50 to-stone-100 border-stone-300"
-                        onClick={openBlockExplorer}
-                      />
-                    </div>
-                  )}
+                </div>
+              )}
+              {/* DeFi Tab Content */}
+              {defiTab === 'portfolio' && (
+                <div>
+                  <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                    <p className="text-stone-700">{portfolioExplanation}</p>
+                  </div>
+                  <DeFiCard 
+                    title="Zerion"
+                    subtitle="Track any wallet"
+                    className="bg-gradient-to-br from-green-50 to-green-100 border-green-300"
+                    onClick={openZerion}
+                  />
+                </div>
+              )}
+              {defiTab === 'lending' && (
+                <div>
+                  <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                    <p className="text-stone-700">{lendingExplanation}</p>
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <DeFiCard 
+                      title="Aave"
+                      className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-300"
+                      onClick={openAave}
+                      aboutLink="https://aave.com/docs"
+                    />
+                    <DeFiCard 
+                      title="Moonwell"
+                      className="bg-gradient-to-br from-yellow-50 to-yellow-100 border-yellow-300"
+                      onClick={openMoonwell}
+                      aboutLink="https://docs.moonwell.fi/moonwell/"
+                    />
+                    <DeFiCard 
+                      title="Morpho"
+                      className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-300"
+                      onClick={openMorpho}
+                      aboutLink="https://docs.morpho.org/overview/"
+                    />
+                  </div>
+                </div>
+              )}
+              {defiTab === 'swap' && (
+                <div>
+                  <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                    <p className="text-stone-700">{swapExplanation}</p>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <DeFiCard 
+                      title="Aerodrome"
+                      className="bg-gradient-to-br from-pink-50 to-pink-100 border-pink-300"
+                      onClick={openAerodrome}
+                      aboutLink="https://aerodrome.finance/docs"
+                    />
+                    <DeFiCard 
+                      title="Uniswap"
+                      className="bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-300"
+                      onClick={openUniswap}
+                      aboutLink="https://docs.uniswap.org/"
+                    />
+                  </div>
+                </div>
+              )}
+              {defiTab === 'explorer' && (
+                <div>
+                  <div className="mb-4 p-4 bg-stone-50 rounded-lg">
+                    <p className="text-stone-700">{blockExplorerExplanation}</p>
+                  </div>
+                  <DeFiCard 
+                    title="Block Explorer"
+                    subtitle="Browse Base-chain blocks & transactions"
+                    className="bg-gradient-to-br from-stone-50 to-stone-100 border-stone-300"
+                    onClick={openBlockExplorer}
+                  />
                 </div>
               )}
             </div>
