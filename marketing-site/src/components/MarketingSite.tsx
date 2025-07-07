@@ -10,8 +10,6 @@ const MarketingSite: React.FC = () => {
   const [defiTab, setDefiTab] = useState<'portfolio' | 'lending' | 'swap' | 'explorer'>('portfolio')
   
   // Explanations
-  const bitcoinExplanation = "Bitcoin is a decentralized digital currency that operates on a peer-to-peer network, enabling secure transactions without intermediaries.";
-  const defiExplanation = "DeFi (Decentralized Finance) refers to financial services built on blockchain technology that operate without traditional intermediaries.";
   const nodeExplanation = "A node is a computer that participates in the Bitcoin network by validating transactions and blocks. Running your own node gives you full control and privacy over your Bitcoin experience.";
   const mempoolExplanation = "The mempool (memory pool) is where unconfirmed Bitcoin transactions wait before being added to a block. It helps the network manage and prioritize pending transactions.";
   const portfolioExplanation = "Portfolio tracking lets you monitor your crypto assets and DeFi positions across multiple protocols in one place. It helps you stay informed about your balances, yields, and overall performance.";
