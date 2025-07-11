@@ -11,7 +11,7 @@ function App() {
             </div>
             <div className="flex items-center space-x-6">
               <a 
-                href="https://app.muscadine.box" 
+                href="https://defi.muscadine.box" 
                 className="btn-primary text-sm px-6 py-3"
                 target="_blank"
                 rel="noopener noreferrer"

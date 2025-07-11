@@ -59,7 +59,7 @@ npm audit
 
 ## 🚀 Vercel Deployment Guide
 
-To deploy the Muscadine DeFi Dashboard (`app.muscadine.box`) to Vercel:
+To deploy the Muscadine DeFi Dashboard (`defi.muscadine.box`) to Vercel:
 
 1. **Project Root:**
    - Set the project root to `defi-site` in your Vercel dashboard (not the monorepo root).
@@ -83,7 +83,7 @@ To deploy the Muscadine DeFi Dashboard (`app.muscadine.box`) to Vercel:
    - None required for production (unless you add API keys).
 
 8. **Custom Domain:**
-   - Point `app.muscadine.box` to your Vercel project.
+   - Point `defi.muscadine.box` to your Vercel project.
 
 ---
 

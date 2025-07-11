@@ -5,7 +5,7 @@
 The project now uses **separate deployments** for each site:
 
 1. **Marketing Site** (`muscadine.box`) → Deployed from `marketing-site/` directory
-2. **DeFi Dashboard** (`app.muscadine.box`) → Deployed from `app-site/` directory
+2. **DeFi Dashboard** (`defi.muscadine.box`) → Deployed from `app-site/` directory
 
 ## Marketing Site Deployment
 
@@ -32,7 +32,7 @@ The project now uses **separate deployments** for each site:
 5. **Install Command:** `npm install`
 
 ### Domain Configuration
-- **Primary Domain:** `app.muscadine.box`
+- **Primary Domain:** `defi.muscadine.box`
 
 ## Deployment Steps
 
@@ -54,7 +54,7 @@ npm run build
 # - Deploy to muscadine.box domain
 ```
 
-### 2. DeFi Dashboard (app.muscadine.box)
+### 2. DeFi Dashboard (defi.muscadine.box)
 
 ```bash
 # Navigate to app site directory
@@ -69,7 +69,7 @@ npm run build
 # Deploy to Vercel
 # - Connect repository to Vercel
 # - Set root directory to 'app-site'
-# - Deploy to app.muscadine.box domain
+# - Deploy to defi.muscadine.box domain
 ```
 
 ## Environment Variables
@@ -110,7 +110,7 @@ npm run dev
 3. **Domain Issues:**
    - Ensure DNS is properly configured for both domains
    - Marketing site: `muscadine.box` and `www.muscadine.box`
-   - DeFi dashboard: `app.muscadine.box`
+   - DeFi dashboard: `defi.muscadine.box`
 
 ### Build Verification
 

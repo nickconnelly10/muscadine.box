@@ -102,7 +102,7 @@ src/
 
 ## Links
 
-- **DeFi Dashboard**: https://app.muscadine.box
+- **DeFi Dashboard**: https://defi.muscadine.box
 - **Contact Email**: nickconnelly10@gmail.com
 - **Twitter**: @nicklutk
 - **Articles**: https://nicholasconnelly.substack.com/
