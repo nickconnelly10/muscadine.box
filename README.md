@@ -31,7 +31,7 @@ Our mission is to empower individuals and institutions with secure, self-soverei
 
 2. **Marketing Site** (muscadine.box)
    ```bash
-   cd marketing-site
+   cd home-site
    npm install
    npm run dev
    ```
@@ -39,7 +39,7 @@ Our mission is to empower individuals and institutions with secure, self-soverei
 
 3. **DeFi App Site** (app.muscadine.box)
    ```bash
-   cd app-site
+   cd defi-site
    npm install
    npm run dev
    ```
@@ -80,14 +80,14 @@ Our mission is to empower individuals and institutions with secure, self-soverei
 
 ```
 muscadine.box/
-├── marketing-site/          # Marketing website (muscadine.box)
+├── home-site/          # Marketing website (muscadine.box)
 │   ├── src/
 │   │   ├── components/
 │   │   │   └── MarketingSite.tsx
 │   │   ├── App.tsx
 │   │   └── main.tsx
 │   └── package.json
-├── app-site/               # DeFi dashboard (app.muscadine.box)
+├── defi-site/               # DeFi dashboard (app.muscadine.box)
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── DeFiDashboard.tsx

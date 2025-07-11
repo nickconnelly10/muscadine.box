@@ -1,6 +1,6 @@
 {
-  "buildCommand": "cd app-site && npm run build",
-  "outputDirectory": "app-site/dist",
-  "installCommand": "cd app-site && npm install",
+  "buildCommand": "cd defi-site && npm run build",
+  "outputDirectory": "defi-site/dist",
+  "installCommand": "cd defi-site && npm install",
   "framework": "vite"
 } 

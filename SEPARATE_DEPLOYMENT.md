@@ -6,12 +6,12 @@ This guide explains how to deploy the two separate Vite projects to their respec
 
 ```
 muscadine.box/
-├── marketing-site/          # Marketing site (muscadine.box)
+├── home-site/          # Marketing site (muscadine.box)
 │   ├── package.json
 │   ├── vite.config.ts
 │   ├── src/
 │   └── vercel.json
-└── app-site/               # DeFi app (app.muscadine.box)
+└── defi-site/               # DeFi app (app.muscadine.box)
     ├── package.json
     ├── vite.config.ts
     ├── src/
@@ -28,7 +28,7 @@ Create two separate Vercel projects, each pointing to the same repository but di
 
 1. **Create Vercel Project**: `muscadine-marketing`
 2. **Repository**: Connect to your GitHub repository
-3. **Root Directory**: `marketing-site`
+3. **Root Directory**: `home-site`
 4. **Framework Preset**: Vite
 5. **Build Command**: `npm run build`
 6. **Output Directory**: `dist`
@@ -41,7 +41,7 @@ Create two separate Vercel projects, each pointing to the same repository but di
 
 1. **Create Vercel Project**: `muscadine-app`
 2. **Repository**: Connect to your GitHub repository
-3. **Root Directory**: `app-site`
+3. **Root Directory**: `defi-site`
 4. **Framework Preset**: Vite
 5. **Build Command**: `npm run build`
 6. **Output Directory**: `dist`
@@ -60,7 +60,7 @@ If you prefer a single Vercel project, you can use rewrites to route traffic bas
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/marketing-site/$1",
+      "destination": "/home-site/$1",
       "has": [
         {
           "type": "host",
@@ -70,7 +70,7 @@ If you prefer a single Vercel project, you can use rewrites to route traffic bas
     },
     {
       "source": "/(.*)",
-      "destination": "/marketing-site/$1",
+      "destination": "/home-site/$1",
       "has": [
         {
           "type": "host",
@@ -80,7 +80,7 @@ If you prefer a single Vercel project, you can use rewrites to route traffic bas
     },
     {
       "source": "/(.*)",
-      "destination": "/app-site/$1",
+      "destination": "/defi-site/$1",
       "has": [
         {
           "type": "host",
@@ -98,12 +98,12 @@ If you prefer a single Vercel project, you can use rewrites to route traffic bas
 
 ```bash
 # Marketing site (port 3000)
-cd marketing-site
+cd home-site
 npm install
 npm run dev
 
 # DeFi app (port 3001)
-cd app-site
+cd defi-site
 npm install
 npm run dev
 ```
@@ -112,11 +112,11 @@ npm run dev
 
 ```bash
 # Build marketing site
-cd marketing-site
+cd home-site
 npm run build
 
 # Build DeFi app
-cd app-site
+cd defi-site
 npm run build
 ```
 

@@ -3,14 +3,10 @@
   "version": "1.0.0",
   "description": "Muscadine - DeFi dashboard and marketing site for Base network",
   "private": true,
-  "workspaces": [
-    "app-site",
-    "marketing-site"
-  ],
   "scripts": {
-    "dev": "cd app-site && npm run dev",
-    "build": "cd app-site && npm run build",
-    "preview": "cd app-site && npm run preview"
+    "dev": "cd defi-site && npm run dev",
+    "build": "cd defi-site && npm run build",
+    "preview": "cd defi-site && npm run preview"
   },
   "keywords": ["defi", "base", "ethereum", "vaults", "erc4626"],
       "author": "Muscadine",
