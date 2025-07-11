@@ -67,7 +67,7 @@ This project is configured for Vercel deployment. The site should be deployed to
 ```
 src/
 ├── components/
-│   └── MarketingSite.tsx    # Main marketing site component
+│   └── HomeSite.tsx    # Main marketing site component
 ├── App.tsx                  # App with navigation and routing
 ├── main.tsx                 # Entry point
 └── index.css               # Global styles and Tailwind components

@@ -1,4 +1,4 @@
-import MarketingSite from './components/MarketingSite'
+import HomeSite from './components/HomeSite'
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
         </div>
       </nav>
       <main>
-        <MarketingSite />
+        <HomeSite />
       </main>
     </div>
   )
