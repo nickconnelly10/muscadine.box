@@ -1,81 +1,14 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
 
 const MarketingSite: React.FC = () => {
   const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   const appUrl = isLocalhost ? 'http://localhost:3002' : 'https://defi.muscadine.box'
-  const [activeTab, setActiveTab] = useState<'about' | 'app' | 'roadmap'>('about')
-  
-  // Bitcoin and DeFi state
-  const [bitcoinTab, setBitcoinTab] = useState<'node' | 'mempool'>('node')
-  const [defiTab, setDefiTab] = useState<'portfolio' | 'lending' | 'swap' | 'explorer'>('portfolio')
+  const [activeTab, setActiveTab] = React.useState<'about' | 'app' | 'roadmap'>('about')
   
   // Explanations
-  const nodeExplanation = "A node is a computer that participates in the Bitcoin network by validating transactions and blocks. Running your own node gives you full control and privacy over your Bitcoin experience.";
-  const mempoolExplanation = "The mempool (memory pool) is where unconfirmed Bitcoin transactions wait before being added to a block. It helps the network manage and prioritize pending transactions.";
-  const portfolioExplanation = "Portfolio tracking lets you monitor your crypto assets and DeFi positions across multiple protocols in one place. It helps you stay informed about your balances, yields, and overall performance.";
-  const lendingExplanation = "Earn & Borrow lets you lend your crypto to earn interest or borrow assets by providing collateral. These protocols are non-custodial and operate transparently on-chain.";
-  const swapExplanation = "Token Swap allows you to exchange one cryptocurrency for another instantly using decentralized exchanges, without relying on a central authority.";
-  const blockExplorerExplanation = "A block explorer is a tool that lets you view and search all transactions, addresses, and blocks on a blockchain. It provides transparency and insight into network activity.";
-
-  // External link handlers
-  const openMempool = useCallback(() => {
-    window.open('https://mempool.space', '_blank', 'noopener,noreferrer');
-  }, []);
-
-  const openZerion = useCallback(() => {
-    window.open('https://app.zerion.io/portfolio/overview', '_blank', 'noopener,noreferrer');
-  }, []);
-
-  const openAave = useCallback(() => {
-    window.open('https://app.aave.com/', '_blank', 'noopener,noreferrer');
-  }, []);
-
-  const openMoonwell = useCallback(() => {
-    window.open('https://moonwell.fi/portfolio', '_blank', 'noopener,noreferrer');
-  }, []);
-
-  const openMorpho = useCallback(() => {
-    window.open('https://app.morpho.org/base/earn', '_blank', 'noopener,noreferrer');
-  }, []);
-
-  const openAerodrome = useCallback(() => {
-    window.open('https://aerodrome.finance/', '_blank', 'noopener,noreferrer');
-  }, []);
-
-  const openUniswap = useCallback(() => {
-    window.open('https://app.uniswap.org/', '_blank', 'noopener,noreferrer');
-  }, []);
-
-  const openBlockExplorer = useCallback(() => {
+  const openBlockExplorer = React.useCallback(() => {
     window.open('https://basescan.org/', '_blank', 'noopener,noreferrer');
   }, []);
-
-  // DeFi Card Component
-  const DeFiCard = ({ title, subtitle, className = "", onClick, aboutLink }: { 
-    title: string; 
-    subtitle?: string; 
-    className?: string; 
-    onClick: () => void;
-    aboutLink?: string;
-  }) => (
-    <div className={`bg-white border-2 border-stone-200 rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer ${className}`} onClick={onClick}>
-      <div className="text-center">
-        <h3 className="text-xl font-semibold text-stone-800 mb-2">{title}</h3>
-        {subtitle && <p className="text-sm text-stone-600 mb-4">{subtitle}</p>}
-        {aboutLink && (
-          <a
-            href={aboutLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-blue-600 hover:text-blue-800 underline"
-            onClick={(e) => e.stopPropagation()}
-          >
-            About
-          </a>
-        )}
-      </div>
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 to-stone-100">
