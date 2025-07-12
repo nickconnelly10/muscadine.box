@@ -12,8 +12,8 @@
 
   body {
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    background-color: #fafaf9; /* bg-stone-50 */
-    color: #1c1917; /* text-stone-900 */
+    background-color: #fafaf9;
+    color: #1c1917;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -23,7 +23,27 @@
   }
 }
 
-/* Remove all @apply rules. Use Tailwind classes in components instead. */
+@layer components {
+  .section-title {
+    @apply font-serif text-3xl font-bold text-stone-900 mb-4;
+  }
+
+  .section-subtitle {
+    @apply font-serif text-xl text-stone-700 mb-6;
+  }
+
+  .text-display {
+    @apply font-serif text-3xl md:text-4xl font-semibold text-stone-900 leading-tight;
+  }
+
+  .text-body {
+    @apply font-sans text-lg text-stone-700 leading-relaxed;
+  }
+
+  .text-caption {
+    @apply font-sans text-sm text-stone-500 leading-relaxed;
+  }
+}
 
 @keyframes fade-in {
   from {
@@ -69,4 +89,4 @@
     opacity: 1;
     transform: translateX(0);
   }
-} 
+}

@@ -15,12 +15,20 @@ const HomeSite: React.FC = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{animationDelay: '0.4s'}}>
             <a 
+              href="https://health.muscadine.box"
+              className="btn-primary text-lg px-12 py-6"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Launch Health AI
+            </a>
+            <a 
               href="https://defi.muscadine.box"
               className="btn-primary text-lg px-12 py-6"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Launch App
+              Launch DeFi
             </a>
             <a 
               href="https://nicholasconnelly.substack.com/"
