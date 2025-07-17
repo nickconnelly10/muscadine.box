@@ -23,7 +23,7 @@ const HomeSite: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Launch Health AI
+              Launch Health
             </a>
             <a 
               href="https://defi.muscadine.box"
@@ -74,7 +74,7 @@ const HomeSite: React.FC = () => {
                 role="tab"
                 aria-selected={activeTab === 'health'}
               >
-                Health AI
+                Health
               </button>
               <button
                 onClick={() => setActiveTab('defi')}
@@ -109,7 +109,7 @@ const HomeSite: React.FC = () => {
             {activeTab === 'health' && (
               <div role="tabpanel" className="space-y-8 text-body">
                 <p>
-                  We've developed an AI that exclusively analyzes peer-reviewed scientific research papers to optimize your life through preventative lifestyle changes and habits. Our AI focuses on nutrition, lifestyle factors, environmental influences, preventative care, and overall individual benefits.
+                  We are developing an AI that exclusively analyzes peer-reviewed scientific research papers to optimize your life through preventative lifestyle changes and habits. Our AI focuses on nutrition, lifestyle factors, environmental influences, preventative care, and overall individual benefits.
                 </p>
                 <p>
                   The AI is currently in development and continuously learning from the latest research. We invite you to contribute additional research papers or suggest new topics to expand our AI's knowledge base and improve its recommendations.
@@ -219,7 +219,7 @@ const HomeSite: React.FC = () => {
             <div className="mt-8">
               <div className="bg-gradient-to-r from-stone-50 to-gold-50 p-8 border border-stone-200">
                 <h3 className="text-display font-semibold text-stone-800 mb-6">
-                  Health AI Services
+                  Health Services
                 </h3>
                 <p className="text-body mb-6">
                   Leverage our AI's peer-reviewed research engine to optimize your nutrition, lifestyle, and environment for long-term wellness.
