@@ -98,7 +98,7 @@ The site uses a custom Roman grape vine theme with:
 ## 🔗 External Services
 
 This site links to external services:
-- **Health AI**: `https://health.muscadine.box`
+- **Launch Health**: `https://health.muscadine.box`
 - **DeFi Dashboard**: `https://defi.muscadine.box`
 - **Articles**: `https://nicholasconnelly.substack.com/`
 
@@ -129,4 +129,4 @@ The site is configured for Vercel deployment with:
 
 ---
 
-*Built on BITCOIN • Secure • Transparent • Professional* 
+*Built on BITCOIN • Secure • Transparent • Professional • Strava Club* 
