@@ -23,7 +23,7 @@ const HomeSite: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Launch Health
+              Launch Health Resources
             </a>
             <a 
               href="https://defi.muscadine.box"
@@ -100,27 +100,27 @@ const HomeSite: React.FC = () => {
                   We believe cryptocurrency and Bitcoin represent the future of finance—a future where individuals have complete control over their wealth, free from centralized intermediaries and traditional banking constraints. This vision drives everything we do at Muscadine.
                 </p>
                 <p>
-                  We also recognize a critical challenge facing everyday Americans: widespread health issues stemming from modern lifestyles and environmental factors. Our AI searches peer-reviewed scientific research to deliver personalized, preventative lifestyle recommendations—empowering you to optimize your well-being through changes in nutrition, environment, and daily habits.
+                  We also recognize a critical challenge facing everyday Americans: widespread health issues stemming from modern lifestyles and environmental factors. Our health resources provide evidence-based, preventative lifestyle recommendations based on peer-reviewed scientific research—empowering you to optimize your well-being through changes in nutrition, environment, and daily habits.
                 </p>
               </div>
             )}
 
-            {/* Health AI Tab Content */}
+            {/* Health Resources Tab Content */}
             {activeTab === 'health' && (
               <div role="tabpanel" className="space-y-8 text-body">
                 <p>
-                  We are developing an AI that exclusively analyzes peer-reviewed scientific research papers to optimize your life through preventative lifestyle changes and habits. Our AI focuses on nutrition, lifestyle factors, environmental influences, preventative care, and overall individual benefits.
+                  We provide comprehensive health resources that analyze peer-reviewed scientific research papers to help optimize your life through preventative lifestyle changes and habits. Our resources focus on nutrition, lifestyle factors, environmental influences, preventative care, and overall individual benefits.
                 </p>
                 <p>
-                  The AI is currently in development and continuously learning from the latest research. We invite you to contribute additional research papers or suggest new topics to expand our AI's knowledge base and improve its recommendations.
+                  Our resources are continuously updated with the latest research. We invite you to contribute additional research papers or suggest new topics to expand our knowledge base and improve our recommendations.
                 </p>
                 <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded">
                   <p className="text-amber-800 font-medium">
-                    <strong>Important:</strong> This AI is in development and should not replace professional medical advice. Please consult with a physician for proper medical guidance and treatment.
+                    <strong>Important:</strong> These resources are for educational purposes and should not replace professional medical advice. Please consult with a physician for proper medical guidance and treatment.
                   </p>
                 </div>
                 <p>
-                  Contact us for information about our AI development, to contribute research papers, or to suggest additional topics for our AI to explore. We're building this tool to make evidence-based health optimization accessible to everyone.
+                  Contact us for information about our health resources, to contribute research papers, or to suggest additional topics to explore. We're building these resources to make evidence-based health optimization accessible to everyone.
                 </p>
               </div>
             )}
@@ -215,14 +215,14 @@ const HomeSite: React.FC = () => {
               </div>
             </div>
 
-            {/* Health AI Services Section */}
+            {/* Health Resources Section */}
             <div className="mt-8">
               <div className="bg-gradient-to-r from-stone-50 to-gold-50 p-8 border border-stone-200">
                 <h3 className="text-display font-semibold text-stone-800 mb-6">
                   Health Services
                 </h3>
                 <p className="text-body mb-6">
-                  Leverage our AI's peer-reviewed research engine to optimize your nutrition, lifestyle, and environment for long-term wellness.
+                  Leverage our peer-reviewed research resources to optimize your nutrition, lifestyle, and environment for long-term wellness.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <span className="bg-stone-200 text-stone-700 px-4 py-2 rounded-lg text-sm font-medium">Personalized Nutrition</span>
