@@ -109,19 +109,39 @@ const HomeSite: React.FC = () => {
             {activeTab === 'health' && (
               <div role="tabpanel" className="space-y-8 text-body">
                 <p>
-                  We provide comprehensive health resources that analyze peer-reviewed scientific research papers to help optimize your life through preventative lifestyle changes and habits. Our resources focus on nutrition, lifestyle factors, environmental influences, preventative care, and overall individual benefits.
+                  Our dedicated health platform provides comprehensive access to evidence-based health protocols and scientific research. Visit our Health Dashboard for detailed resources on nutrition, lifestyle optimization, and preventive care.
                 </p>
+                <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                  <p className="text-blue-800 font-medium">
+                    <strong>Health Protocol Database:</strong> Access our comprehensive collection of peer-reviewed health protocols and research papers for evidence-based health guidance.
+                  </p>
+                </div>
                 <p>
-                  Our resources are continuously updated with the latest research. We invite you to contribute additional research papers or suggest new topics to expand our knowledge base and improve our recommendations.
+                  Our health resources are continuously updated with the latest research and provide step-by-step guidance for optimizing nutrition, physical activity, sleep, and overall wellness through evidence-based protocols.
                 </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a 
+                    href="https://health.muscadine.box"
+                    className="btn-primary inline-block text-center"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit Health Dashboard
+                  </a>
+                  <a 
+                    href="https://github.com/nickconnelly10/Health-protocols"
+                    className="btn-secondary inline-block text-center"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Protocol Repository
+                  </a>
+                </div>
                 <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded">
                   <p className="text-amber-800 font-medium">
                     <strong>Important:</strong> These resources are for educational purposes and should not replace professional medical advice. Please consult with a physician for proper medical guidance and treatment.
                   </p>
                 </div>
-                <p>
-                  Contact us for information about our health resources, to contribute research papers, or to suggest additional topics to explore. We're building these resources to make evidence-based health optimization accessible to everyone.
-                </p>
               </div>
             )}
 
@@ -215,23 +235,7 @@ const HomeSite: React.FC = () => {
               </div>
             </div>
 
-            {/* Health Resources Section */}
-            <div className="mt-8">
-              <div className="bg-gradient-to-r from-stone-50 to-gold-50 p-8 border border-stone-200">
-                <h3 className="text-display font-semibold text-stone-800 mb-6">
-                  Health Services
-                </h3>
-                <p className="text-body mb-6">
-                  Leverage our peer-reviewed research resources to optimize your nutrition, lifestyle, and environment for long-term wellness.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <span className="bg-stone-200 text-stone-700 px-4 py-2 rounded-lg text-sm font-medium">Personalized Nutrition</span>
-                  <span className="bg-stone-200 text-stone-700 px-4 py-2 rounded-lg text-sm font-medium">Preventive Lifestyle Optimization</span>
-                  <span className="bg-stone-200 text-stone-700 px-4 py-2 rounded-lg text-sm font-medium">Environmental Risk Analysis</span>
-                  <span className="bg-stone-200 text-stone-700 px-4 py-2 rounded-lg text-sm font-medium">Habit & Behavior Tracking</span>
-                </div>
-              </div>
-            </div>
+
           </div>
         </section>
       </main>
