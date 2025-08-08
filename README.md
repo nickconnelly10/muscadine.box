@@ -2,7 +2,7 @@
 
 **This is the official homepage and marketing site for Muscadine.**
 
-A clean, modern landing page showcasing Muscadine's mission of health and financial self-sovereignty. This site serves as the central hub connecting to our specialized services.
+A clean, modern landing page showcasing Muscadine's mission of health resources and financial self-sovereignty. This site serves as the central hub connecting to our specialized services.
 
 ---
 
