@@ -7,7 +7,7 @@ const HomeSite: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 to-stone-100">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 py-20">
+      <section className="relative min-h-[70vh] md:min-h-screen flex items-center justify-center px-4 py-16 md:py-20">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-stone-50/50"></div>
         <div className="relative z-10 text-center max-w-6xl mx-auto">
           <h1 className="text-hero gradient-text mb-8 animate-fade-in">
@@ -16,10 +16,10 @@ const HomeSite: React.FC = () => {
                       <p className="text-display text-stone-700 max-w-4xl mx-auto mb-12 animate-slide-up" style={{animationDelay: '0.2s'}}>
               Health and Financial self-sovereignty
             </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{animationDelay: '0.4s'}}>
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center animate-slide-up" style={{animationDelay: '0.4s'}}>
             <a 
               href="https://health.muscadine.box"
-              className="btn-primary text-lg px-12 py-6"
+               className="btn-primary text-base sm:text-lg px-8 sm:px-12 py-4 sm:py-6"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -27,7 +27,7 @@ const HomeSite: React.FC = () => {
             </a>
             <a 
               href="https://defi.muscadine.box"
-              className="btn-primary text-lg px-12 py-6"
+               className="btn-primary text-base sm:text-lg px-8 sm:px-12 py-4 sm:py-6"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -35,7 +35,7 @@ const HomeSite: React.FC = () => {
             </a>
             <a 
               href="https://nicholasconnelly.substack.com/"
-              className="btn-secondary text-lg px-12 py-6"
+               className="btn-secondary text-base sm:text-lg px-8 sm:px-12 py-4 sm:py-6"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -51,10 +51,10 @@ const HomeSite: React.FC = () => {
       <main className="max-w-6xl mx-auto px-4 pb-20">
         <section className="mb-16">
           <div className="card-elevated animate-slide-in-right">
-            <div className="flex border-b border-stone-200 mb-8 overflow-x-auto">
+            <div className="flex border-b border-stone-200 mb-8 overflow-x-auto -mx-4 px-4">
               <button
                 onClick={() => setActiveTab('about')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                className={`px-4 sm:px-6 py-2.5 sm:py-3 font-semibold text-base sm:text-lg transition-all duration-200 whitespace-nowrap ${
                   activeTab === 'about' 
                     ? 'text-gold-600 border-b-2 border-gold-600' 
                     : 'text-stone-500 hover:text-gold-600'
@@ -66,7 +66,7 @@ const HomeSite: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab('health')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                className={`px-4 sm:px-6 py-2.5 sm:py-3 font-semibold text-base sm:text-lg transition-all duration-200 whitespace-nowrap ${
                   activeTab === 'health' 
                     ? 'text-gold-600 border-b-2 border-gold-600' 
                     : 'text-stone-500 hover:text-gold-600'
@@ -78,7 +78,7 @@ const HomeSite: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab('defi')}
-                className={`px-6 py-3 font-semibold text-lg transition-all duration-200 whitespace-nowrap ${
+                className={`px-4 sm:px-6 py-2.5 sm:py-3 font-semibold text-base sm:text-lg transition-all duration-200 whitespace-nowrap ${
                   activeTab === 'defi' 
                     ? 'text-gold-600 border-b-2 border-gold-600' 
                     : 'text-stone-500 hover:text-gold-600'
