@@ -129,3 +129,9 @@
     transform: translateX(0);
   }
 } 
+/* Ensure space for fixed mobile nav on small screens */
+@media (max-width: 767px) {
+  main {
+    padding-bottom: 80px; /* Height of MobileNav + some spacing */
+  }
+}

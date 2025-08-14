@@ -1,5 +1,6 @@
 import MuscadineBanner from './components/MuscadineBanner';
 import HomeSite from './components/HomeSite';
+import MobileNav from './components/MobileNav';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <main className="flex-1">
         <HomeSite />
       </main>
+      <MobileNav />
       {/* Remove MuscadineFooter here to avoid duplicate footers */}
     </div>
   );
