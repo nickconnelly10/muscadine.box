@@ -23,7 +23,7 @@ const HomeSite: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Launch Health Resources
+              Launch Health
             </a>
             <a 
               href="https://defi.muscadine.box"
