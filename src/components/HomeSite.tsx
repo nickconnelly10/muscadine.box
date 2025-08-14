@@ -100,12 +100,12 @@ const HomeSite: React.FC = () => {
                   We believe cryptocurrency and Bitcoin represent the future of finance—a future where individuals have complete control over their wealth, free from centralized intermediaries and traditional banking constraints. This vision drives everything we do at Muscadine.
                 </p>
                 <p>
-                  We also recognize a critical challenge facing everyday Americans: widespread health issues stemming from modern lifestyles and environmental factors. Our health resources provide evidence-based, preventative lifestyle recommendations based on peer-reviewed scientific research—empowering you to optimize your well-being through changes in nutrition, environment, and daily habits.
+                  We also recognize a critical challenge facing everyday Americans: widespread health issues stemming from modern lifestyles and environmental factors. Our health information provide evidence-based, preventative lifestyle recommendations based on peer-reviewed scientific research—empowering you to optimize your well-being through changes in nutrition, environment, and daily habits.
                 </p>
               </div>
             )}
 
-            {/* Health Resources Tab Content */}
+            {/* Health Tab Content */}
             {activeTab === 'health' && (
               <div role="tabpanel" className="space-y-8 text-body">
                 <p>
@@ -117,7 +117,7 @@ const HomeSite: React.FC = () => {
                   </p>
                 </div>
                 <p>
-                  Our health resources are continuously updated with the latest research and provide step-by-step guidance for optimizing nutrition, physical activity, sleep, and overall wellness through evidence-based protocols.
+                  Our health information are continuously updated with the latest research and provide step-by-step guidance for optimizing nutrition, physical activity, sleep, and overall wellness through evidence-based protocols.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a 
